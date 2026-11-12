@@ -115,6 +115,11 @@ in flat, does not rattle badly with felt on the two long side walls, does not sw
 when the piece is pressed or knocked, and that the door slides, clicks and does not rub the
 bridged ceiling. The full `base` waits until this passes.
 
+The 8.7 mm thickness is at the slide-lock tab, the tallest point of the light; pressing the
+tab straight down does not switch the light on, and the squeeze face sits lower, so it has
+more than the nominal 1.5 mm of clearance. Load the light with the tab facing away from the
+door so the door cannot drag the lock as it slides; test both door directions.
+
 Still unmeasured, and not blocking: how far the LED protrudes, and whether a squeeze
 anywhere on the face switches the light on or only at one spot.
 

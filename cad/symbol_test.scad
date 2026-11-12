@@ -68,7 +68,7 @@ module sym_wave() for (y0 = [-0.4, 0.4])
 module sym_mountain()
   polygon([[-1, -0.75], [-0.32, 0.85], [0.14, -0.02], [0.46, 0.38], [1, -0.75]]);
 module sym_hourglass() {
-  polygon([[-0.6, 0.8], [0.6, 0.8], [0.09, 0], [0.6, -0.8], [-0.6, -0.8], [-0.09, 0]]);
+  polygon([[-0.6, 0.8], [0.6, 0.8], [0.1, 0], [0.6, -0.8], [-0.6, -0.8], [-0.1, 0]]);
   for (y = [-1, 0.78]) translate([-0.8, y]) square([1.6, 0.22]);
 }
 module sym_tree() {
@@ -78,13 +78,13 @@ module sym_tree() {
 }
 module sym_compass() {
   difference() { circle(r = 0.95); circle(r = 0.72); }
-  polygon([[0, 0.6], [0.24, 0], [0, -0.6], [-0.24, 0]]);
+  polygon([[0, 0.52], [0.24, 0], [0, -0.52], [-0.24, 0]]);   // 0.2 units clear of the ring
 }
 module sym_diamond() polygon([[0, 1], [0.66, 0], [0, -1], [-0.66, 0]]);
 module sym_eye() {
-  module lens(r) intersection() { translate([0, -r + 0.56]) circle(r = r, $fn = 80); translate([0, r - 0.56]) circle(r = r, $fn = 80); }
-  difference() { lens(1.18); offset(delta = -0.2) lens(1.18); }
-  circle(r = 0.3);
+  module lens(r) intersection() { translate([0, -r + 0.62]) circle(r = r, $fn = 80); translate([0, r - 0.62]) circle(r = r, $fn = 80); }
+  difference() { lens(1.1); offset(delta = -0.2) lens(1.1); }
+  circle(r = 0.26);                                  // 0.16 units clear of the outline
 }
 module symbol(i, size) scale(size/2) {
   if (i == 0) sym_sun();       if (i == 1) sym_moon();      if (i == 2) sym_key();

@@ -59,7 +59,32 @@ confusion were made structurally different rather than just differently proporti
 | Tree | Rounded canopy on a trunk with a ground bar |
 | Flame | Teardrop with a side tongue and a hollow centre |
 
+## Does 7 mm fit the ring?
+
+Yes, comfortably, measured on the current inner ring (no change made to it):
+
+| | 6 mm | 7 mm |
+|---|---|---|
+| Radial margin inside the label area (9 mm wide) | 1.5 mm each side | 1.0 mm each side |
+| Radial margin to the edge of the flat ring face | 2.3 mm | 1.8 mm |
+| Clearance to the finger rib on each side | 4.3 mm | 3.7 mm |
+
+**7 mm is the size to evaluate first.** Feature sizes for the three symbols most likely to
+lose detail:
+
+| Feature | at 6 mm | at 7 mm |
+|---|---|---|
+| Key: hole in the bow | Ø1.2 mm | Ø1.4 mm |
+| Key: teeth | 0.66 mm | 0.77 mm |
+| Compass: ring width | 0.69 mm | 0.81 mm |
+| Compass: gap between needle tip and ring | 0.60 mm | 0.70 mm |
+| Flame: hollow centre | Ø1.5 mm | Ø1.8 mm |
+
 ## What to look at
+
+Judge the 7 mm row first, at arm's length, then in dim lighting. A final check with the
+dial assembled comes later, once a ring has been made with printed symbols.
+
 
 - Can each of the twelve be named at arm's length in ordinary indoor light? Give the plate
   to someone who has not seen the list.

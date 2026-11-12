@@ -89,8 +89,10 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
    written side visible, and push the split ring in on top of it with its nub through the slot in the skirt. Screw the keystone on.
 3. **Base:** stick felt to the two long side walls of the flashlight bay — never to the door
    or the roof, which must stay clear of the light's squeeze switch. Lay the light in flat with
-   its slide-lock tab facing **away from the door** (toward the deck), so the sliding door
-   cannot drag the lock on. Slide the door in from the
+   its slide-lock tab facing **away from the door** (toward the deck) and its **LED pointing
+   into the closed end of the bay**, away from the rim where the door exits. The lock slides
+   away from the LED to turn on, so with the LED at the closed end, closing the door can only
+   push the lock toward off. Slide the door in from the
    rim, grooves outward, until it clicks.
 4. **Deck:** place the deck on the base. Drop the four pawls into their pockets, noses
    pointing at the rings: `pawl_outer` (nose on the convex side) in the two pockets that open

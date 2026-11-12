@@ -118,7 +118,10 @@ bridged ceiling. The full `base` waits until this passes.
 The 8.7 mm thickness is at the slide-lock tab, the tallest point of the light; pressing the
 tab straight down does not switch the light on, and the squeeze face sits lower, so it has
 more than the nominal 1.5 mm of clearance. Load the light with the tab facing away from the
-door so the door cannot drag the lock as it slides; test both door directions.
+door, and with the LED pointing into the closed end of the bay (away from the rim). The lock
+slides away from the LED to turn on, so in that orientation closing the door can only push
+it toward off; opening could at worst turn the light on as the player takes it out. Test
+both door directions.
 
 Still unmeasured, and not blocking: how far the LED protrudes, and whether a squeeze
 anywhere on the face switches the light on or only at one spot.

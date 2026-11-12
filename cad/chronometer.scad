@@ -106,13 +106,18 @@ mask_key_angle = 270;   // must equal one of bay_entry_angles
 mask_key_w    = 3.0;
 mask_key_r    = 26.2;
 
-/* [UV flashlight compartment - PLACEHOLDER SIZES, measure the real light] */
-uv_d        = 14.0;   // flashlight body diameter (or thickness, for flat lights)
-uv_len      = 60.0;   // flashlight length incl. button, without key ring
-uv_clear    = 1.0;    // diametral clearance (line the bay with felt to stop rattle)
-uv_end_gap  = 2.0;    // free space at each end so the tail switch is never pressed
-bay_y       = 38.0;   // distance of bay centre line from instrument centre
-bay_x       = 0.0;    // shift of bay along its own length
+/* [UV flashlight compartment] */
+// Flat squeeze-type coin-cell key-fob light, lying on its face. Sizes scaled from
+// photos against a tape measure (+/- 1 mm) - confirm with calipers before the final print.
+// For a round light set uv_w = uv_t = its diameter.
+uv_w        = 23.0;   // widest point across the body
+uv_t        = 8.5;    // thickness, face to face (the squeeze switch is on a face)
+uv_len      = 43.5;   // overall length including the LED, key ring removed
+uv_clear    = 1.5;    // total side-to-side clearance (felt on the side walls stops rattle)
+uv_z_clear  = 1.5;    // total face clearance - keeps door and roof OFF the squeeze switch
+uv_end_gap  = 1.0;    // free space at each end
+bay_y       = 41.5;   // distance of bay centre line from instrument centre
+bay_x       = 4.5;    // shift of bay along its own length (toward the door exit)
 door_t      = 2.0;    // door thickness
 
 /* [Decoration] */
@@ -126,13 +131,13 @@ fn_big = 144;
 eps = 0.01;
 
 // ---------------------------------------------------------------- derived ---
-bay_w     = uv_d + uv_clear;
+bay_w     = uv_w + uv_clear;
 bay_len   = uv_len + 2*uv_end_gap;
 door_wb   = bay_w;                 // door width at the back face
 door_wt   = door_wb + 2*door_t;    // door width at its inner face (45 deg dovetail)
 door_ceil = 0.5;                   // clearance above the door (bridged ceiling)
 door_x0   = bay_x - bay_len/2 - 2.5;
-base_h    = door_t + uv_d + uv_clear;
+base_h    = door_t + uv_t + uv_z_clear;
 test_base_h = 11;
 
 cover_seat_z = deck_t + rib_h;                    // in deck coordinates

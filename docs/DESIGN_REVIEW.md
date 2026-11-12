@@ -12,7 +12,7 @@ architecture that replaced it. Everything below is implemented in `cad/chronomet
 | 3 | **Stencil directly under the cover is too far from the paper.** With a 20 mm body the mask would sit ~18 mm above the letters: any tilt of the head shifts what is seen. | Mask must sit at the bottom of the well, ~1 mm above the paper. |
 | 4 | **Radial budget.** 62.5 mm radius minus a 25 mm well leaves 37.5 mm for two rings, their retention, the fixed index, *and* four fragment seats. Fragment seats in the main body would squeeze the dials to ~7 mm bands. | Fragments must not consume radial space in the ring assembly. |
 | 5 | **Ring retention vs. removable centre.** If the centre cover is what holds the inner ring down, removing it releases the ring. | Rings need their own retainer, independent of the cover. |
-| 6 | **15–20 mm thickness with a Ø14 mm flashlight inside.** Ring mechanism (~8 mm) + flashlight (Ø14 + door + roof) cannot fit in 20 mm. | Accept ~25 mm at the rim, or use a flat coin-cell light (see below). |
+| 6 | **15–20 mm thickness with a flashlight inside.** Ring mechanism (~8 mm) + a round Ø14 light would not fit in 20 mm. | Resolved by the actual light being flat (8.5 mm): rim height is 19.6 mm. |
 | 7 | **Printed snap arms.** Vertical snap fingers on a cover skirt flex across layer lines — the orientation where PLA breaks. | No part in this design flexes across layers. |
 
 ## The architecture that resolves them
@@ -30,8 +30,8 @@ architecture that replaced it. Everything below is implemented in `cad/chronomet
 **Two-module body.** A thin **deck** (ring mechanism + cover seat) is screwed to a **base**
 (mask seat, sheet registration, UV bay). The same three M3 screws clamp the index cap, the
 deck and the base. Benefits: the deck + rings *is* the step-4 mechanical test print (use it
-with the 11 mm `test_base`), and the base can be re-fitted to the real flashlight later
-without touching a mechanism that already works.
+with the 11 mm `test_base`), and the base can be re-fitted if the flashlight changes without
+touching a mechanism that already works.
 
 **Rings.** Both rings have an L-section and are trapped by one fixed **index cap** screwed
 to a rib that stands between them. The cap carries the reference index (a double arrow at
@@ -60,11 +60,11 @@ as the clue sheets are written, a mask is a 10-minute print versus a multi-hour 
 be printed in matte black while the body is brass-coloured, and extra masks can themselves
 become collectable components.
 
-**UV compartment.** The flashlight lies on a chord of the base, 38 mm off-centre, clear of
+**UV compartment.** The flashlight lies flat on a chord of the base, 41.5 mm off-centre, clear of
 the well. It is closed by a flush **dovetail door in the back face** that slides out through
 the rim; a side spring on the door clicks into a notch. The back stays perfectly flat, there
-is no tool, and nothing presses on the switch (free space at both ends of the bay). All bay
-dimensions derive from `uv_d` / `uv_len`, and the base height follows automatically.
+is no tool, and nothing presses on the switch (clearance above and below the light). All bay
+dimensions derive from `uv_w` / `uv_t` / `uv_len`, and the base height follows automatically.
 
 **UV-reactive insert.** A Ø46 mm paper disc inside the centre cover, held by a printed split
 ring. It is hidden until the cover is off and turned over, protected from wear, and
@@ -87,12 +87,14 @@ second interface without adding function, so it was rejected.
 
 ## What this costs
 
-- **Thickness.** 24.6 mm at the rim and 34.6 mm over the keystone with the placeholder
-  Ø14 × 60 mm flashlight. The ring module alone is 7.6 mm; the rest is the flashlight. A flat
-  coin-cell key-fob light (~8 mm thick) would bring the rim to ~19 mm.
-- **Flashlight envelope.** In a Ø125 body the bay accepts roughly Ø16 × 66 mm. A larger
-  light needs a larger `body_r` (everything scales from it) — the script prints a warning
-  when the bay gets within 2 mm of the rim or the well.
+- **Thickness.** 19.6 mm at the rim and 29.6 mm over the keystone with the actual light (a
+  flat squeeze-type key-fob light, about 43.5 × 23 × 8.5 mm, lying on its face). The ring
+  module alone is 7.6 mm; the rest is the flashlight.
+- **Flashlight envelope.** The 23 mm width uses nearly all the radial room between the well
+  and the rim (2.3–3 mm walls). A wider light needs a larger `body_r` — the script prints a
+  warning when the bay gets within 2 mm of the rim or the well.
+- **Squeeze switch.** The switch is on the light's face, so the bay leaves 1.5 mm of face
+  clearance and the anti-rattle felt goes on the side walls only.
 - **Three visible screws** on the face. They read as instrument hardware; countersunk heads
   are a one-word switch (`cap_screw_style = "csk"`).
 

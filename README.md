@@ -45,7 +45,7 @@ PLA. STLs are already oriented; do not rotate them. Suggested colours are only t
 
 | Part (per instrument) | Qty | Orientation as exported | Notes |
 |---|---|---|---|
-| `base` | 1 | back face down | Longest print (several hours, not yet sliced). One 19 mm bridge (door-slot ceiling). Placeholder flashlight size — see below. |
+| `base` | 1 | back face down | Longest print (several hours, not yet sliced). One short 29 mm bridge (door-slot ceiling). Bay sized for the purple squeeze light. |
 | `deck` | 1 | underside down | Wall order outer/inner for accurate journals. |
 | `outer_ring` | 1 | face up | Numerals are 0.5 mm deep; paint-fill or colour-swap at the last 3 layers. Seam: aligned. |
 | `inner_ring` | 1 | face up | 12 label pockets, 0.4 mm deep. |
@@ -69,8 +69,8 @@ the mechanical test.
 | M3 × 16 socket-head cap screw | 3 | index cap → deck → base (M3 × 20 also fits) |
 | M3 × 8 socket-head cap screw | 1 | keystone |
 | M3 hex nut | 1 | captive in the centre cover |
-| Keychain UV flashlight | 1 | not yet measured |
-| Self-adhesive felt or 1 mm foam, ~10 × 60 mm | 1 | lines the flashlight bay against rattle |
+| Keychain UV squeeze light, ~43.5 × 23 × 8.5 mm | 1 | key ring and split ring removed |
+| Self-adhesive felt, ~6 × 40 mm | 2 | on the two long **side walls** of the bay, against rattle |
 | Sticker paper / plain paper | — | dial labels, UV disc |
 
 Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 4 × M3×8,
@@ -82,7 +82,8 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
    seated in its bore (a drop of CA is fine here — it is not a moving joint).
 2. **Cover:** press the M3 nut into the hex pocket inside the cover. Lay a UV disc in,
    written side visible, and push the split ring in on top of it. Screw the keystone on.
-3. **Base:** stick felt to the long wall of the flashlight bay. Slide the door in from the
+3. **Base:** stick felt to the two long side walls of the flashlight bay — never to the door
+   or the roof, which must stay clear of the light's squeeze switch. Lay the light in flat. Slide the door in from the
    rim, grooves outward, until it clicks.
 4. **Deck:** place the deck on the base. Drop the four pawls into their pockets, noses
    pointing at the rings: `pawl_outer` (nose on the convex side) in the two pockets that open
@@ -131,9 +132,9 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 
 | Parameter | Default | Meaning |
 |---|---|---|
-| `uv_d`, `uv_len` | 14, 60 | **Flashlight diameter and length — placeholders.** Base height follows `uv_d`. |
-| `uv_clear`, `uv_end_gap` | 1.0, 2.0 | Fit around the light; end gap keeps the tail switch untouched. |
-| `bay_y`, `bay_x` | 38, 0 | Where the bay sits. A warning is echoed if it nears the rim, the well or a screw. |
+| `uv_w`, `uv_t`, `uv_len` | 23, 8.5, 43.5 | Flashlight width, thickness, length (scaled from photos, ±1 mm). Base height follows `uv_t`. |
+| `uv_clear`, `uv_z_clear`, `uv_end_gap` | 1.5, 1.5, 1.0 | Side, face and end clearance; face clearance keeps the squeeze switch untouched. |
+| `bay_y`, `bay_x` | 41.5, 4.5 | Where the bay sits. A warning is echoed if it nears the rim, the well or a screw. |
 | `body_r`, `well_r` | 62.5, 25 | Overall radius and well radius; the outer ring absorbs changes to `body_r`. |
 | `apertures`, `aperture_d` | 4 × R15, 10.5 | Stencil holes `[x, y]`. Re-run `make_sheets.py` after changing. |
 | `code_ring` | demo | The 12 fragment characters, clockwise from XII. |
@@ -148,19 +149,20 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 Override from the command line without editing the file:
 
 ```bash
-SCAD_ARGS="-D uv_d=16 -D uv_len=58" ./build.sh
+SCAD_ARGS="-D uv_w=23.6 -D uv_t=8.9" ./build.sh
 ```
 
 ## Needs physical validation
 
-1. **Flashlight fit** — everything about the bay is a guess until `uv_d` / `uv_len` are
-   measured (also: where the switch is, and whether the key ring must come off).
+1. **Flashlight fit** — the bay is sized from photos (about 43.5 × 23 × 8.5 mm, ±1 mm).
+   Confirm with calipers, especially thickness at the thickest point, and check the light
+   does not switch on when the instrument is squeezed or set down hard.
 2. **Detent feel and life** — force is estimated (~2–3 N at the rim), not measured. Check
    after ~200 clicks, and after a ring has been left between positions overnight (PLA creep).
 3. **Cover bayonet grip** — relies on a ±0.1 mm ramp; it is the feature most likely to need
    one tuning reprint of the cover.
 4. **Mask retention** — spring-arm preload (0.35 mm) and the click groove are untested.
-5. **Door** — click strength of the side spring, and whether the 19 mm bridged ceiling sags
+5. **Door** — click strength of the side spring, and whether the bridged ceiling sags
    enough to rub (0.5 mm allowed).
 6. **Deck-to-base seam near XII** — the 120° between the two upper screws spans the
    flashlight bay; check the rim stays closed there.
@@ -174,6 +176,5 @@ SCAD_ARGS="-D uv_d=16 -D uv_len=58" ./build.sh
 
 ## After the test print
 
-Feed back measurements and impressions; then: fit the base to the real flashlight, tune
-fits, and add the visual layer (minute track, engraved borders, AMS colour inlays, final
+Feed back measurements and impressions; then: tune fits, and add the visual layer (minute track, engraved borders, AMS colour inlays, final
 symbol set and code).

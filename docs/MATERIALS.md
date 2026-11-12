@@ -109,7 +109,7 @@ Verified against the current model:
 | Nut | M3 plain hex, ISO 4032 / DIN 934 (5.5 mm AF, 2.4 mm thick). Not nyloc, not square, not flanged | 1 | 4 | 4 | 8 | Essential | Same |
 | Draw-in screw (tool) | Any M3 × 20–30 mm, to pull the nut into its pocket | — | 1 | — | 1 | Essential tool | Your assortment |
 | Hex key | 2.5 mm, for M3 socket caps | — | 1 | — | 1 | Essential tool | Likely owned |
-| Sticker paper | Full-sheet, **matte**, Letter size, matched to your printer (inkjet or laser); white, or cream/ivory for the aged look | 1 ring | 4 rings | — | 5–10 sheets | Essential | Office-supply or craft store; Amazon |
+| Sticker paper (only if printed symbols are not adopted — see `SYMBOL_TEST.md`) | Full-sheet, **matte**, Letter size, **laser-compatible** (the owner has a colour laser printer; inkjet vinyl must not be used in it); white, or cream/ivory for the aged look | 1 ring | 4 rings | — | 5–10 sheets | Essential | Office-supply or craft store; Amazon |
 | UV disc paper | Uncoated paper **without optical brighteners** (natural/cream, cotton or kraft). Ordinary bright-white copy paper glows blue under UV and hides UV ink — test a scrap with your marker and light first | 1 | 4 | 8 | a few sheets | Essential | Office-supply or craft store; possibly owned |
 | Felt | Self-adhesive felt, about 1 mm thick, cut to 6 × 40 mm | 2 | 8 | 4 | 1 small sheet | Recommended | Craft or hardware store (furniture-pad felt) |
 | CA glue | Any thin cyanoacrylate, one drop per keystone screw head | — | — | — | 1 tube | Optional — only if a screw head spins in its knob | Likely owned |

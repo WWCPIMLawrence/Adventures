@@ -29,6 +29,7 @@ The reasoning behind the layout (and what was changed from the original brief) i
 | `images/` | Assembled, back, section and exploded views. |
 | `build.sh` | Re-exports STLs, renders images, runs the interference checks. |
 | `scripts/make_sheets.py` | Regenerates the PDFs from the CAD parameters. |
+| `docs/SYMBOL_TEST.md` | Experiment: printed dial symbols instead of stickers (separate test plate). |
 | `docs/MATERIALS.md` | Materials, filament quantities (slicer-measured) and shopping list. |
 | `docs/Chronometer_design_handoff.pdf` | Self-contained design brief for an outside reviewer (`scripts/make_handoff.py`). |
 

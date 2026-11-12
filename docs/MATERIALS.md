@@ -95,7 +95,7 @@ door, cover and index ring match; check the spool has at least 700 g left.
 Verified against the current model:
 
 - **Cap screws:** index cap 2.4 + rib 3.0 + deck floor 2.0 = 7.4 mm of clearance hole, then
-  a 10.5 mm deep pilot in the 12 mm base. M3 × 16 gives 8.6 mm of thread. **M3 × 20 no
+  a 10.7 mm deep pilot in the 12.2 mm base. M3 × 16 gives 8.6 mm of thread. **M3 × 20 no
   longer fits** — it would bottom out (it did fit the earlier, thicker base).
 - **Keystone screw:** 3.8 mm of knob under the head, then 1.4 mm of cover and the 2.4 mm
   nut. M3 × 8 ends flush with the nut. M3 × 10 would also work (it passes through the hole

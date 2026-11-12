@@ -21,7 +21,7 @@ there.
 | 3 | `deck`, `index_cap`, `test_screw_ring` | PLA | 60 g | ~6 h 30 | Ring journals, pawl pockets, cap retention |
 | 4 | `outer_ring`, `inner_ring` | PLA | 30 g | ~3 h 10 | Ring fit, detent scallops |
 | 5 | `plate_small_parts`, `plate_fragments` | PLA | 9 g | ~1 h 10 | PLA springs for comparison, keystone clamp, fragment keying |
-| — | **Hold:** `test_uv_bay`, `door` | PLA | 16 g | ~1 h 30 | Flashlight fit and door — **only after the caliper measurements** |
+| 6 | `test_uv_bay`, `door` | PLA | 17 g | ~1 h 30 | Flashlight fit and door (bay now sized to caliper measurements) |
 
 Round total, without the UV piece: about 125 g of PLA, 3 g of PETG, roughly 13½ hours.
 
@@ -86,7 +86,7 @@ loose / will not click / broke), and roughly how far off it looks.
 The model now checks its own screw lengths every time it is built and warns if a screw
 would bottom out or fall short. Current output:
 
-- Cap screws: **M3 × 16**, 7.4 mm clearance stack, 8.6 mm of thread in a 10.5 mm pilot.
+- Cap screws: **M3 × 16**, 7.4 mm clearance stack, 8.6 mm of thread in a 10.7 mm pilot.
 - Keystone screw: **M3 × 8**, reaches 3.9 mm below the cover face; the nut spans 1.4–3.8 mm.
 
 | Item | Per unit | Four units |
@@ -99,21 +99,24 @@ The one outdated comment in the source ("suits M3x16 (or M3x20)") is corrected. 
 first test prints you need 3 × M3 × 16, 1 × M3 × 8, 1 nut, and any longer M3 screw to draw
 the nut in.
 
-## 3. UV flashlight — waiting for measurements
+## 3. UV flashlight — measured, ready for its fit test
 
-The bay is still sized from the photos (43.5 × 23 × 8.5 mm). Please measure, with the key
-ring and split ring removed:
+Caliper measurements with the key ring removed: **40.3 mm long** (LED included),
+**22.6 mm wide**, **8.7 mm thick**. The photo estimate had been 43.5 × 23 × 8.5 mm, so the
+light is 3 mm shorter and marginally thicker than assumed.
 
-1. Overall length, tip of the LED to the far end of the body.
-2. Body length without the LED, and how far the LED sticks out.
-3. Greatest width, and where along the body it is.
-4. Greatest thickness, face to face, including any raised switch dome.
-5. Thickness at the edge (the seam), if the faces are domed.
-6. LED diameter.
-7. Whether the light switches on from a squeeze anywhere on the face or only at one spot.
+The bay is now 42.3 × 24.1 × 10.2 mm (1 mm free at each end, 1.5 mm total at the sides and
+on the faces). The shorter light let the bay move 1 mm back from the rim, so the thinnest
+walls grew from about 2.3–2.9 mm to 3.2–3.6 mm. The base is 12.2 mm tall (was 12.0) and the
+instrument 19.8 mm at the rim.
 
-With those I update `uv_w`, `uv_t`, `uv_len`, re-run the checks and re-export `base`,
-`door` and `test_uv_bay`. The full `base` is not printed until `test_uv_bay` passes.
+**Print now:** `test_uv_bay` and `door` (PLA, about 17 g, ~1½ h). Check that the light drops
+in flat, does not rattle badly with felt on the two long side walls, does not switch on
+when the piece is pressed or knocked, and that the door slides, clicks and does not rub the
+bridged ceiling. The full `base` waits until this passes.
+
+Still unmeasured, and not blocking: how far the LED protrudes, and whether a squeeze
+anywhere on the face switches the light on or only at one spot.
 
 ## 4. Production plan (after the tests pass)
 

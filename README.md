@@ -70,10 +70,10 @@ parts — see the build order below.
 
 | Item | Qty | Use |
 |---|---|---|
-| M3 × 16 socket-head cap screw | 3 | index cap → deck → base (M3 × 20 is too long for the 12 mm base) |
+| M3 × 16 socket-head cap screw | 3 | index cap → deck → base (M3 × 20 is too long for the 12.2 mm base) |
 | M3 × 8 socket-head cap screw | 1 | keystone |
 | M3 hex nut | 1 | captive in the centre cover |
-| Keychain UV squeeze light, ~43.5 × 23 × 8.5 mm | 1 | key ring and split ring removed |
+| Keychain UV squeeze light, 40.3 × 22.6 × 8.7 mm (caliper-measured) | 1 | key ring and split ring removed |
 | Self-adhesive felt, ~6 × 40 mm | 2 | on the two long **side walls** of the bay, against rattle |
 | Sticker paper / plain paper | — | dial labels, UV disc |
 
@@ -187,9 +187,9 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 
 | Parameter | Default | Meaning |
 |---|---|---|
-| `uv_w`, `uv_t`, `uv_len` | 23, 8.5, 43.5 | Flashlight width, thickness, length (scaled from photos, ±1 mm). Base height follows `uv_t`. |
+| `uv_w`, `uv_t`, `uv_len` | 22.6, 8.7, 40.3 | Flashlight width, thickness, length (caliper-measured). Base height follows `uv_t`. |
 | `uv_clear`, `uv_z_clear`, `uv_end_gap` | 1.5, 1.5, 1.0 | Side, face and end clearance; face clearance keeps the squeeze switch untouched. |
-| `bay_y`, `bay_x` | 41.5, 4.5 | Where the bay sits. A warning is echoed if it nears the rim, the well or a screw. |
+| `bay_y`, `bay_x` | 41.5, 3.5 | Where the bay sits. A warning is echoed if it nears the rim, the well or a screw. |
 | `body_r`, `well_r` | 62.5, 25 | Overall radius and well radius; the outer ring absorbs changes to `body_r`. |
 | `apertures`, `aperture_d` | 4 × R15, 10.5 | Stencil holes `[x, y]`. Re-run `make_sheets.py` after changing. |
 | `code_ring` | `813619245072` | The 12 fragment characters, clockwise from XII (approved game configuration). |
@@ -213,9 +213,9 @@ SCAD_ARGS="-D uv_w=23.6 -D uv_t=8.9" ./build.sh
 
 ## Needs physical validation
 
-1. **Flashlight fit** — the bay is sized from photos (about 43.5 × 23 × 8.5 mm, ±1 mm).
-   Confirm with calipers, especially thickness at the thickest point, and check the light
-   does not switch on when the instrument is squeezed or set down hard.
+1. **Flashlight fit** — the bay is sized to caliper measurements (40.3 × 22.6 × 8.7 mm) with
+   1.5 mm clearance. Confirm on the `test_uv_bay` print that the light drops in and does not
+   switch on when the instrument is squeezed or set down hard.
 2. **Detent feel and life** — force is estimated (~2–3 N at the rim), not measured. Check
    after ~200 clicks, and after a ring has been left between positions overnight (PLA creep).
 3. **Cover latch** — the bayonet is now a loose running fit; retention is the spring nub on

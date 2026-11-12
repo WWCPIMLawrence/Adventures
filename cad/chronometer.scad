@@ -121,17 +121,17 @@ mask_key_w    = 3.0;
 mask_key_r    = 26.2;
 
 /* [UV flashlight compartment] */
-// Flat squeeze-type coin-cell key-fob light, lying on its face. Sizes scaled from
-// photos against a tape measure (+/- 1 mm) - confirm with calipers before the final print.
+// Flat squeeze-type coin-cell key-fob light, lying on its face. Caliper-measured with the
+// key ring removed: 1.5855 in long (LED included), 0.8900 in wide, 0.3410 in thick.
 // For a round light set uv_w = uv_t = its diameter.
-uv_w        = 23.0;   // widest point across the body
-uv_t        = 8.5;    // thickness, face to face (the squeeze switch is on a face)
-uv_len      = 43.5;   // overall length including the LED, key ring removed
+uv_w        = 22.6;   // widest point across the body
+uv_t        = 8.7;    // thickness, face to face (the squeeze switch is on a face)
+uv_len      = 40.3;   // overall length including the LED
 uv_clear    = 1.5;    // total side-to-side clearance (felt on the side walls stops rattle)
 uv_z_clear  = 1.5;    // total face clearance - keeps door and roof OFF the squeeze switch
 uv_end_gap  = 1.0;    // free space at each end
 bay_y       = 41.5;   // distance of bay centre line from instrument centre
-bay_x       = 4.5;    // shift of bay along its own length (toward the door exit)
+bay_x       = 3.5;    // shift of bay along its own length (toward the door exit)
 door_t      = 2.0;    // door thickness
 uv_enabled  = true;   // false = no bay and no door (issue the light as a separate prop)
 base_plain_h = 11;    // base height when uv_enabled is false

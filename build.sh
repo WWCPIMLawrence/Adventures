@@ -56,4 +56,11 @@ if [ "$MODE" = img ] || [ "$MODE" = all ]; then
   img section  section.png       "0,0,14,68,0,90,300" &
   img exploded exploded.png      "0,0,60,68,0,25,560" &
   wait
+  img view_start    fn0_as_issued.png  "0,0,10,40,0,25,330" &
+  img view_start    fn1_top.png        "0,0,10,0,0,0,330" &
+  img view_aperture fn2_aperture.png   "0,0,10,30,0,25,330" &
+  img view_uv       fn3_uv.png         "10,5,0,215,0,160,400" &
+  wait
+  img assembly      fn4_final.png      "0,0,14,25,0,0,300" &
+  wait
 fi

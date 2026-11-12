@@ -29,6 +29,7 @@ The reasoning behind the layout (and what was changed from the original brief) i
 | `images/` | Assembled, back, section and exploded views. |
 | `build.sh` | Re-exports STLs, renders images, runs the interference checks. |
 | `scripts/make_sheets.py` | Regenerates the PDFs from the CAD parameters. |
+| `docs/Chronometer_design_handoff.pdf` | Self-contained design brief for an outside reviewer (`scripts/make_handoff.py`). |
 
 ```bash
 ./build.sh            # STLs + checks + images  (needs openscad; ~1 min)

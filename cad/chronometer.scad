@@ -510,9 +510,10 @@ module screw(len, head = true) color(C_STEEL) {
   if (head) cylinder(d = 5.5, h = 3, $fn = 24);
 }
 
-module assembly(e = 0, fragments = true) {
+module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = false) {
   color(C_BRASS) base();
-  translate([0, 0, -1.2*e]) color(C_DARK) door();
+  translate([door_out, 0, -1.2*e]) color(C_DARK) door();
+  if (light) translate([bay_x + (door_out > 0 ? 6 : 0), bay_y, door_t + 0.3 - (door_out > 0 ? 16 : 0)]) uv_light();
   translate([0, 0, ledge_t + 0.35*e]) color(C_DARK) mask();
   translate([0, 0, z_deck + e]) color(C_BRASS) deck();
   translate([0, 0, z_floor + 1.5*e]) {
@@ -525,7 +526,7 @@ module assembly(e = 0, fragments = true) {
     color(C_BRASS) index_cap();
     for (a = screw_angles) rotate([0, 0, a]) translate([screw_r, 0, cap_t + 0.6*e]) screw(16);
   }
-  translate([0, 0, z_cap + 3.6*e]) {
+  if (cover_on) translate([0, 0, z_cap + 3.6*e]) {
     color(C_BRASS) cover();
     translate([0, 0, -1.6 - 0.3 - 0.3*e]) color(C_DARK) uv_ring();
     if (fragments) translate([0, 0, cover_t + 0.5*e]) color(C_IVORY) for (i = [0:3]) fragment(i);
@@ -536,9 +537,22 @@ module assembly(e = 0, fragments = true) {
   }
 }
 
+// visual stand-in for the squeeze light (not a printed part)
+module uv_light() {
+  color([0.45, 0.2, 0.7]) hull() {
+    translate([-uv_len/2 + 5, 0, 0]) cylinder(d = 10, h = uv_t - 1);
+    translate([-4, 0, 0]) scale([1.3, 1, 1]) cylinder(d = uv_w, h = uv_t);
+    translate([uv_len/2 - 9, 0, 0]) cylinder(d = 10, h = uv_t - 1);
+  }
+  color([0.9, 0.9, 1]) translate([uv_len/2 - 6, 0, uv_t/2]) rotate([0, 90, 0]) cylinder(d = 5, h = 6);
+}
+
 // ================================================================ OUTPUT ====
 if (part == "assembly") assembly();
 if (part == "exploded") assembly(e = 14);
+if (part == "view_start") assembly(fragments = false);                    // as handed to players
+if (part == "view_aperture") assembly(cover_on = false);                  // cover removed
+if (part == "view_uv") assembly(fragments = false, door_out = 58, light = true);
 if (part == "section") difference() { assembly(); translate([0, -200, -50]) cube([200, 400, 200]); }
 if (part == "base") base();
 if (part == "test_base") base(h = test_base_h, with_uv = false);

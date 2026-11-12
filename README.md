@@ -29,6 +29,7 @@ The reasoning behind the layout (and what was changed from the original brief) i
 | `images/` | Assembled, back, section and exploded views. |
 | `build.sh` | Re-exports STLs, renders images, runs the interference checks. |
 | `scripts/make_sheets.py` | Regenerates the PDFs from the CAD parameters. |
+| `docs/MATERIALS.md` | Materials, filament quantities (slicer-measured) and shopping list. |
 | `docs/Chronometer_design_handoff.pdf` | Self-contained design brief for an outside reviewer (`scripts/make_handoff.py`). |
 
 ```bash
@@ -67,7 +68,7 @@ parts — see the build order below.
 
 | Item | Qty | Use |
 |---|---|---|
-| M3 × 16 socket-head cap screw | 3 | index cap → deck → base (M3 × 20 also fits) |
+| M3 × 16 socket-head cap screw | 3 | index cap → deck → base (M3 × 20 is too long for the 12 mm base) |
 | M3 × 8 socket-head cap screw | 1 | keystone |
 | M3 hex nut | 1 | captive in the centre cover |
 | Keychain UV squeeze light, ~43.5 × 23 × 8.5 mm | 1 | key ring and split ring removed |

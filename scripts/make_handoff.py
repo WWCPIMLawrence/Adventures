@@ -59,7 +59,7 @@ def table(rows, widths, header=True):
 
 
 s = []
-s += [P("The Chronometer &mdash; design handoff for independent review", H1),
+s += [P("The Chronometer &mdash; design and materials handoff for independent review", H1),
       P("A 3D-printed mechanical puzzle instrument for a family scavenger hunt, "
         "<i>The Timekeeper's Paradox</i> (26 November 2026). Four identical units will be built on a "
         "Bambu Lab P1S (PLA/PETG, AMS) with M3 hardware.", B),
@@ -68,7 +68,7 @@ s += [P("The Chronometer &mdash; design handoff for independent review", H1),
         "It exists only in CAD: <b>nothing has been printed or physically tested</b>. Please look for "
         "mechanical conflicts, features that will not print or will not survive handling, tolerance "
         "choices that are wrong for FDM PLA, and simpler alternatives. Specific questions are listed "
-        "in section 8. A first review round has already been applied (running-fit bayonet with a sprung latch, "
+        "in sections 8 and 10. A first review round has already been applied (running-fit bayonet with a sprung latch, "
         "contacting fragment clamp, captive nut, more ring play). Dimensions are millimetres. The renders are flat-colour OpenSCAD previews of the "
         "real geometry; surface decoration has deliberately not been added yet.", B)]
 
@@ -219,9 +219,71 @@ s += bullets([
     "With two weeks to the event and four units to build, what would you cut or simplify first?",
 ])
 
-s += [P("9. Source", H2),
+s += [PageBreak(), P("9. Materials plan (for review)", H2),
+      P("<b>How the numbers were obtained.</b> Weights are slicer-measured: every STL sliced in PrusaSlicer 2.7 "
+        "(0.20 mm layers, 0.4 mm nozzle, 3 walls, 5 top / 4 bottom layers, 15 % gyroid, no supports, 1.24 g/cm³). "
+        "This is not Bambu Studio, so expect about ±10&ndash;15 %. Totals, spares and allowances are arithmetic on those "
+        "weights. The 25 % failure allowance and spare counts are assumptions. Product availability, prices and "
+        "delivery have not been checked. The owner's filament inventory is unverified.", B),
+      P("<b>Intended look:</b> late-1800s clockmaker's instrument &mdash; muted antique brass, matte charcoal, aged ivory. "
+        "No shiny toy-like gold.", B),
+      Spacer(1, 3),
+      table([["Part", "Per unit", "Material", "Colour", "g each", "Fit-critical?", "Reasoning"],
+             ["base", "1", "PLA, metallic-effect (not silk)", "Antique brass", "49.4", "Medium", "Mask seat, door dovetail"],
+             ["deck", "1", "Same spool", "Antique brass", "30.2", "High", "Ring journals, bayonet seat, latch grooves; must print like plain PLA"],
+             ["index_cap", "1", "Same spool", "Antique brass", "7.4", "Low", ""],
+             ["cover", "1", "Same spool", "Antique brass", "10.2", "High", "Bayonet lugs, nut pocket, peg sockets"],
+             ["door", "1", "Same spool", "Antique brass", "4.2", "High", "Must match the base to stay hidden; side spring ~0.6 % strain, rarely cycled"],
+             ["outer_ring", "1", "Matte PLA", "Charcoal", "18.6", "High", "Journal and detent scallops; matte is slightly rougher"],
+             ["keystone", "1", "Matte PLA", "Charcoal", "1.4", "Medium", "Screw-head press fit"],
+             ["mask", "1", "Matte PLA", "Black / charcoal", "2.3", "Medium", "No glare in the well; low-strain spring arms"],
+             ["inner_ring", "1", "Matte PLA", "Aged ivory", "11.0", "High", "Journal and detent scallops"],
+             ["fragments", "4", "Matte PLA", "Aged ivory", "1.3", "Medium", "Keying pegs, bevel"],
+             ["pawls", "4", "PETG", "Any (hidden)", "0.16", "High", "Springs: tougher than PLA, no snap, about a third less stiff"],
+             ["uv_ring", "1", "PETG", "Dark", "0.6", "High", "Cover latch spring"]],
+            [22, 13, 34, 24, 12, 20, 51]),
+      Spacer(1, 6),
+      table([["Filament", "One unit", "Four units", "Spares", "×1.25 failures", "Prototype", "Total to have"],
+             ["Antique brass PLA", "101 g", "406 g", "19 g", "531 g", "~160 g", "~700 g"],
+             ["Charcoal matte PLA", "22 g", "89 g", "11 g", "125 g", "~25 g", "~150 g"],
+             ["Ivory matte PLA", "16 g", "65 g", "5 g", "88 g", "~20 g", "~110 g"],
+             ["PETG", "1.2 g", "5 g", "8 g", "16 g", "~4 g", "~20 g"],
+             ["All", "141 g", "565 g", "43 g", "760 g", "~210 g", "~980 g"]],
+            [38, 22, 24, 20, 28, 22, 22]),
+      Spacer(1, 6),
+      table([["Hardware (verified against the model)", "Per unit", "Four units", "Buy with spares"],
+             ["M3 × 16 socket-head cap screw (ISO 4762). 7.4 mm of clearance stack, then 8.6 mm of thread in a "
+              "10.5 mm pilot in the 12 mm base. M3 × 20 would bottom out.", "3", "12", "18"],
+             ["M3 × 8 socket-head cap screw. Its 5.5 mm round head presses into a 5.4 mm bore in the keystone; "
+              "ends flush with the nut.", "1", "4", "7"],
+             ["M3 plain hex nut, 5.5 mm AF × 2.4 mm (not nyloc).", "1", "4", "8"],
+             ["Matte sticker paper for 12 dial labels; uncoated paper without optical brighteners for the UV disc; "
+              "self-adhesive felt, 2 strips of 6 × 40 mm.", "&mdash;", "&mdash;", "a few sheets"]],
+            [116, 18, 20, 22])]
+s += bullets([
+    "<b>Rejected:</b> silk PLA (toy-like gloss, weaker layer bonding, die swell), metal-filled filament (abrasive, "
+    "brittle), TPU, wood-filled, glow-in-the-dark. No magnets, washers, inserts or glue are required.",
+    "<b>Print plates:</b> one material per plate &mdash; base; deck; index cap + cover + door; outer ring + keystone + mask; "
+    "inner ring + fragments; PETG springs. About 15 h per instrument by the generic slicer profile.",
+    "<b>Needs a prototype test:</b> metallic-effect PLA on the deck and cover fits; PETG pawls at 1.2 and 1.4 mm against "
+    "PLA at 1.2 mm; PETG latch ring; matte rings on the brass deck for drag; door in the brass PLA; UV disc paper under "
+    "the real light and marker; sticker thickness in the 0.4 mm label pockets.",
+])
+s += [P("10. Materials questions for the reviewer", H2)]
+s += bullets([
+    "Is PETG the right call for the detent springs and latch ring, and is 1.4 mm a sensible starting thickness to offset its lower stiffness?",
+    "Is metallic-effect PLA safe for the deck journals and the cover bayonet, or should those two parts be plain PLA with only cosmetic parts metallic?",
+    "Should the door, which carries a spring and must colour-match the base, be handled differently?",
+    "Any risk in matte PLA rings running on a PLA deck (wear, dust, drag), and would a dry lubricant help or hurt?",
+    "Are the spare counts and the 25 % failure allowance reasonable for four units in under two weeks?",
+    "Is anything missing from the hardware list, or anything listed that is unnecessary?",
+    "Given the antique-instrument look, would you change the colour assignment of any part?",
+])
+
+s += [P("11. Source", H2),
       P("The complete parametric model is one OpenSCAD file, <font face='Courier'>cad/chronometer.scad</font> "
-        "(about 600 lines); attach it alongside this document if the reviewer should check geometry directly. "
+        "(about 600 lines); attach it alongside this document if the reviewer should check geometry directly. The full materials analysis, "
+        "including the inventory checklist and purchasing priorities, is <font face='Courier'>docs/MATERIALS.md</font>. "
         "All dimensions quoted here are parameters at the top of that file.", B)]
 
 

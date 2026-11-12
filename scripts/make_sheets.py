@@ -269,6 +269,12 @@ def labels_sheet():
         for k in range(12):
             a = 90 - 30 * k
             c.drawPath(arc_path(c, cx, cy, lab_ri, lab_ro, a - 12, a + 12))
+            if with_symbols and k == 0:      # home symbol: double border
+                c.setStrokeGray(0)
+                c.setLineWidth(0.35 * mm)
+                c.drawPath(arc_path(c, cx, cy, lab_ri + 0.7, lab_ro - 0.7, a - 10.6, a + 10.6))
+                c.setLineWidth(0.15 * mm)
+                c.setStrokeGray(0.5)
         c.setStrokeGray(0)
         if with_symbols:
             for k, name in enumerate(SYMBOLS):
@@ -282,7 +288,7 @@ def labels_sheet():
 
     # --- page 1: ring labels + UV inserts
     heading(15, H - 15, "CHRONOMETER - inner-ring symbol labels (print on matte sticker paper, 100 %)")
-    note(15, H - 20, ["Cut each sector on the grey line and stick it into a label pocket of the inner ring. The sun is the home symbol.",
+    note(15, H - 20, ["Cut each sector on the grey line and stick it into a label pocket of the inner ring. The sun (double border) is the home / setting symbol.",
                       "Left: demo dial.  Right: blank set for the real game."])
     label_ring(60, H - 72, True)
     label_ring(155, H - 72, False)
@@ -356,20 +362,24 @@ def labels_sheet():
     note(x, H - 36, [
         "1. Seat the four fragments on the centre cover (the pegs only",
         "    fit one socket each) and screw the keystone down.",
-        "2. Turn the inner ring until the SUN stands at the index mark.",
-        "3. Each symbol now points at one character on the fragments.",
-        "    Read them in this order:",
+        "2. SET: turn the inner ring until the SUN (the label with the",
+        "    double border) stands at the index arrow. The sun is only",
+        "    the setting mark - it is not read.",
+        "3. READ: find these four symbols, in this order. Each points",
+        "    inward at one fragment character:",
     ])
     for i, s in enumerate(seq):
         c.saveState()
-        c.translate((x + 8 + 20 * i) * mm, (H - 64) * mm)
+        c.setFont("Helvetica-Bold", 8)
+        c.drawCentredString((x + 8 + 20 * i) * mm, (H - 62) * mm, ["1st", "2nd", "3rd", "4th"][i])
+        c.translate((x + 8 + 20 * i) * mm, (H - 69) * mm)
         sym(c, s)
         c.restoreState()
         c.setFont("Helvetica-Bold", 12)
-        c.drawCentredString((x + 8 + 20 * i) * mm, (H - 74) * mm, code[i])
+        c.drawCentredString((x + 8 + 20 * i) * mm, (H - 79) * mm, code[i])
         c.setFont("Helvetica", 7)
-        c.drawCentredString((x + 8 + 20 * i) * mm, (H - 78) * mm, s)
-    note(x, H - 86, ["Result: %s.  With the ring one click off, the same symbols" % code,
+        c.drawCentredString((x + 8 + 20 * i) * mm, (H - 83) * mm, s)
+    note(x, H - 91, ["Result: %s.  With the ring one click off, the same symbols" % code,
                      "read %s - the alignment matters." % "".join(
                          CODE_RING[(SYMBOLS.index(s) + 1) % 12] for s in seq)])
 

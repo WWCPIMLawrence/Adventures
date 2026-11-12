@@ -12,9 +12,9 @@ mkdir -p stl images build
 OSC="openscad"
 command -v xvfb-run >/dev/null && [ -z "${DISPLAY:-}" ] && OSC="xvfb-run -a openscad"
 
-PARTS="base test_base deck outer_ring inner_ring index_cap pawl_outer pawl_inner cover keystone mask uv_ring door fragment_1 fragment_2 fragment_3 fragment_4 plate_small_parts plate_fragments"
-EMPTY_CHECKS="chk_rings_deck chk_rings_cap chk_rings_cover chk_cover_deck chk_cover_base chk_cover_insert chk_pawls_deck chk_pawls_cap chk_door_base chk_mask_base chk_frag_cover chk_frag_knob chk_frag_frag"
-NONEMPTY_CHECKS="chk_keying chk_detent"
+PARTS="base test_base test_seat test_uv_bay deck outer_ring inner_ring index_cap pawl_outer pawl_inner cover keystone mask uv_ring door fragment_1 fragment_2 fragment_3 fragment_4 plate_small_parts plate_fragments"
+EMPTY_CHECKS="chk_rings_deck chk_rings_cap chk_rings_cover chk_cover_deck chk_cover_base chk_cover_insert chk_pawls_deck chk_pawls_cap chk_door_base chk_mask_base chk_frag_cover chk_frag_knob chk_frag_frag chk_knob_cover chk_cover_path chk_cover_path_base chk_latch_locked"
+NONEMPTY_CHECKS="chk_keying chk_detent chk_clamp chk_latch_mid chk_mask_springs"
 
 run() { # name, outfile
   $OSC -o "$2" -D "part=\"$1\"" $SCAD_ARGS "$SRC" >"build/$1.log" 2>&1
@@ -62,5 +62,7 @@ if [ "$MODE" = img ] || [ "$MODE" = all ]; then
   img view_uv       fn3_uv.png         "10,5,0,215,0,160,400" &
   wait
   img assembly      fn4_final.png      "0,0,14,25,0,0,300" &
+  for n in 0 1 2 3 4; do $OSC -o build/clamp_$n.svg -D 'part="clamp_section"' -D clamp_item=$n $SCAD_ARGS "$SRC" >/dev/null 2>&1 & done; wait
+  python3 scripts/clamp_section.py && echo "  ok   clamp_section.png"
   wait
 fi

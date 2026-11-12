@@ -68,7 +68,8 @@ s += [P("The Chronometer &mdash; design handoff for independent review", H1),
         "It exists only in CAD: <b>nothing has been printed or physically tested</b>. Please look for "
         "mechanical conflicts, features that will not print or will not survive handling, tolerance "
         "choices that are wrong for FDM PLA, and simpler alternatives. Specific questions are listed "
-        "in section 8. Dimensions are millimetres. The renders are flat-colour OpenSCAD previews of the "
+        "in section 8. A first review round has already been applied (running-fit bayonet with a sprung latch, "
+        "contacting fragment clamp, captive nut, more ring play). Dimensions are millimetres. The renders are flat-colour OpenSCAD previews of the "
         "real geometry; surface decoration has deliberately not been added yet.", B)]
 
 s += [P("1. What the finished instrument looks like", H2),
@@ -78,7 +79,7 @@ s += [P("1. What the finished instrument looks like", H2),
           "and the keystone knob.", 150),
       table([["Overall", "Ø125 mm; 19.6 mm thick at the rim; 29.6 mm over the centre knob"],
              ["Printed parts per unit", "18 (base, deck, 2 rings, index cap, 4 detent pawls, cover, keystone, "
-                                        "UV retaining ring, mask, door, 4 fragments)"],
+                                        "UV retaining ring / latch spring, mask, door, 4 fragments)"],
              ["Hardware per unit", "3 × M3×16 socket-head screws (self-tapped into 2.8 mm pilots), "
                                    "1 × M3×8 screw, 1 × M3 nut"],
              ["Printing", "All parts support-free, 0.2 mm layers, 0.4 mm nozzle. No glue on moving parts."],
@@ -93,8 +94,8 @@ s += [PageBreak(), P("2. How it functions", H2),
         "the inner ring is turned by raised finger ribs. Both are read against the fixed double arrow at XII. "
         "The outer ring carries Roman numerals; the inner ring has 12 shallow pockets for replaceable symbol "
         "stickers. Decoding of an alignment is done with an external chart.", B),
-      P("<b>Function 2 &mdash; Temporal Aperture.</b> The centre cover is a three-lug bayonet: 28° anticlockwise "
-        "and lift. That exposes a 50 mm well with an opaque stencil at the bottom, 0.8 mm above the paper, with "
+      P("<b>Function 2 &mdash; Temporal Aperture.</b> The centre cover is a three-lug bayonet with a sprung "
+        "latch: 28° anticlockwise and lift. That exposes a 50 mm well with an opaque stencil at the bottom, 0.8 mm above the paper, with "
         "four Ø10.5 mm apertures and a centre sighting hole. The instrument is placed on a printed clue sheet, "
         "four notches in the base rim are lined up with printed ticks (double notch = top), and the apertures "
         "isolate four letters.", B),
@@ -111,16 +112,20 @@ s += [PageBreak(), P("2. How it functions", H2),
         "disc inside the centre cover, held by a printed split ring.", B),
       P("<b>Function 4 &mdash; Final Synchronization.</b> Four fragments collected during the hunt dock onto "
         "the face of the centre cover. Each has two pegs at radii unique to its socket, so it fits one position "
-        "one way up. The keystone knob (M3 thumbscrew into a captive nut) clamps all four by a 45° bevel. "
-        "Together they form a ring of 12 characters directly inside the inner dial. The final clue names a home "
-        "position for the inner ring and four symbols in order; each symbol points at one character. Demo: sun "
-        "at the index, then moon, star, hourglass, diamond gives <b>1847</b>; one click off gives 5020.", B),
+        "one way up. The keystone knob (M3 thumbscrew into a captive nut) clamps all four: its cone seats on "
+        "their 45° bevels with 0.3 mm left under the knob. "
+        "Together they form a ring of 12 characters directly inside the inner dial. The final clue first names one setting symbol "
+        "to bring to the index arrow (it is not read), then four symbols to read in order; each points at one "
+        "character. Demo: set the sun to the index, then read moon, star, hourglass, diamond = <b>1847</b>; one "
+        "click off gives 5020.", B),
       pair("fn3_uv.png", "Function 3: back view, door slid out, flashlight (purple stand-in) removed from its bay.",
            "fn4_final.png", "Function 4: four fragments seated and clamped by the keystone.")]
 
 s += [P("3. Construction", H2),
       pair("section.png", "Section through the centre. Right: flashlight bay and door. Centre: cover, well, mask.",
            "exploded.png", "Exploded view."),
+      Image(os.path.join(IMG, "clamp_section.png"), width=150 * mm, height=150 * mm * 760 / 1500),
+      P("Fragment clamp, true section with the keystone tightened.", CAP),
       table([["Part", "Role", "Key features"],
              ["Base (12 mm)", "Rear module", "Flat back; mask ledge and keyway; 4 rim notches for sheet "
                                              "registration; flashlight bay open to the deck above; dovetail door slot"],
@@ -144,14 +149,16 @@ s += [P("4. Mechanism details and numbers", H2)]
 s += bullets([
     "<b>Assembly stack.</b> The same three M3 screws pass through the index cap and the deck and self-tap into "
     "the base. Removing the centre cover does not touch the rings, which are trapped only by the index cap.",
-    "<b>Ring fits.</b> 0.30 mm radial journal clearance; 0.20 mm axial play under the cap.",
+    "<b>Ring fits.</b> 0.30 mm radial journal clearance; 0.35 mm axial play under the cap.",
     "<b>Detents.</b> Two pawls per ring, diametrically opposite, housed in the fixed rib. Scallops are 0.6 mm deep "
     "(R2.0); nose tip radius 1.5; 0.15 mm preload when seated; 0.75 mm deflection between positions. Estimated "
     "(not measured): ~1.8 N per pawl at peak, ~0.7 % peak bending strain, about 2&ndash;3 N at the rim to turn the "
     "outer ring. Pawls bend in the layer plane. Three stiffnesses (1.0 / 1.2 / 1.4 mm) are provided.",
     "<b>Cover bayonet.</b> Lugs project 1.4 mm with a 45° upper face; the mating ceiling in the deck is also 45° "
-    "(support-free) and ramps from 0.35 mm axial play at entry to 0.00 mm at the hard stop. Retention when locked "
-    "relies on that zero-play friction; there is no separate spring detent.",
+    "(support-free), with 0.45 mm axial play at entry easing to 0.30 mm at the hard stop: a running fit. "
+    "Retention is a separate latch: the free end of the UV retaining ring (1.6 × 2.4 mm section, ~13 mm free "
+    "length, bending in the layer plane) carries a nub that passes through a slot in the skirt and clicks into a "
+    "0.7 mm groove in the well wall at the locked position, with a second groove at the insert position.",
     "<b>Mask.</b> 0.30 mm radial clearance; spring nubs have 0.35 mm interference with the wall and a 0.25 mm "
     "click groove. Removed by pushing up from the back. It passes down the well through one of the bayonet entry grooves.",
     "<b>Door.</b> 0.20 mm per-side clearance; nub 0.7 mm on a 2.0 × 14 mm cantilever; 0.5 mm clearance to a bridged "
@@ -177,8 +184,9 @@ s += bullets([
 s += [P("6. What has been verified, and what has not", H2)]
 s += bullets([
     "<b>Verified in CAD:</b> boolean intersection of every neighbouring part pair in assembled position shows zero "
-    "overlapping volume (13 checks), a fragment in the wrong socket collides, and the pawl noses engage the "
-    "scallops by the intended preload.",
+    "overlapping volume, including the full swept turning path of the cover (17 checks); a fragment in the "
+    "wrong socket collides; the pawl noses, mask spring nubs and cover latch engage by their intended preload; "
+    "and the keystone cone reaches the fragments before its underside reaches the cover.",
     "<b>Verified geometrically:</b> the test sheet shows exactly T, I, M, E through the mask and stays clean "
     "(whole letter visible, no neighbour intruding) for placement errors up to 1.4 mm.",
     "<b>Not verified:</b> anything physical. No part has been sliced or printed. Spring forces and strains are "
@@ -187,21 +195,21 @@ s += bullets([
 
 s += [P("7. Risks the designer already expects", H2)]
 s += bullets([
-    "Cover bayonet grip depends on a ±0.1 mm ramp and may need a tuning reprint.",
+    "Cover latch force (estimated 1&ndash;2 N at the nub) and click are untested.",
+    "The nut is held by a 0.35 mm undersized pocket mouth; too tight or too loose is possible.",
     "Detent feel and PLA creep if a ring is left between positions.",
     "Mask spring-arm retention is untested.",
     "The 29 mm bridged ceiling over the door could sag and rub.",
     "The deck-to-base seam has no screw across the 120° arc that spans the flashlight bay.",
     "Self-tapped M3 threads in PLA tolerate only a few assembly cycles.",
-    "5.5 mm fragment characters and reading down a 22 mm deep well in poor light.",
+    "6.5 mm fragment characters and reading down a 22 mm deep well in poor light.",
 ])
 
 s += [P("8. Questions for the reviewer", H2)]
 s += bullets([
     "Is trapping both rings with a single flat cap on one flange each sufficient, or will the rings tilt or bind?",
     "Are 0.30 mm radial and 0.20 mm axial clearances right for PLA on a P1S at this diameter?",
-    "Is a friction-only bayonet acceptable for a cover that will travel in a car, or should it have a positive detent? "
-    "If so, what support-free detent would you add?",
+    "Is using the UV retaining ring as the cover's latch spring sound, or does the dual role cause a problem?",
     "Are the pawl proportions sensible for PLA, and would you change the material or geometry?",
     "Is the 2 mm dovetail door with a side spring robust, and is the thin rim wall next to it a problem?",
     "Is there a simpler way to retain the mask that is still tool-free and swappable?",

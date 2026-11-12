@@ -48,9 +48,11 @@ strain is ~0.7 % for the medium pawl — inside PLA's elastic range; PETG is the
 material.
 
 **Centre cover.** Three-lug bayonet with unequal lug spacing (one orientation only), 28°
-clockwise to lock against a hard stop, with a ramped 45° ceiling that takes up the play.
-The 45° faces also make it support-free. It stands 3 mm proud with a knurled edge so it can
-be gripped.
+clockwise to a hard stop. The 45° lug and ceiling faces make it support-free and it is a
+loose running fit (0.30 mm axial play when locked). Retention is a separate sprung latch:
+the free end of the UV retaining ring carries a nub that passes through a slot in the skirt
+and clicks into a groove in the well wall, with a second groove at the insert position. The
+cover stands 3 mm proud with a knurled edge so it can be gripped.
 
 **Aperture mask — interchangeable: yes.** The mask is a 1.2 mm disc at the bottom of the
 well, sitting 0.8 mm above the paper. A key tab fixes its rotation; three in-plane spring
@@ -75,8 +77,9 @@ dock onto the **face of the centre cover**, which is already detachable. That co
 radial space in the ring mechanism, needs no extra carrier part, and the cover still comes
 off for the aperture with the fragments in place. Each fragment has two pegs at radii unique
 to its socket, so it fits one position, one way up. A central **keystone** knob (M3
-thumbscrew into a captive nut) clamps all four by a 45° bevel — positive retention instead
-of a friction fit, and it stays on the instrument from the start as a centre finial.
+thumbscrew into a captive nut) clamps all four: its cone seats on their 45° bevels while its
+underside is still 0.3 mm off the cover, so the screw load goes into the tiles — positive
+retention instead of a friction fit, and it stays on the instrument from the start as a centre finial.
 
 **How the code is produced.** Together the fragments form a ring of twelve characters lying
 directly inside the inner dial. The final clue names a home position for the inner ring and
@@ -112,3 +115,20 @@ each aperture shows exactly its letter of T-I-M-E, and it stays clean (whole let
 no neighbour intruding) for placement errors up to 1.4 mm in any direction.
 
 None of this replaces a print — see "Needs physical validation" in the README.
+
+## Changes after the first outside review
+
+1. **Fragment clamp.** The keystone cone had a 0.25 mm offset and bottomed on the cover
+   first; it now matches the bevel and leaves a 0.3 mm gap under the knob
+   (`images/clamp_section.png`). The nut pocket has an undersized mouth so the nut stays in.
+2. **Bayonet.** Zero-clearance friction ramp replaced by a running fit plus the sprung latch
+   above. The CAD check now covers the whole swept turning path.
+3. **UV compartment.** `test_uv_bay` isolates the bay and door for a quick print;
+   `uv_enabled = false` removes both if they prove troublesome.
+4. **Ring play.** Axial play under the cap raised from 0.20 to 0.35 mm.
+5. **Springs as consumables.** The mask check now uses the real mask (spring nubs must press
+   on the wall, nothing else may touch); `mask_style = "dropin"` is the fallback.
+6. **Player view.** Fragment characters enlarged to 6.5 mm; the home symbol has a double
+   border and the decoding card separates SET (sun) from READ (four numbered symbols).
+
+All 22 CAD checks pass. None of this has been printed.

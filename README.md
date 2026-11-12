@@ -54,14 +54,14 @@ PLA. STLs are already oriented; do not rotate them. Suggested colours are only t
 | `pawl_outer`, `pawl_inner` | 2 + 2 | flat | Start with the medium (1.2 mm) ones. PETG recommended for the final sets. |
 | `cover` | 1 | face down | Smooth plate gives the best face. |
 | `keystone` | 1 | top down | |
-| `uv_ring` | 1 | flat | |
+| `uv_ring` | 1 | flat | Holds the UV disc and is the cover's latch spring. Print spares. |
 | `mask` | 1 | flat, marker up | Matte black. |
 | `door` | 1 | back face down | |
 | `fragment_1…4` | 4 | text down | Or print `plate_fragments`. With the AMS, paint the first 2 layers of the characters in a contrast colour. |
 
 `plate_small_parts.stl` = keystone, UV ring and two of each pawl in three stiffnesses
-(1.0 / 1.2 / 1.4 mm, left to right). `test_base.stl` is an 11 mm base without the UV bay for
-the mechanical test.
+(1.0 / 1.2 / 1.4 mm, left to right). `test_base`, `test_seat` and `test_uv_bay` are fit-test
+parts — see the build order below.
 
 ## Bill of materials (per instrument)
 
@@ -81,8 +81,9 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
 
 1. **Keystone:** press the M3 × 8 screw through the keystone from the top until the head is
    seated in its bore (a drop of CA is fine here — it is not a moving joint).
-2. **Cover:** press the M3 nut into the hex pocket inside the cover. Lay a UV disc in,
-   written side visible, and push the split ring in on top of it. Screw the keystone on.
+2. **Cover:** start the nut on a long M3 screw passed through the cover from the face and
+   draw it up into the hex pocket until it seats past the tight mouth; remove the screw. Lay a UV disc in,
+   written side visible, and push the split ring in on top of it with its nub through the slot in the skirt. Screw the keystone on.
 3. **Base:** stick felt to the two long side walls of the flashlight bay — never to the door
    or the roof, which must stay clear of the light's squeeze switch. Lay the light in flat. Slide the door in from the
    rim, grooves outward, until it clicks.
@@ -111,21 +112,52 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
   read the fragment character beside each named symbol. Demo: sun at the index, then moon,
   star, hourglass, diamond → **1847**.
 
-## Mechanical test print (do this first)
+## Prototype build order
 
-Print `test_base`, `deck`, both rings, `index_cap`, `plate_small_parts`, `cover`, `mask`,
-assemble with the medium pawls, and print `sheets/aperture_test_sheet.pdf`
-at 100 %.
+Do not print four sets yet. The mechanisms are frozen only after one complete instrument
+works. Everything in rounds 1–2 is small; every spring part is a consumable to reprint freely.
 
-| Check | Pass | If not, change |
+**Round 1 — fit tests (short prints)**
+
+| Print | Tests |
+|---|---|
+| `test_seat` (Ø66 × 9 mm) + `cover` + `uv_ring` + `mask` | cover bayonet, latch, mask retention |
+| `deck`, `outer_ring`, `inner_ring`, `index_cap`, `test_base`, `plate_small_parts` | rings, detents, cap |
+| `plate_fragments` + `keystone` (on the plate above) | fragment keying and clamp |
+| `test_uv_bay` + `door` | flashlight fit, door slide, bridge — only after calipering the light |
+
+**Round 1 checks**
+
+| Check | Pass | If not |
 |---|---|---|
-| Rings turn freely with the pawls removed | no rub, < 0.5 mm wobble | `ring_clear` (0.30) ±0.05 |
-| Click feel, 12 positions each | positive click, one finger turns it, does not move when the instrument is shaken | swap pawl stiffness; then `notch_depth`, `pawl_preload` |
-| Rings with cap screws snug | still free | `ring_axial` (0.20) |
-| Cover locks and releases | firm quarter-twist, stays put upside-down and shaken | `bay_play_end` (0 → −0.1 tighter, +0.1 looser) |
-| Cover drops in | no forcing | `cover_clear` (0.20) |
-| Mask seats, stays in when inverted, pushes out by finger | yes | `mask_clear`; nub size in `mask()` |
-| Sheet reads T-I-M-E | each letter whole, nothing else visible | — (CAD margin is ±1.4 mm) |
+| Cover drops in at the insert position, turns the full 28° to the stop, lifts out again | no binding anywhere on the path | `bay_play_end` (0.30), `bay_play_free` (0.45), `cover_clear` (0.20) |
+| Latch | audible click at both ends of the turn; cover stays locked when inverted and shaken; opens with a deliberate twist | `uv_ring_w` (1.6: thicker = firmer), `latch_depth` (0.7) |
+| UV disc change | ring pulls out by its free end and presses back; **nut stays in the cover** | `nut_retain` (0.35: larger = tighter mouth) |
+| Rings, pawls out, cap screws fully tightened | turn freely through all 12 positions; no rocking, rubbing or visible tilt | `ring_axial` (0.35), `ring_clear` (0.30) |
+| Detents, each pawl thickness in turn | every position settles by itself; one finger turns the ring; nothing moves when shaken; repeat after ~200 clicks | pawl stiffness, then `notch_depth`, `pawl_preload` |
+| Mask (real part, in the printed well) | slides down, clicks onto the ledge, stays when inverted, pushes out from the back, arms intact after 10 cycles | `mask_clear`; or `mask_style = "dropin"` |
+| Fragments | each fits only its own socket; with the keystone tight all four are immovable when the cover is shaken and handled | `knob_clamp_gap` (0.3), `frag_clear` (0.20) |
+| Flashlight bay and door | light drops in with the ring removed and does not switch on when the part is pressed or knocked; door slides, clicks, does not rub the bridge; spring survives 20 cycles | `uv_*` sizes, `door_clear`; or `uv_enabled = false` |
+
+**Round 2 — one complete instrument.** Real `base`, stickers from
+`sheets/labels_and_templates.pdf`, and `sheets/aperture_test_sheet.pdf` at 100 %. Then test it
+as a player would, in ordinary indoor light:
+
+- Read T-I-M-E through the well.
+- Fit the four fragments and the keystone, set the **sun** (double-bordered label) to the
+  index arrow, then read moon → star → hourglass → diamond. The sun is only the setting
+  mark; four symbols give four characters: **1847**. Can a first-time reader tell which
+  character each symbol points at, and read the 6.5 mm characters?
+
+**Round 3 — freeze, then print the other three** plus spares: pawls, masks, UV rings, and a
+door if the compartment is kept.
+
+**Fallbacks already in the model**
+
+- `mask_style = "dropin"` — loose keyed disc with a finger notch, no spring arms.
+- `uv_enabled = false` — no bay and no door; the base becomes a plain 11 mm plate and the
+  light is issued separately as a story prop. The UV puzzle (the disc inside the cover) is
+  unaffected.
 
 ## Parameters worth knowing
 
@@ -142,7 +174,11 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 | `peg_radii_a/b` | — | Fragment keying. |
 | `pawl_t`, `notch_depth`, `pawl_preload` | 1.2, 0.6, 0.15 | Detent strength. |
 | `ring_clear`, `ring_axial`, `cover_clear`, `mask_clear`, `door_clear`, `frag_clear` | — | Fits. |
-| `bay_play_free`, `bay_play_end` | 0.35, 0 | Cover bayonet play at entry / when locked. |
+| `bay_play_free`, `bay_play_end` | 0.45, 0.30 | Cover bayonet axial play at entry / when locked (a running fit). |
+| `latch_depth`, `uv_ring_w` | 0.7, 1.6 | Cover latch travel and spring stiffness. |
+| `knob_clamp_gap` | 0.3 | Gap left under the keystone when its cone is seated on the fragments. |
+| `nut_retain` | 0.35 | How much the nut-pocket mouth is under size. |
+| `mask_style`, `uv_enabled` | `"spring"`, true | Fallbacks: drop-in mask; no integrated flashlight bay. |
 | `cap_screw_style` | `"cap"` | `"csk"` for flush countersunk screws. |
 | `cover_proud` | 3 | Grip height of the cover above the dials. |
 | `show_numerals` | true | Roman numerals on the outer ring. |
@@ -160,8 +196,8 @@ SCAD_ARGS="-D uv_w=23.6 -D uv_t=8.9" ./build.sh
    does not switch on when the instrument is squeezed or set down hard.
 2. **Detent feel and life** — force is estimated (~2–3 N at the rim), not measured. Check
    after ~200 clicks, and after a ring has been left between positions overnight (PLA creep).
-3. **Cover bayonet grip** — relies on a ±0.1 mm ramp; it is the feature most likely to need
-   one tuning reprint of the cover.
+3. **Cover latch** — the bayonet is now a loose running fit; retention is the spring nub on
+   the UV ring. Its force (~1–2 N estimated) and click are untested.
 4. **Mask retention** — spring-arm preload (0.35 mm) and the click groove are untested.
 5. **Door** — click strength of the side spring, and whether the bridged ceiling sags
    enough to rub (0.5 mm allowed).
@@ -169,7 +205,7 @@ SCAD_ARGS="-D uv_w=23.6 -D uv_t=8.9" ./build.sh
    flashlight bay; check the rim stays closed there.
 7. **Self-tapped M3 in PLA** — fine for a few assembly cycles; if the units will be opened
    often, switch to heat-set inserts.
-8. **Legibility** — 5.5 mm fragment characters and 6 mm numerals as printed; aperture
+8. **Legibility** — 6.5 mm fragment characters and 6 mm numerals as printed; aperture
    reading down a 22 mm well in poor light.
 9. **Keystone screw** — the press fit of the screw head (`knob_head_d` 5.4) varies with
    screw brand.

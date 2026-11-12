@@ -3,7 +3,7 @@
 
   sheets/aperture_test_sheet.pdf   clue sheet that must read T-I-M-E through the mask
   sheets/labels_and_templates.pdf  inner-ring symbol labels, UV insert discs,
-                                   fragment template and the demo decoding card
+                                   fragment template and the final-synchronization card
   sheets/aperture_proof.png        simulated view through the mask (+ a 1 mm misplacement)
 
 Geometry (aperture positions, code ring ...) is read from cad/chronometer.scad so
@@ -52,7 +52,7 @@ CAP_RI = scad_num("cap_ri")
 SKIRT_RI = WELL_R - scad_num("cover_clear") - scad_num("skirt_wall")
 
 # ---- clue-sheet layout ------------------------------------------------------
-WORD = "TIME"                 # one letter per aperture, in `apertures` order
+WORD = "RIFT"                 # one letter per aperture, in `apertures` order
 PITCH = 7.5                   # half-pitch of the diagonal letter lattice, mm: letters sit where
                               # i + j is even, so neighbours are 10.6 mm apart (apertures must
                               # sit on lattice points)
@@ -124,50 +124,53 @@ def polar(r, a):
 
 
 def aperture_sheet(cells):
+    """Page 1: test sheet with instructions and the expected answer.
+       Page 2: game sheet - the same field and registration marks, no instructions, no answer."""
     path = os.path.join(OUT, "aperture_test_sheet.pdf")
     c = canvas.Canvas(path, pagesize=letter)
-    c.setTitle("Chronometer - aperture test sheet")
-    c.setFont(FONT, FONT_SIZE * mm)
-    for x, y, ch in cells:
-        c.drawCentredString((CX + x) * mm, (CY + y - CAP_H / 2) * mm, ch)
-    # centre target for the sighting hole
-    c.setLineWidth(0.3 * mm)
-    c.circle(CX * mm, CY * mm, 2.2 * mm)
-    c.circle(CX * mm, CY * mm, 0.6 * mm, fill=1)
-    # footprint + registration ticks (match the notches in the base rim)
-    c.setStrokeGray(0.55)
-    c.setLineWidth(0.25 * mm)
-    c.circle(CX * mm, CY * mm, (BODY_R + 0.3) * mm)
-    c.setStrokeGray(0)
-    c.setLineWidth(0.4 * mm)
-    for a in (0, 180, 270, 87, 93):
-        mm_line(c, *polar(BODY_R - 2.5, a), *polar(BODY_R + 12, a))
-    tx, ty = polar(BODY_R + 16, 90)
-    p = c.beginPath()
-    p.moveTo((CX + tx - 2.5) * mm, (CY + ty) * mm)
-    p.lineTo((CX + tx + 2.5) * mm, (CY + ty) * mm)
-    p.lineTo((CX + tx) * mm, (CY + ty - 3.5) * mm)
-    p.close()
-    c.drawPath(p, fill=1)
-    c.setFont("Helvetica", 8)
-    c.drawCentredString((CX + tx) * mm, (CY + ty + 1.5) * mm, "TOP - double notch")
-    # scale check + instructions
-    y0 = 18
-    c.setLineWidth(0.3 * mm)
-    c.line(30 * mm, y0 * mm, 130 * mm, y0 * mm)
-    for i in range(11):
-        c.line((30 + 10 * i) * mm, y0 * mm, (30 + 10 * i) * mm, (y0 + (3 if i % 5 == 0 else 1.5)) * mm)
-    c.drawString(30 * mm, (y0 - 4) * mm, "Scale check: this bar must measure exactly 100 mm. Print at 100 % (\"Actual size\").")
-    c.setFont("Helvetica", 9)
-    for i, line in enumerate([
-        "CHRONOMETER - TEMPORAL APERTURE TEST SHEET (prototype validation)",
-        "1. Remove the centre cover (quarter-twist anticlockwise, lift).",
-        "2. Set the instrument on the grey circle. Line up the four rim notches with the ticks; the double notch goes to TOP.",
-        "3. Fine-tune until the centre target is visible through the small sighting hole.",
-        "4. Read the four apertures clockwise from the top mark.   Expected: T - I - M - E",
-    ]):
-        c.drawString(20 * mm, (PAGE_H / mm - 14 - 4.6 * i) * mm, line)
-    c.showPage()
+    c.setTitle("Chronometer - aperture sheet")
+    for game in (False, True):
+        c.setFont(FONT, FONT_SIZE * mm)
+        for x, y, ch in cells:
+            c.drawCentredString((CX + x) * mm, (CY + y - CAP_H / 2) * mm, ch)
+        # centre target for the sighting hole
+        c.setLineWidth(0.3 * mm)
+        c.circle(CX * mm, CY * mm, 2.2 * mm)
+        c.circle(CX * mm, CY * mm, 0.6 * mm, fill=1)
+        # footprint + registration ticks (match the notches in the base rim)
+        c.setStrokeGray(0.55)
+        c.setLineWidth(0.25 * mm)
+        c.circle(CX * mm, CY * mm, (BODY_R + 0.3) * mm)
+        c.setStrokeGray(0)
+        c.setLineWidth(0.4 * mm)
+        for a in (0, 180, 270, 87, 93):
+            mm_line(c, *polar(BODY_R - 2.5, a), *polar(BODY_R + 12, a))
+        tx, ty = polar(BODY_R + 16, 90)
+        p = c.beginPath()
+        p.moveTo((CX + tx - 2.5) * mm, (CY + ty) * mm)
+        p.lineTo((CX + tx + 2.5) * mm, (CY + ty) * mm)
+        p.lineTo((CX + tx) * mm, (CY + ty - 3.5) * mm)
+        p.close()
+        c.drawPath(p, fill=1)
+        if not game:
+            c.setFont("Helvetica", 8)
+            c.drawCentredString((CX + tx) * mm, (CY + ty + 1.5) * mm, "TOP - double notch")
+            y0 = 18
+            c.setLineWidth(0.3 * mm)
+            c.line(30 * mm, y0 * mm, 130 * mm, y0 * mm)
+            for i in range(11):
+                c.line((30 + 10 * i) * mm, y0 * mm, (30 + 10 * i) * mm, (y0 + (3 if i % 5 == 0 else 1.5)) * mm)
+            c.drawString(30 * mm, (y0 - 4) * mm, "Scale check: this bar must measure exactly 100 mm. Print at 100 % (\"Actual size\").")
+            c.setFont("Helvetica", 9)
+            for i, line in enumerate([
+                "CHRONOMETER - TEMPORAL APERTURE TEST SHEET (page 2 is the same sheet without instructions, for the game)",
+                "1. Remove the centre cover (twist anticlockwise, lift).",
+                "2. Set the instrument on the grey circle. Line up the four rim notches with the ticks; the double notch goes to TOP.",
+                "3. Fine-tune until the centre target is visible through the small sighting hole.",
+                "4. Read the four apertures clockwise from the top mark.   Expected: " + " - ".join(WORD),
+            ]):
+                c.drawString(20 * mm, (PAGE_H / mm - 14 - 4.6 * i) * mm, line)
+        c.showPage()
     c.save()
     return path
 
@@ -197,16 +200,14 @@ def sym(c, name, s=3.2):
         c.drawPath(p, fill=1)
     elif name == "hourglass":
         p = c.beginPath()
-        p.moveTo(-0.7 * u, u); p.lineTo(0.7 * u, u); p.lineTo(-0.7 * u, -u); p.lineTo(0.7 * u, -u); p.close()
+        p.moveTo(-0.6 * u, 0.85 * u); p.lineTo(0.6 * u, 0.85 * u); p.lineTo(-0.6 * u, -0.85 * u); p.lineTo(0.6 * u, -0.85 * u); p.close()
         c.drawPath(p, fill=1)
+        c.setLineWidth(0.7 * mm)
+        c.line(-0.8 * u, u, 0.8 * u, u); c.line(-0.8 * u, -u, 0.8 * u, -u)
     elif name == "diamond":
         p = c.beginPath()
         p.moveTo(0, u); p.lineTo(0.65 * u, 0); p.lineTo(0, -u); p.lineTo(-0.65 * u, 0); p.close()
         c.drawPath(p, fill=1)
-    elif name == "triangle":
-        p = c.beginPath()
-        p.moveTo(0, 0.9 * u); p.lineTo(0.85 * u, -0.7 * u); p.lineTo(-0.85 * u, -0.7 * u); p.close()
-        c.drawPath(p, fill=0)
     elif name == "wave":
         for dy in (-0.35 * u, 0.35 * u):
             p = c.beginPath()
@@ -214,29 +215,66 @@ def sym(c, name, s=3.2):
             p.curveTo(-0.5 * u, dy + 0.6 * u, -0.5 * u, dy - 0.6 * u, 0, dy)
             p.curveTo(0.5 * u, dy + 0.6 * u, 0.5 * u, dy - 0.6 * u, u, dy)
             c.drawPath(p)
-    elif name == "cross":
-        c.setLineWidth(0.9 * mm)
-        c.line(0, -u, 0, u); c.line(-0.7 * u, 0.3 * u, 0.7 * u, 0.3 * u)
     elif name == "eye":
         p = c.beginPath()
         p.moveTo(-u, 0); p.curveTo(-0.4 * u, 0.8 * u, 0.4 * u, 0.8 * u, u, 0)
         p.curveTo(0.4 * u, -0.8 * u, -0.4 * u, -0.8 * u, -u, 0)
         c.drawPath(p)
         c.circle(0, 0, 0.3 * u, fill=1)
-    elif name == "square":
-        c.rect(-0.7 * u, -0.7 * u, 1.4 * u, 1.4 * u, fill=0)
-        c.circle(0, 0, 0.15 * u, fill=1)
-    elif name == "ring":
-        c.circle(0, 0, 0.8 * u)
-        c.circle(0, 0, 0.4 * u)
-    elif name == "arrow":
-        c.setLineWidth(0.8 * mm)
-        c.line(0, -u, 0, 0.8 * u); c.line(0, u, -0.6 * u, 0.2 * u); c.line(0, u, 0.6 * u, 0.2 * u)
+    elif name == "key":
+        c.setLineWidth(0.7 * mm)
+        c.circle(0, 0.55 * u, 0.36 * u)
+        c.line(0, 0.19 * u, 0, -u)
+        c.line(0, -0.95 * u, 0.45 * u, -0.95 * u)
+        c.line(0, -0.55 * u, 0.33 * u, -0.55 * u)
+    elif name == "flame":
+        p = c.beginPath()                                   # main tongue, leaning tip
+        p.moveTo(0.2 * u, u)
+        p.curveTo(0.25 * u, 0.4 * u, 0.85 * u, 0.15 * u, 0.72 * u, -0.45 * u)
+        p.curveTo(0.6 * u, -1.0 * u, -0.6 * u, -1.0 * u, -0.72 * u, -0.45 * u)
+        p.curveTo(-0.8 * u, -0.1 * u, -0.55 * u, 0.1 * u, -0.5 * u, 0.5 * u)   # second, shorter tongue
+        p.curveTo(-0.3 * u, 0.3 * u, -0.15 * u, 0.25 * u, -0.1 * u, 0.05 * u)
+        p.curveTo(-0.05 * u, 0.4 * u, 0.1 * u, 0.6 * u, 0.2 * u, u)
+        c.drawPath(p, fill=1)
+        c.setFillGray(1)
+        p = c.beginPath()
+        p.moveTo(0.05 * u, -0.1 * u)
+        p.curveTo(0.12 * u, -0.3 * u, 0.36 * u, -0.38 * u, 0.3 * u, -0.6 * u)
+        p.curveTo(0.25 * u, -0.82 * u, -0.25 * u, -0.82 * u, -0.3 * u, -0.6 * u)
+        p.curveTo(-0.34 * u, -0.4 * u, -0.05 * u, -0.35 * u, 0.05 * u, -0.1 * u)
+        c.drawPath(p, fill=1, stroke=0)
+        c.setFillGray(0)
+    elif name == "mountain":
+        p = c.beginPath()
+        p.moveTo(-u, -0.75 * u); p.lineTo(-0.3 * u, 0.85 * u); p.lineTo(0.15 * u, -0.05 * u)
+        p.lineTo(0.45 * u, 0.35 * u); p.lineTo(u, -0.75 * u); p.close()
+        c.drawPath(p, fill=1)
+    elif name == "tree":
+        for dx, dy, r in ((-0.38, 0.15, 0.42), (0.38, 0.15, 0.42), (0, 0.5, 0.48), (0, 0.1, 0.4)):
+            c.circle(dx * u, dy * u, r * u, fill=1)
+        c.rect(-0.12 * u, -u, 0.24 * u, 0.9 * u, fill=1)
+        c.setLineWidth(0.5 * mm)
+        c.line(-0.6 * u, -u, 0.6 * u, -u)
+    elif name == "compass":
+        c.setLineWidth(0.5 * mm)
+        c.circle(0, 0, 0.92 * u)
+        p = c.beginPath()                                   # needle: north half solid, south half open
+        p.moveTo(0, 0.72 * u); p.lineTo(0.2 * u, 0); p.lineTo(-0.2 * u, 0); p.close()
+        c.drawPath(p, fill=1)
+        p = c.beginPath()
+        p.moveTo(0, -0.72 * u); p.lineTo(0.2 * u, 0); p.lineTo(-0.2 * u, 0); p.close()
+        c.setLineWidth(0.3 * mm)
+        c.drawPath(p, fill=0)
 
 
-# clock position -> symbol (demo dial). Position 0 is the "home" symbol.
-SYMBOLS = ["sun", "moon", "triangle", "wave", "star", "cross", "eye", "hourglass", "square", "ring", "diamond", "arrow"]
-DEMO_SEQUENCE = ["moon", "star", "hourglass", "diamond"]
+# Approved game configuration. Clock position -> symbol; position 0 (XII) is the setting symbol.
+SYMBOLS = ["sun", "moon", "key", "flame", "star", "wave", "mountain", "hourglass", "tree", "compass", "diamond", "eye"]
+READ_SEQUENCE = ["moon", "star", "hourglass", "diamond"]
+FINAL_CODE = "1147"
+UV_LINES = [("THE SUN", 12.0), ("IS FALSE.", 5.5), ("TRUST THE", -5.5), ("ARROW.", -12.0)]   # text, line centre (mm)
+UV_CAP_H = 4.0                 # capital height of the UV lettering, mm
+UV_FONT = "Helvetica"
+UV_WRITE_R = SKIRT_RI + 0.1 - scad_num("uv_ring_w") - 0.7     # clear of the retaining ring, with margin
 
 
 def arc_path(c, cx, cy, ri, ro, a0, a1):
@@ -286,31 +324,59 @@ def labels_sheet():
                 sym(c, name)
                 c.restoreState()
 
-    # --- page 1: ring labels + UV inserts
+    # --- page 1: ring labels + UV discs
     heading(15, H - 15, "CHRONOMETER - inner-ring symbol labels (print on matte sticker paper, 100 %)")
-    note(15, H - 20, ["Cut each sector on the grey line and stick it into a label pocket of the inner ring. The sun (double border) is the home / setting symbol.",
-                      "Left: demo dial.  Right: blank set for the real game."])
+    note(15, H - 20, ["Cut each sector on the grey line and stick it into the matching label pocket of the inner ring, going clockwise.",
+                      "Two identical dials per page: print two pages for four instruments. The sun (double border) is the setting symbol."])
     label_ring(60, H - 72, True)
-    label_ring(155, H - 72, False)
-    c.setFont("Helvetica", 7)
-    c.drawCentredString(60 * mm, (H - 73) * mm, "demo dial")
-    c.drawCentredString(155 * mm, (H - 73) * mm, "blank")
+    label_ring(155, H - 72, True)
+    c.setFont("Helvetica", 6.5)
+    for cx0 in (60, 155):
+        c.drawCentredString(cx0 * mm, (H - 71) * mm, "clockwise from the sun:")
+        c.drawCentredString(cx0 * mm, (H - 74) * mm, " ".join(SYMBOLS[:6]))
+        c.drawCentredString(cx0 * mm, (H - 77) * mm, " ".join(SYMBOLS[6:]))
 
-    heading(15, H - 130, "UV insert discs (plain paper; write the hidden message with a UV-reactive pen)")
-    note(15, H - 135, ["Cut on the outer circle, punch the centre hole, lay inside the centre cover (face out) and press the split ring in.",
-                       "Keep the writing inside the dashed circle so the retaining ring does not hide it."])
-    for i in range(3):
-        cx, cy = 45 + 62 * i, H - 170
+    heading(15, H - 122, "UV discs: \"%s\"" % " ".join(t for t, _ in UV_LINES))
+    note(15, H - 127, [
+        "Use uncoated paper without optical brighteners. First disc: practice copy with the lettering shown in grey - trace it to check your",
+        "marker makes %.0f mm capitals legibly (its line must be about 1 mm or finer). The other discs carry only edge ticks marking the top" % UV_CAP_H,
+        "and bottom of each line; the ticks are hidden under the retaining ring. Cut on the outer circle and punch the centre hole.",
+    ])
+    uv_size = UV_CAP_H / 0.718
+    for text, yc in UV_LINES:        # geometric fit: every line must lie inside the writable circle
+        half_w = stringWidth(text, UV_FONT, uv_size) / 2
+        assert math.hypot(half_w, abs(yc) + UV_CAP_H / 2) <= UV_WRITE_R, "UV line does not fit: " + text
+        assert abs(yc) - UV_CAP_H / 2 >= 2.0 + 1.0, "UV line runs into the centre hole: " + text
+    r_disc = SKIRT_RI - 0.3
+    for i in range(6):
+        cx, cy = 45 + 62 * (i % 3), H - 165 - 52 * (i // 3)
         c.setLineWidth(0.15 * mm)
         c.setStrokeGray(0.5)
-        c.circle(cx * mm, cy * mm, (SKIRT_RI - 0.3) * mm)
+        c.circle(cx * mm, cy * mm, r_disc * mm)
         c.circle(cx * mm, cy * mm, 2.0 * mm)
-        c.setDash(1.5, 1.5)
-        c.circle(cx * mm, cy * mm, (SKIRT_RI - 2.2) * mm)
-        c.setDash()
+        if i == 0:
+            c.setDash(1.5, 1.5)
+            c.circle(cx * mm, cy * mm, UV_WRITE_R * mm)
+            c.setDash()
+            c.setFillGray(0.6)
+            c.setFont(UV_FONT, uv_size * mm)
+            for text, yc in UV_LINES:
+                c.drawCentredString(cx * mm, (cy + yc - UV_CAP_H / 2) * mm, text)
+            c.setFillGray(0)
+        else:
+            c.setLineWidth(0.2 * mm)
+            for _, yc in UV_LINES:
+                for yy in (yc - UV_CAP_H / 2, yc + UV_CAP_H / 2):
+                    x0 = math.sqrt((r_disc - 1.0) ** 2 - yy ** 2)
+                    x1 = math.sqrt(r_disc ** 2 - yy ** 2)
+                    for sgn in (-1, 1):
+                        c.line((cx + sgn * x0) * mm, (cy + yy) * mm, (cx + sgn * x1) * mm, (cy + yy) * mm)
+            c.line(cx * mm, (cy + r_disc - 1.0) * mm, cx * mm, (cy + r_disc) * mm)      # top mark
         c.setStrokeGray(0)
+    c.setFont("Helvetica", 7)
+    c.drawCentredString(45 * mm, (H - 165 - r_disc - 3) * mm, "practice copy")
 
-    y0 = 22
+    y0 = 16
     c.setLineWidth(0.3 * mm)
     c.line(30 * mm, y0 * mm, 130 * mm, y0 * mm)
     for i in range(11):
@@ -319,7 +385,7 @@ def labels_sheet():
     c.showPage()
 
     # --- page 2: fragment template + demo decoding card
-    heading(15, H - 15, "CHRONOMETER - fragment template and demo decoding (prototype validation)")
+    heading(15, H - 15, "CHRONOMETER - fragment character layout and final synchronization")
     cx, cy = 62, H - 68
     c.setLineWidth(0.2 * mm)
     c.setStrokeGray(0.5)
@@ -356,17 +422,16 @@ def labels_sheet():
     c.drawCentredString(cx * mm, (cy - 46) * mm, "1 : 1 top view, fragments seated on the centre cover (XII at top)")
 
     x = 118
-    heading(x, H - 30, "Demo final instruction (code 1847)")
-    seq = DEMO_SEQUENCE
+    heading(x, H - 30, "Final synchronization (answer %s)" % FINAL_CODE)
+    seq = READ_SEQUENCE
     code = "".join(CODE_RING[SYMBOLS.index(s)] for s in seq)
     note(x, H - 36, [
-        "1. Seat the four fragments on the centre cover (the pegs only",
-        "    fit one socket each) and screw the keystone down.",
-        "2. SET: turn the inner ring until the SUN (the label with the",
-        "    double border) stands at the index arrow. The sun is only",
-        "    the setting mark - it is not read.",
-        "3. READ: find these four symbols, in this order. Each points",
-        "    inward at one fragment character:",
+        "Instruction given to players at the end of the hunt:",
+        "\"Place the false hour beneath the arrow. Then read the",
+        "records in the order they were witnessed: Moon, Star,",
+        "Hourglass, Diamond.\"",
+        "False hour = the SUN (UV disc: \"The sun is false. Trust the",
+        "arrow.\"). Each symbol points inward at one character:",
     ])
     for i, s in enumerate(seq):
         c.saveState()
@@ -389,10 +454,10 @@ def labels_sheet():
         ["XII", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"], CODE_RING)))
     note(15, H - 149, [
         "Fragment 1 carries XI-XII-I, fragment 2 II-III-IV, fragment 3 V-VI-VII, fragment 4 VIII-IX-X.",
-        "To change the final code, edit `code_ring` in cad/chronometer.scad and re-export the four fragments -",
-        "or keep the fragments and change which symbols / which home position the final clue names.",
+        "Tiles therefore read %s.  Decoys 6 and 9 are kept for now; readability is to be judged on the printed tiles." % " / ".join(
+            "".join(CODE_RING[(3 * n + j) % 12] for j in (-1, 0, 1)) for n in range(4)),
     ])
-    assert code == "1847", code
+    assert code == FINAL_CODE, code
     c.showPage()
     c.save()
     return path

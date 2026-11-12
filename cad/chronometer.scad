@@ -100,8 +100,9 @@ peg_angle     = 24;     // pegs sit at +/- this angle from the fragment centre l
 peg_radii_a   = [13.0, 15.5, 18.0, 20.5];   // unique per fragment = keying
 peg_radii_b   = [20.5, 18.0, 15.5, 13.0];
 // 12 characters, clockwise from the XII position. Fragment n carries three of them.
-// Demo: with the inner ring homed, positions I, IV, VII, X read 1-8-4-7.
-code_ring     = ["3","1","5","2","8","0","3","4","2","5","7","0"];
+// Approved game configuration: SUN at the arrow; MOON, STAR, HOURGLASS, DIAMOND (positions
+// I, IV, VII, X) read 1-1-4-7. Tiles carry 281 / 361 / 924 / 507.
+code_ring     = ["8","1","3","6","1","9","2","4","5","0","7","2"];
 frag_text_r   = 19.5;
 frag_text_h   = 6.5;
 frag_font     = "Liberation Sans:style=Bold";

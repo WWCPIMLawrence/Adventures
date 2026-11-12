@@ -23,7 +23,7 @@ The reasoning behind the layout (and what was changed from the original brief) i
 |------|----------|
 | `cad/chronometer.scad` | The whole model. Set `part` (or use the Customizer) to view/export any part. |
 | `stl/` | One STL per part, already in print orientation, plus two convenience plates. |
-| `sheets/aperture_test_sheet.pdf` | Clue sheet that reads **TIME** through the mask. |
+| `sheets/aperture_test_sheet.pdf` | Clue sheet that reads **RIFT** through the mask (page 1 test, page 2 game copy). |
 | `sheets/labels_and_templates.pdf` | Inner-dial symbol labels, UV insert discs, fragment template, demo decoding card. |
 | `sheets/aperture_proof.png` | Simulated view through the mask, registered and 1 mm off. |
 | `images/` | Assembled, back, section and exploded views. |
@@ -111,8 +111,8 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
   the door slides out and the flashlight tips out. The UV message is inside the centre cover.
 - **Final Synchronization** — unscrew the keystone, seat the four fragments (pegs fit one
   socket each), screw the keystone back. Home the inner ring as the final clue instructs and
-  read the fragment character beside each named symbol. Demo: sun at the index, then moon,
-  star, hourglass, diamond → **1847**.
+  read the fragment character beside each named symbol: sun at the arrow, then moon,
+  star, hourglass, diamond → **1147**.
 
 ## Prototype build order
 
@@ -147,10 +147,10 @@ settings are in [`docs/PRINT_PLAN.md`](docs/PRINT_PLAN.md), with the production 
 `sheets/labels_and_templates.pdf`, and `sheets/aperture_test_sheet.pdf` at 100 %. Then test it
 as a player would, in ordinary indoor light:
 
-- Read T-I-M-E through the well.
+- Read R-I-F-T through the well.
 - Fit the four fragments and the keystone, set the **sun** (double-bordered label) to the
   index arrow, then read moon → star → hourglass → diamond. The sun is only the setting
-  mark; four symbols give four characters: **1847**. Can a first-time reader tell which
+  mark; four symbols give four characters: **1147**. Can a first-time reader tell which
   character each symbol points at, and read the 6.5 mm characters?
 
 **Round 3 — freeze, then print the other three** plus spares: pawls, masks, UV rings, and a
@@ -163,6 +163,23 @@ door if the compartment is kept.
   light is issued separately as a story prop. The UV puzzle (the disc inside the cover) is
   unaffected.
 
+## Approved game configuration
+
+Applied to the fragment characters and the printed sheets only; no mechanical geometry
+depends on it.
+
+- **Final answer:** 1147. Code ring clockwise from XII: `813619245072`. Tiles read
+  281 / 361 / 924 / 507 (fragments 1–4). Decoys 6 and 9 kept pending a readability check.
+- **Dial symbols, clockwise from XII:** sun, moon, key, flame, star, wave, mountain,
+  hourglass, tree, compass, diamond, eye. Sun is the setting symbol (double-bordered label).
+- **Aperture word:** RIFT (placement tolerance 1.7 mm). Page 2 of
+  `sheets/aperture_test_sheet.pdf` is the same sheet without instructions or the answer.
+- **UV disc:** "THE SUN IS FALSE. TRUST THE ARROW." in four lines of 4 mm capitals; fits the
+  writable circle by calculation. Legibility with the real marker is still to be tested on
+  the practice disc in `sheets/labels_and_templates.pdf`.
+- **Final instruction (given separately):** "Place the false hour beneath the arrow. Then
+  read the records in the order they were witnessed: Moon, Star, Hourglass, Diamond."
+
 ## Parameters worth knowing
 
 All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
@@ -174,7 +191,7 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 | `bay_y`, `bay_x` | 41.5, 4.5 | Where the bay sits. A warning is echoed if it nears the rim, the well or a screw. |
 | `body_r`, `well_r` | 62.5, 25 | Overall radius and well radius; the outer ring absorbs changes to `body_r`. |
 | `apertures`, `aperture_d` | 4 × R15, 10.5 | Stencil holes `[x, y]`. Re-run `make_sheets.py` after changing. |
-| `code_ring` | demo | The 12 fragment characters, clockwise from XII. |
+| `code_ring` | `813619245072` | The 12 fragment characters, clockwise from XII (approved game configuration). |
 | `peg_radii_a/b` | — | Fragment keying. |
 | `pawl_t`, `notch_depth`, `pawl_preload` | 1.2, 0.6, 0.15 | Detent strength. |
 | `ring_clear`, `ring_axial`, `cover_clear`, `mask_clear`, `door_clear`, `frag_clear` | — | Fits. |

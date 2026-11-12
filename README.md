@@ -61,7 +61,8 @@ PLA. STLs are already oriented; do not rotate them. Suggested colours are only t
 | `fragment_1…4` | 4 | text down | Or print `plate_fragments`. With the AMS, paint the first 2 layers of the characters in a contrast colour. |
 
 `plate_small_parts.stl` = keystone, UV ring and two of each pawl in three stiffnesses
-(1.0 / 1.2 / 1.4 mm, left to right). `test_base`, `test_seat` and `test_uv_bay` are fit-test
+(1.0 / 1.2 / 1.4 mm, marked I / II / III); `plate_springs.stl` is the PETG version with two
+latch rings and no keystone. `test_seat`, `test_screw_ring` and `test_uv_bay` are fit-test
 parts — see the build order below.
 
 ## Bill of materials (per instrument)
@@ -118,13 +119,15 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
 Do not print four sets yet. The mechanisms are frozen only after one complete instrument
 works. Everything in rounds 1–2 is small; every spring part is a consumable to reprint freely.
 
-**Round 1 — fit tests (short prints)**
+**Round 1 — fit tests (short prints).** Exact files, order, filament and Bambu Studio
+settings are in [`docs/PRINT_PLAN.md`](docs/PRINT_PLAN.md), with the production plan.
 
 | Print | Tests |
 |---|---|
-| `test_seat` (Ø66 × 9 mm) + `cover` + `uv_ring` + `mask` | cover bayonet, latch, mask retention |
-| `deck`, `outer_ring`, `inner_ring`, `index_cap`, `test_base`, `plate_small_parts` | rings, detents, cap |
-| `plate_fragments` + `keystone` (on the plate above) | fragment keying and clamp |
+| `test_seat` (Ø66 × 9 mm) + `cover` + `mask` | cover bayonet, latch grooves, mask retention |
+| `plate_springs` in PETG | detent springs in three stiffnesses, two latch rings |
+| `deck`, `index_cap`, `test_screw_ring`, then `outer_ring`, `inner_ring` | rings, detents, cap |
+| `plate_small_parts` + `plate_fragments` | PLA springs for comparison, keystone clamp, fragment keying |
 | `test_uv_bay` + `door` | flashlight fit, door slide, bridge — only after calipering the light |
 
 **Round 1 checks**

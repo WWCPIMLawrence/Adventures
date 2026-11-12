@@ -134,8 +134,8 @@ Prototype round = one complete instrument, the `test_seat` (9 g) and `test_uv_ba
 fit pieces, the mixed-stiffness pawl plate (4 g), and about 40 g of repeat prints while
 tuning. It can be printed in any PLA, **except** that the deck, cover, one ring and the
 springs should be repeated once in the final filaments, because fit and click depend on the
-material. `test_base` (49 g) is no longer worth printing — the real base is now only 1 mm
-taller.
+material. `test_base` (49 g) is no longer worth printing — `test_screw_ring` (23 g) replaces it for
+the ring test.
 
 Print time by the same slicer, generic machine profile (your P1S will be faster): about
 15 hours per instrument, of which the base is 4½ and the deck 3½.

@@ -8,7 +8,7 @@
 // ============================================================================
 
 /* [View / export] */
-part = "assembly"; // [assembly, exploded, section, base, test_base, test_seat, test_uv_bay, deck, outer_ring, inner_ring, index_cap, pawl_outer, pawl_inner, cover, keystone, mask, uv_ring, door, fragment_1, fragment_2, fragment_3, fragment_4, plate_small_parts, plate_fragments]
+part = "assembly"; // [assembly, exploded, section, base, test_base, test_seat, test_screw_ring, test_uv_bay, deck, outer_ring, inner_ring, index_cap, pawl_outer, pawl_inner, cover, keystone, mask, uv_ring, door, fragment_1, fragment_2, fragment_3, fragment_4, plate_small_parts, plate_springs, plate_fragments]
 
 /* [Envelope] */
 body_r   = 62.5;   // outer radius of the instrument
@@ -55,7 +55,9 @@ screw_angles  = [30, 150, 270];  // index-cap screws
 screw_r       = 45.0;            // radius of the screw circle
 screw_clear_d = 3.4;             // M3 clearance hole
 screw_pilot_d = 2.8;             // M3 self-tapping pilot in PLA (4.0-4.2 for heat-set inserts)
-screw_pilot_depth = 14;          // suits M3x16 (or M3x20)
+screw_pilot_depth = 14;          // maximum; the pilot is capped at base height - 1.5 mm
+cap_screw_len = 16;              // M3x16 socket-head cap screws (checked below)
+knob_screw_len = 8;              // M3x8 socket-head cap screw in the keystone (checked below)
 cap_screw_style = "cap";         // [cap: socket-head sits proud, csk: countersunk flush]
 nut_af        = 5.7;             // M3 nut across flats + fit
 nut_t         = 2.4;
@@ -188,6 +190,21 @@ if (_corner_r > body_r - 2.0)
            " mm of the rim - shorten uv_len, shift bay_x, or enlarge body_r"));
 if (bay_y - door_wt/2 - door_clear < well_r + 2.0)
   echo("WARNING: UV door slot is too close to the central well - increase bay_y");
+// hardware self-check: cap screws must reach >= 6 mm of thread without bottoming out; the
+// keystone screw must pass fully through the nut with the fragments fitted
+_cap_stack = cap_t + rib_h + deck_t;
+_cap_pilot = min(screw_pilot_depth, base_h - 1.5);
+_cap_thread = cap_screw_len - _cap_stack;
+echo(str("Cap screws: M3x", cap_screw_len, " - ", _cap_stack, " mm clearance stack, ", _cap_thread,
+         " mm of thread in a ", _cap_pilot, " mm pilot"));
+if (_cap_thread > _cap_pilot - 0.5) echo("WARNING: cap screws bottom out in the base - use a shorter screw");
+if (_cap_thread < 6) echo("WARNING: cap screws have under 6 mm of thread - use a longer screw");
+_knob_reach = knob_screw_len - (knob_h - knob_head_h) - knob_clamp_gap;   // below the cover face, fragments fitted
+_nut_bottom = 1.4 + nut_t;                                                 // below the cover face
+echo(str("Keystone screw: M3x", knob_screw_len, " reaches ", _knob_reach, " mm below the cover face; nut spans 1.4 to ",
+         _nut_bottom, " mm"));
+if (_knob_reach < _nut_bottom - 0.3) echo("WARNING: keystone screw does not pass fully through the nut");
+if (_knob_reach + knob_clamp_gap > cover_t + skirt_len - 0.5) echo("WARNING: keystone screw is too long");
 for (a = screw_angles)
   if (abs(screw_r*sin(a) - bay_y) < door_wt/2 + 3 && abs(screw_r*cos(a) - bay_x) < bay_len/2 + 6)
     echo(str("WARNING: screw at ", a, " deg collides with the UV bay"));
@@ -556,7 +573,7 @@ module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = 
   translate([0, 0, z_floor + 2*e]) color(C_IVORY) inner_ring();
   translate([0, 0, z_cap + 2.6*e]) {
     color(C_BRASS) index_cap();
-    for (a = screw_angles) rotate([0, 0, a]) translate([screw_r, 0, cap_t + 0.6*e]) screw(16);
+    for (a = screw_angles) rotate([0, 0, a]) translate([screw_r, 0, cap_t + 0.6*e]) screw(cap_screw_len);
   }
   if (cover_on) translate([0, 0, z_cap + 3.6*e]) {
     color(C_BRASS) cover();
@@ -564,7 +581,7 @@ module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = 
     if (fragments) translate([0, 0, cover_t + 0.5*e]) color(C_IVORY) for (i = [0:3]) fragment(i);
     translate([0, 0, cover_t + (fragments ? knob_clamp_gap : 0) + 1.2*e]) {
       color(C_DARK) keystone();
-      translate([0, 0, knob_h - knob_head_h + 0.6*e]) screw(8);
+      translate([0, 0, knob_h - knob_head_h + 0.6*e]) screw(knob_screw_len);
     }
   }
 }
@@ -592,6 +609,12 @@ if (part == "test_base") base(h = test_base_h, with_uv = false);
 if (part == "test_seat") intersection() {
   cylinder(r = 33, h = 40, $fn = fn_big);
   union() { base(h = 4, with_uv = false); translate([0, 0, 4 - eps]) deck(); }
+}
+// light backing ring for the ring/detent test: gives the three cap screws something to tap
+// into without printing a whole base
+if (part == "test_screw_ring") intersection() {
+  base(h = test_base_h, with_uv = false);
+  linear_extrude(test_base_h + 1) ring2d(screw_r + 6.5, screw_r - 6.5);
 }
 // fit test for the flashlight bay and door: just that corner of the base
 if (part == "test_uv_bay") intersection() {
@@ -626,14 +649,26 @@ for (i = [0:3]) if (part == str("fragment_", i + 1))
 if (part == "plate_fragments")
   for (i = [0:3]) translate([(i % 2)*42, floor(i/2)*26, 0]) rotate([180, 0, 0]) translate([0, -16, -frag_t])
     rotate([0, 0, 90 - frag_centre(i)]) fragment(i);
-if (part == "plate_small_parts") {
-  // two of each pawl in three stiffnesses, UV ring, keystone
-  for (n = [0:2]) for (m = [0:1]) {
+// spring plates: two of each pawl in three stiffnesses (1.0 / 1.2 / 1.4 mm, left to right,
+// marked with 1 / 2 / 3 bars beside them). plate_small_parts adds the keystone and is meant
+// for PLA; plate_springs has two latch rings and no keystone and is meant for PETG.
+module spring_set() for (n = [0:2]) {
+  for (m = [0:1]) {
     translate([-po_back + n*7, m*32 - 16, 0]) pawl(true, 1.0 + 0.2*n);
     translate([-pi_back + 30 + n*7, m*32 - 16, 0]) rotate([0, 0, 180]) mirror([1, 0, 0]) pawl(false, 1.0 + 0.2*n);
   }
+  for (k = [0:n]) translate([n*7 - 1 + k*1.6, -38, 0]) cube([0.9, 5, 0.6]);        // stiffness marks
+  for (k = [0:n]) translate([30 + n*7 - 1 + k*1.6, -38, 0]) cube([0.9, 5, 0.6]);
+}
+if (part == "plate_small_parts") {
+  spring_set();
   translate([-45, 0, 0]) uv_ring();
   translate([-45, 0, 0]) rotate([180, 0, 0]) translate([0, 0, -knob_h]) keystone();
+}
+if (part == "plate_springs") {
+  spring_set();
+  translate([-45, 0, 0]) uv_ring();
+  translate([-45, 52, 0]) uv_ring();
 }
 
 // ---- interference checks (see build.sh): each of these must render EMPTY ----

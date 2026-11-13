@@ -79,9 +79,10 @@ bay_floor_relief = 0.3; // relief cut in the base top under the lugs' path (adds
 // Transport retention is a sprung latch: the free end of the UV retaining ring carries a nub
 // that passes through a slot in the cover skirt and clicks into a groove in the well wall.
 latch_angle   = 60;     // where the latch sits when the cover is locked
-latch_depth   = 0.9;    // groove depth in the well wall = spring travel (0.7 gave no perceptible click)
+latch_depth   = 1.1;    // groove depth in the well wall = spring travel (0.7: no click; 0.9: very faint)
+latch_groove_r = 1.6;   // groove radius: smaller = steeper flanks = sharper click (nub tip is r 1.2)
 uv_ring_h     = 2.4;    // height of the retaining ring / latch spring
-uv_ring_w     = 1.8;    // radial thickness of the ring (latch stiffness); PETG
+uv_ring_w     = 2.1;    // radial thickness of the ring (latch stiffness); PETG only
 
 /* [Keystone knob] */
 knob_r        = 10.0;
@@ -346,7 +347,7 @@ module deck() {
       arc2d(well_r - 0.5, bay_groove_r, -bay_lug_w/2 - 1.5, bay_lug_w/2 + 1.5);
     // latch grooves in the well wall: one at the locked position, one at the insert position
     for (a = [latch_angle, latch_angle + bay_travel]) rotate([0, 0, a])
-      translate([well_r + latch_depth - 2.0, 0, deck_t]) cylinder(r = 2.0, h = rib_h + 1, $fn = 32);
+      translate([well_r + latch_depth - latch_groove_r, 0, deck_t]) cylinder(r = latch_groove_r, h = rib_h + 1, $fn = 32);
     // bayonet: locking recess with 45 deg ceiling, ramping down to bay_play_end
     for (a = bay_entry_angles) {
       a_stop = a - bay_travel - bay_lug_w/2 - 0.3;      // hard stop

@@ -70,8 +70,11 @@ bay_lug_w     = 10;     // bayonet lug angular width, deg
 bay_travel    = 28;     // bayonet twist, deg (clockwise from above to lock)
 bay_lug_r     = 1.4;    // lug radial projection
 bay_entry_angles = [270, 35, 150];  // unequal spacing = one orientation only
-bay_play_free = 0.45;   // axial play at start of twist
-bay_play_end  = 0.30;   // axial play at the locked position - a running fit, NOT a friction lock
+bay_play_free = 0.90;   // axial play at start of twist
+bay_play_end  = 0.70;   // axial play at the locked position - a running fit, NOT a friction lock.
+                        // First print at 0.45 / 0.30 bound through the whole turn: two facing 45 deg
+                        // overhangs each sag toward the other, so the nominal play has to be generous.
+bay_floor_relief = 0.3; // relief cut in the base top under the lugs' path (adds to the 0.25 mm gap)
 // Transport retention is a sprung latch: the free end of the UV retaining ring carries a nub
 // that passes through a slot in the cover skirt and clicks into a groove in the well wall.
 latch_angle   = 60;     // where the latch sits when the cover is locked
@@ -248,7 +251,8 @@ module base(h = base_h, with_uv = uv_enabled) {
   pilot = min(screw_pilot_depth, h - 1.5);
   difference() {
     rev([[ledge_r, 0], [body_r - edge_ch, 0], [body_r, edge_ch], [body_r, h - 0.4], [body_r - 0.4, h],
-         [well_r + 0.6, h], [well_r, h - 0.6],
+         [bay_groove_r + 0.3, h], [bay_groove_r + 0.3, h - bay_floor_relief],
+         [well_r + 0.6, h - bay_floor_relief], [well_r, h - bay_floor_relief - 0.6],
          [well_r, zc + 0.5], [well_r + 0.25, zc], [well_r, zc - 0.5],   // click groove for mask springs
          [well_r, ledge_t], [ledge_r, ledge_t]]);
     // mask keyway

@@ -70,17 +70,18 @@ bay_lug_w     = 10;     // bayonet lug angular width, deg
 bay_travel    = 28;     // bayonet twist, deg (clockwise from above to lock)
 bay_lug_r     = 1.4;    // lug radial projection
 bay_entry_angles = [270, 35, 150];  // unequal spacing = one orientation only
-bay_play_free = 0.90;   // axial play at start of twist
-bay_play_end  = 0.70;   // axial play at the locked position - a running fit, NOT a friction lock.
-                        // First print at 0.45 / 0.30 bound through the whole turn: two facing 45 deg
-                        // overhangs each sag toward the other, so the nominal play has to be generous.
+bay_play_free = 0.70;   // axial play at start of twist
+bay_play_end  = 0.40;   // axial play at the locked position - a running fit, NOT a friction lock.
+                        // Print 1 (0.45 / 0.30, no floor relief) bound through the whole turn. Print 2
+                        // (0.90 / 0.70 + relief) was free but lifted almost 1 mm, so the bind was the
+                        // lugs rubbing the floor, not the ceiling. Print 3: relief kept, play reduced.
 bay_floor_relief = 0.3; // relief cut in the base top under the lugs' path (adds to the 0.25 mm gap)
 // Transport retention is a sprung latch: the free end of the UV retaining ring carries a nub
 // that passes through a slot in the cover skirt and clicks into a groove in the well wall.
 latch_angle   = 60;     // where the latch sits when the cover is locked
-latch_depth   = 0.7;    // groove depth in the well wall = spring travel
+latch_depth   = 0.9;    // groove depth in the well wall = spring travel (0.7 gave no perceptible click)
 uv_ring_h     = 2.4;    // height of the retaining ring / latch spring
-uv_ring_w     = 1.6;    // radial thickness of the ring (latch stiffness)
+uv_ring_w     = 1.8;    // radial thickness of the ring (latch stiffness); PETG
 
 /* [Keystone knob] */
 knob_r        = 10.0;

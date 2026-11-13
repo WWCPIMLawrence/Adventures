@@ -70,11 +70,11 @@ bay_lug_w     = 10;     // bayonet lug angular width, deg
 bay_travel    = 28;     // bayonet twist, deg (clockwise from above to lock)
 bay_lug_r     = 1.4;    // lug radial projection
 bay_entry_angles = [270, 35, 150];  // unequal spacing = one orientation only
-bay_play_free = 0.70;   // axial play at start of twist
-bay_play_end  = 0.40;   // axial play at the locked position - a running fit, NOT a friction lock.
-                        // Print 1 (0.45 / 0.30, no floor relief) bound through the whole turn. Print 2
-                        // (0.90 / 0.70 + relief) was free but lifted almost 1 mm, so the bind was the
-                        // lugs rubbing the floor, not the ceiling. Print 3: relief kept, play reduced.
+bay_play_free = 0.80;   // axial play at start of twist
+bay_play_end  = 0.55;   // axial play at the locked position - a running fit, NOT a friction lock.
+                        // Test history (PLA, outer wall first): 0.45/0.30 bound; 0.90/0.70 free with a
+                        // visible lift; 0.70/0.40 bound again. The 45 deg ceiling droops roughly 0.4 mm
+                        // when its overhanging wall is printed first. Bracketing with two seat variants.
 bay_floor_relief = 0.3; // relief cut in the base top under the lugs' path (adds to the 0.25 mm gap)
 // Transport retention is a sprung latch: the free end of the UV retaining ring carries a nub
 // that passes through a slot in the cover skirt and clicks into a groove in the well wall.
@@ -252,10 +252,14 @@ module base(h = base_h, with_uv = uv_enabled) {
   pilot = min(screw_pilot_depth, h - 1.5);
   difference() {
     rev([[ledge_r, 0], [body_r - edge_ch, 0], [body_r, edge_ch], [body_r, h - 0.4], [body_r - 0.4, h],
-         [bay_groove_r + 0.3, h], [bay_groove_r + 0.3, h - bay_floor_relief],
-         [well_r + 0.6, h - bay_floor_relief], [well_r, h - bay_floor_relief - 0.6],
+         [well_r + 0.6, h], [well_r, h - 0.6],
          [well_r, zc + 0.5], [well_r + 0.25, zc], [well_r, zc - 0.5],   // click groove for mask springs
          [well_r, ledge_t], [ledge_r, ledge_t]]);
+    // floor relief under the cover lugs, only where the deck's recess is open above it (a relief
+    // under solid deck would be an unsupported ceiling in the one-piece seat test print)
+    for (a = bay_entry_angles)
+      rev_sector(a - bay_travel - bay_lug_w/2 - 0.3, bay_travel + bay_lug_w + 1.8,
+                 [[well_r - 1, h - bay_floor_relief], [bay_groove_r, h - bay_floor_relief], [bay_groove_r, h + 1], [well_r - 1, h + 1]]);
     // mask keyway
     rotate([0, 0, mask_key_angle]) translate([well_r - 1, -(mask_key_w + 0.6)/2, ledge_t])
       cube([mask_key_r + 0.3 - well_r + 1, mask_key_w + 0.6, h]);
@@ -612,10 +616,12 @@ if (part == "section") difference() { assembly(); translate([0, -200, -50]) cube
 if (part == "base") base();
 if (part == "test_base") base(h = test_base_h, with_uv = false);
 // short fit test for the cover bayonet, the latch and the mask: centre of deck + base in one piece
-if (part == "test_seat") intersection() {
+test_mark = 0;   // number of notches cut in the rim of the seat test piece, to tell variants apart
+if (part == "test_seat") difference() { intersection() {
   cylinder(r = 33, h = 40, $fn = fn_big);
   union() { base(h = 4, with_uv = false); translate([0, 0, 4 - eps]) deck(); }
 }
+  for (k = [0:1:test_mark - 1]) rotate([0, 0, 180 + k*12]) translate([33, 0, -1]) cylinder(r = 2, h = 40, $fn = 24); }
 // light backing ring for the ring/detent test: gives the three cap screws something to tap
 // into without printing a whole base
 if (part == "test_screw_ring") intersection() {

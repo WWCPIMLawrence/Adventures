@@ -70,11 +70,13 @@ bay_lug_w     = 10;     // bayonet lug angular width, deg
 bay_travel    = 28;     // bayonet twist, deg (clockwise from above to lock)
 bay_lug_r     = 1.4;    // lug radial projection
 bay_entry_angles = [270, 35, 150];  // unequal spacing = one orientation only
-bay_play_free = 0.80;   // axial play at start of twist
-bay_play_end  = 0.55;   // axial play at the locked position - a running fit, NOT a friction lock.
+bay_play_free = 0.75;   // axial play at start of twist
+bay_play_end  = 0.50;   // axial play at the locked position - a running fit, NOT a friction lock.
                         // Test history (PLA, outer wall first): 0.45/0.30 bound; 0.90/0.70 free with a
                         // visible lift; 0.70/0.40 bound again. The 45 deg ceiling droops roughly 0.4 mm
-                        // when its overhanging wall is printed first. Bracketing with two seat variants.
+                        // when its overhanging wall is printed first. With walls printed inner-first,
+                        // 0.75/0.50 (seat A) turns easily, clicks at both ends and has no wiggle;
+                        // 0.95/0.70 (seat B) is free but wiggles about 1 mm. A is the setting.
 bay_floor_relief = 0.3; // relief cut in the base top under the lugs' path (adds to the 0.25 mm gap)
 // Transport retention is a sprung latch: the free end of the UV retaining ring carries a nub
 // that passes through a slot in the cover skirt and clicks into a groove in the well wall.

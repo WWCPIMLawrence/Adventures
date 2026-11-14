@@ -46,7 +46,7 @@ only what is listed.
 | Wall loops | 3 | 4 (makes the 1.0–1.4 mm springs solid wall, no infill) |
 | Top / bottom shell layers | 5 / 4 | default |
 | Sparse infill | 15 % gyroid | irrelevant |
-| Order of walls | outer/inner, or inner/outer/inner, for `deck`, both rings, `cover`, `test_seat` | default |
+| Order of walls | **inner/outer/inner** (or inner/outer) for everything. Not outer-first: the deck's sloped overhangs droop and bind the cover | default |
 | Supports | Off | Off |
 | Brim | None | None |
 | Seam | Aligned | Aligned |
@@ -61,8 +61,7 @@ Other points:
 - Do not rotate or flip the STLs; they are exported in print orientation.
 - Do not scale anything. If a fit is wrong, tell me the symptom and I change the parameter.
 - PETG that has been sitting open should be dried first; wet PETG makes weak springs.
-- "Order of walls" is under Quality → Advanced. If your Bambu Studio version names it
-  differently, pick whichever option prints the outer wall first.
+- "Order of walls" is under Quality → Advanced.
 
 ### What to check and report
 

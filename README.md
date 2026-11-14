@@ -49,7 +49,7 @@ PLA. STLs are already oriented; do not rotate them. Suggested colours are only t
 | Part (per instrument) | Qty | Orientation as exported | Notes |
 |---|---|---|---|
 | `base` | 1 | back face down | Longest print (several hours, not yet sliced). One short 29 mm bridge (door-slot ceiling). Bay sized for the purple squeeze light. |
-| `deck` | 1 | underside down | Wall order outer/inner for accurate journals. |
+| `deck` | 1 | underside down | Wall order inner/outer/inner (or inner/outer). Never outer-first: its sloped overhangs droop and bind the cover. |
 | `outer_ring` | 1 | face up | Numerals are 0.5 mm deep; paint-fill or colour-swap at the last 3 layers. Seam: aligned. |
 | `inner_ring` | 1 | face up | 12 label pockets, 0.4 mm deep. |
 | `index_cap` | 1 | face up | |
@@ -119,6 +119,19 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
   read the fragment character beside each named symbol: sun at the arrow, then moon,
   star, hourglass, diamond → **1147**.
 
+## Test results so far (PLA prototypes, PETG springs)
+
+| Feature | Result |
+|---|---|
+| Mask: fit, click, retention, spring arms | Pass |
+| Nut pocket: nut drawn in, stays captive | Pass |
+| Cover twist-lock | Pass at 0.75 / 0.50 mm play with walls printed inner-first: turns easily, no wiggle. Earlier tighter and outer-wall-first prints bound |
+| Cover latch | Pass with the 2.1 mm PETG ring and 1.1 mm groove: clear click at both ends. Thinner rings were too faint |
+| Flashlight bay | Pass: light fits with room to spare (line the side walls with felt); bridged ceiling does not rub |
+| Door slide | Pass |
+| Door latch | First version barely caught; taller catch and longer spring issued, awaiting reprint |
+| Rings, detents, fragments, symbols | Not yet tested |
+
 ## Prototype build order
 
 Do not print four sets yet. The mechanisms are frozen only after one complete instrument
@@ -139,8 +152,8 @@ settings are in [`docs/PRINT_PLAN.md`](docs/PRINT_PLAN.md), with the production 
 
 | Check | Pass | If not |
 |---|---|---|
-| Cover drops in at the insert position, turns the full 28° to the stop, lifts out again | no binding anywhere on the path | `bay_play_end` (0.30), `bay_play_free` (0.45), `cover_clear` (0.20) |
-| Latch | audible click at both ends of the turn; cover stays locked when inverted and shaken; opens with a deliberate twist | `uv_ring_w` (1.6: thicker = firmer), `latch_depth` (0.7) |
+| Cover drops in at the insert position, turns the full 28° to the stop, lifts out again | no binding anywhere on the path | `bay_play_end` (0.50), `bay_play_free` (0.75), `cover_clear` (0.20) |
+| Latch | audible click at both ends of the turn; cover stays locked when inverted and shaken; opens with a deliberate twist | `uv_ring_w` (2.1: thicker = firmer), `latch_depth` (1.1) |
 | UV disc change | ring pulls out by its free end and presses back; **nut stays in the cover** | `nut_retain` (0.35: larger = tighter mouth) |
 | Rings, pawls out, cap screws fully tightened | turn freely through all 12 positions; no rocking, rubbing or visible tilt | `ring_axial` (0.35), `ring_clear` (0.30) |
 | Detents, each pawl thickness in turn | every position settles by itself; one finger turns the ring; nothing moves when shaken; repeat after ~200 clicks | pawl stiffness, then `notch_depth`, `pawl_preload` |
@@ -200,8 +213,8 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 | `peg_radii_a/b` | — | Fragment keying. |
 | `pawl_t`, `notch_depth`, `pawl_preload` | 1.2, 0.6, 0.15 | Detent strength. |
 | `ring_clear`, `ring_axial`, `cover_clear`, `mask_clear`, `door_clear`, `frag_clear` | — | Fits. |
-| `bay_play_free`, `bay_play_end` | 0.45, 0.30 | Cover bayonet axial play at entry / when locked (a running fit). |
-| `latch_depth`, `uv_ring_w` | 0.7, 1.6 | Cover latch travel and spring stiffness. |
+| `bay_play_free`, `bay_play_end` | 0.75, 0.50 | Cover bayonet axial play at entry / when locked. Confirmed on a printed seat piece. |
+| `latch_depth`, `uv_ring_w` | 1.1, 2.1 | Cover latch travel and spring stiffness (PETG ring). Confirmed on a printed seat piece. |
 | `knob_clamp_gap` | 0.3 | Gap left under the keystone when its cone is seated on the fragments. |
 | `nut_retain` | 0.35 | How much the nut-pocket mouth is under size. |
 | `mask_style`, `uv_enabled` | `"spring"`, true | Fallbacks: drop-in mask; no integrated flashlight bay. |

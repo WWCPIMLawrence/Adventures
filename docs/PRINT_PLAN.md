@@ -46,7 +46,7 @@ only what is listed.
 | Wall loops | 3 | 4 (makes the 1.0–1.4 mm springs solid wall, no infill) |
 | Top / bottom shell layers | 5 / 4 | default |
 | Sparse infill | 15 % gyroid | irrelevant |
-| Order of walls | **inner/outer/inner** (or inner/outer) for everything. Not outer-first: the deck's sloped overhangs droop and bind the cover | default |
+| Order of walls | **outer/inner** for everything. Every fit that has passed (cover, rings, detents) was printed with this setting, so production must use it too | default |
 | Supports | Off | Off |
 | Brim | None | None |
 | Seam | Aligned | Aligned |

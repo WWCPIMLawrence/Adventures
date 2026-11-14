@@ -49,7 +49,7 @@ PLA. STLs are already oriented; do not rotate them. Suggested colours are only t
 | Part (per instrument) | Qty | Orientation as exported | Notes |
 |---|---|---|---|
 | `base` | 1 | back face down | Longest print (several hours, not yet sliced). One short 29 mm bridge (door-slot ceiling). Bay sized for the purple squeeze light. |
-| `deck` | 1 | underside down | Wall order inner/outer/inner (or inner/outer). Never outer-first: its sloped overhangs droop and bind the cover. |
+| `deck` | 1 | underside down | Order of walls **outer/inner**, the setting every passing fit test was printed with. Keep it the same for production. |
 | `outer_ring` | 1 | face up | Numerals are 0.5 mm deep; paint-fill or colour-swap at the last 3 layers. Seam: aligned. |
 | `inner_ring` | 1 | face up | 12 label pockets, 0.4 mm deep. |
 | `index_cap` | 1 | face up | |
@@ -129,7 +129,7 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
 | Cover latch | Pass with the 2.1 mm PETG ring and 1.1 mm groove: clear click at both ends. Thinner rings were too faint |
 | Flashlight bay | Pass: light fits with room to spare (line the side walls with felt); bridged ceiling does not rub |
 | Door slide | Pass |
-| Door latch | Holds the door shut, but no felt click and it opens with little effort. Steeper catch faces, closer-fitting notch and a stiffer spring issued; awaiting a print |
+| Door latch | Three versions held the door but gave almost no resistance. Cause found: on plain dovetail rails the door could lift into the body, freeing the catch. Door now runs on V-shaped rails that stop it lifting. Awaiting a print |
 | Rim above the door | The upright door tab printed cleanly. A thin pointed end on the tab broke off; that end is now square. Awaiting a print |
 | Rings on the deck | Pass: both fit, spin and sit flat under the index cap with the screws tight |
 | Detents | Pass with the 1.4 mm PETG springs: outer ring clicks at every numeral, inner ring at every symbol panel |

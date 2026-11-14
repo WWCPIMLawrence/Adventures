@@ -75,7 +75,7 @@ bay_play_free = 0.75;   // axial play at start of twist
 bay_play_end  = 0.50;   // axial play at the locked position - a running fit, NOT a friction lock.
                         // Test history (PLA, outer wall first): 0.45/0.30 bound; 0.90/0.70 free with a
                         // visible lift; 0.70/0.40 bound again. The 45 deg ceiling droops roughly 0.4 mm
-                        // when its overhanging wall is printed first. With walls printed inner-first,
+                        // when its overhanging wall is printed first. Printed with order of walls outer/inner,
                         // 0.75/0.50 (seat A) turns easily, clicks at both ends and has no wiggle;
                         // 0.95/0.70 (seat B) is free but wiggles about 1 mm. A is the setting.
 bay_floor_relief = 0.3; // relief cut in the base top under the lugs' path (adds to the 0.25 mm gap)
@@ -158,7 +158,7 @@ eps = 0.01;
 bay_w     = uv_w + uv_clear;
 bay_len   = uv_len + 2*uv_end_gap;
 door_wb   = bay_w;                 // door width at the back face
-door_wt   = door_wb + 2*door_t;    // door width at its inner face (45 deg dovetail)
+door_wt   = door_wb + door_t;      // door width at its widest: the V-shaped edge at mid-thickness
 door_ceil = 0.5;                   // clearance above the door (bridged ceiling)
 door_x0   = bay_x - bay_len/2 - 2.5;
 base_h    = uv_enabled ? door_t + uv_t + uv_z_clear : base_plain_h;
@@ -275,38 +275,35 @@ module base(h = base_h, with_uv = uv_enabled) {
       rotate([0, 0, 45]) cube([1.8, 1.8, h + 2], center = false);
     if (with_uv) translate([bay_x, bay_y, 0]) {
       c = door_clear;
-      zc = door_t + door_ceil;                       // top of the door channel
-      // flashlight bay (open to the deck above). Its 45 deg lead-out starts at the top of the
-      // door channel at full channel width, so there is no flat ledge to print in mid-air.
+      // The door runs on V-shaped rails: its edges are widest at mid-thickness and the channel
+      // matches, so the door can move neither out of the back nor up into the body. (The first
+      // design was a plain dovetail: pressing on the door lifted it and freed its catch.)
+      // flashlight bay, open to the deck above
       rotate([90, 0, 90]) linear_extrude(bay_len, center = true)
-        polygon([[-door_wt/2 - c, zc - eps], [door_wt/2 + c, zc - eps],
-                 [bay_w/2, zc + door_wt/2 + c - bay_w/2], [bay_w/2, h + 1],
-                 [-bay_w/2, h + 1], [-bay_w/2, zc + door_wt/2 + c - bay_w/2]]);
-      // roof over the rest of the door channel: 45 deg walls rising to the base top (the deck
-      // closes it), so there is no flat ceiling to bridge. The rim above the door is not part
-      // of the base at all: it is an upright tab on the end of the door (see door()), which
-      // drops into this open notch. Nothing in the base bridges the door opening.
-      intersection() {                               // sloped roof, kept inside the rim wall
+        polygon([[-door_wb/2 - c, door_t - eps], [door_wb/2 + c, door_t - eps],
+                 [bay_w/2, door_t + c + eps], [bay_w/2, h + 1],
+                 [-bay_w/2, h + 1], [-bay_w/2, door_t + c + eps]]);
+      // roof over the rest of the channel: the rail's upper face simply continues at 45 deg up
+      // to the base top (the deck closes it), kept inside the rim wall. Nothing flat to bridge.
+      intersection() {
         translate([door_x0 - bay_x, 0, 0]) rotate([90, 0, 90]) linear_extrude(2*body_r)
-          polygon([[-door_wt/2 - c, zc - eps], [door_wt/2 + c, zc - eps],
-                   [door_wt/2 + c - (h + 1 - zc), h + 1], [-door_wt/2 - c + (h + 1 - zc), h + 1]]);
+          polygon([[-door_wb/2 - c, door_t - eps], [door_wb/2 + c, door_t - eps],
+                   [max(0.3, door_wb/2 + c - (h + 1 - door_t)), h + 1],
+                   [-max(0.3, door_wb/2 + c - (h + 1 - door_t)), h + 1]]);
         translate([-bay_x, -bay_y, -1]) cylinder(r = body_r - door_rim_wall - 0.3, h = h + 4, $fn = fn_big);
       }
       intersection() {                               // notch for the door's rim tab
-        translate([0, -door_wt/2 - c, zc - eps]) cube([2*body_r, door_wt + 2*c, h + 2]);
+        translate([0, -door_wb/2 - c, door_t - eps]) cube([2*body_r, door_wb + 2*c, h + 2]);
         translate([-bay_x, -bay_y, 0]) difference() {
           cylinder(r = body_r + 1, h = h + 2, $fn = fn_big);
           translate([0, 0, -1]) cylinder(r = body_r - door_rim_wall - 0.3, h = h + 4, $fn = fn_big);
         }
-        // square upper end: without this the notch and the tab both ran out to a thin
-        // 27 deg sliver where the channel edge meets the rim, and the sliver broke off
         translate([-bay_x, -bay_y, 0]) linear_extrude(h + 2) wedge2d(body_r + 5, -10, door_tab_a1 + 0.5);
       }
-      // dovetail slot for the door, exits through the rim on +X
+      // V-rail channel for the door, exits through the rim on +X
       translate([door_x0 - bay_x, 0, 0]) rotate([90, 0, 90]) linear_extrude(2*body_r)
-        polygon([[-door_wb/2 - c, -eps], [door_wb/2 + c, -eps], [door_wt/2 + c, door_t],
-                 [door_wt/2 + c, door_t + door_ceil], [-door_wt/2 - c, door_t + door_ceil],
-                 [-door_wt/2 - c, door_t]]);
+        polygon([[-door_wb/2 - c, -eps], [door_wb/2 + c, -eps], [door_wt/2 + c, door_t/2],
+                 [door_wb/2 + c, door_t], [-door_wb/2 - c, door_t], [-door_wt/2 - c, door_t/2]]);
       // detent notch for the door's side spring
       translate([-bay_x, -c, 0]) flank_bump(door_nub_x, 3.4, door_nub_h + 0.05);   // close fit: little free travel
     }
@@ -316,15 +313,18 @@ module base(h = base_h, with_uv = uv_enabled) {
 // bump / notch that follows the 45 deg dovetail flank on the -Y side of the door
 door_nub_x = 45.5;
 door_rim_wall = 3.0; // thickness of the upright rim tab on the end of the door
-door_tab_a1 = asin((bay_y + door_wt/2)/body_r) - 0.3;   // angle of the tab's square upper end
+door_tab_a1 = asin((bay_y + door_wb/2)/body_r) - 0.3;   // angle of the tab's square upper end
 door_nub_h = 1.1;   // latch nub height on the door's side spring (0.7 barely caught: the door's
                     // 0.4 mm of side play ate most of it)
 door_nub_k = 0.5;   // ramp length as a fraction of nub height: 1 = 45 deg faces, 0.5 = about 63 deg
                     // (steeper = a more definite catch that takes more push to open)
-module flank_bump(xc, len, d)
+module flank_bump(xc, len, d) {     // follows the V-rail on the -Y edge: lower half, then upper half
+  module prof() polygon([[-len/2 - d*door_nub_k, eps], [-len/2, -d], [len/2, -d], [len/2 + d*door_nub_k, eps]]);
   multmatrix([[1, 0, 0, 0], [0, 1, -1, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
-    translate([xc, -door_wb/2, 0]) linear_extrude(door_t)
-      polygon([[-len/2 - d*door_nub_k, eps], [-len/2, -d], [len/2, -d], [len/2 + d*door_nub_k, eps]]);
+    translate([xc, -door_wb/2, 0]) linear_extrude(door_t/2 + eps) prof();
+  multmatrix([[1, 0, 0, 0], [0, 1, 1, -door_t], [0, 0, 1, 0], [0, 0, 0, 1]])
+    translate([xc, -door_wb/2, door_t/2]) linear_extrude(door_t/2) prof();
+}
 
 // ================================================================== DOOR ====
 module door() {
@@ -333,7 +333,8 @@ module door() {
     union() {
       intersection() {
         translate([door_x0 - bay_x + door_clear, 0, 0]) rotate([90, 0, 90]) linear_extrude(2*body_r)
-          polygon([[-door_wb/2, 0], [door_wb/2, 0], [door_wt/2, door_t], [-door_wt/2, door_t]]);
+          polygon([[-door_wb/2, 0], [door_wb/2, 0], [door_wt/2, door_t/2], [door_wb/2, door_t],
+                   [-door_wb/2, door_t], [-door_wt/2, door_t/2]]);
         translate([-bay_x, -bay_y, 0])
           rev([[0, -1], [body_r - edge_ch - 1, -1], [body_r, edge_ch], [body_r, door_t + 1], [0, door_t + 1]]);
       }
@@ -341,7 +342,7 @@ module door() {
       // upright tab that forms the rim above the door: fills the notch in the base, gives a
       // finger pull, and means the base never has to bridge the door opening
       intersection() {
-        translate([0, -door_wt/2, door_t - eps]) cube([2*body_r, door_wt, base_h - 0.3 - door_t]);
+        translate([0, -door_wb/2, door_t - eps]) cube([2*body_r, door_wb, base_h - 0.3 - door_t]);
         translate([-bay_x, -bay_y, 0]) difference() {
           cylinder(r = body_r, h = base_h, $fn = fn_big);
           translate([0, 0, -1]) cylinder(r = body_r - door_rim_wall, h = base_h + 2, $fn = fn_big);

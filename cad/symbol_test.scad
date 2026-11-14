@@ -7,6 +7,8 @@
 //    row 2 (two dots)   flush two-colour inlay, 7 mm symbols
 //    row 3 (three dots) recessed 0.4 mm for paint-fill, 6 mm symbols
 //    row 4 (four dots)  recessed 0.6 mm for paint-fill, 6 mm symbols
+//    row 5 (five dots)  RAISED 0.4 mm in black, 7 mm symbols (or print in one colour and
+//                       colour the tops with an acrylic marker)
 //  Symbol order, left to right = clockwise on the dial:
 //    sun moon key flame star wave mountain hourglass tree compass diamond eye
 //
@@ -29,7 +31,8 @@ rows = [              // [kind, symbol size, depth]
   ["inlay", 6.0, inlay_depth],
   ["inlay", 7.0, inlay_depth],
   ["recess", 6.0, 0.4],
-  ["recess", 6.0, 0.6]];
+  ["recess", 6.0, 0.6],
+  ["raised", 7.0, 0.4]];
 
 /* [Hidden] */
 $fn = 40;
@@ -110,7 +113,11 @@ module body() difference() {
   for (r = [0:len(rows) - 1]) for (k = [0:r])   // row dots
     translate([margin + k*1.8 - (r*0.9) + 2.2, sy(r), plate_t - 0.4]) cylinder(d = 1.1, h = 1, $fn = 12);
 }
-module inlay() symbols3d("inlay");
+module inlay() {
+  symbols3d("inlay");
+  for (r = [0:len(rows) - 1]) if (rows[r][0] == "raised")      // stand proud of the plate
+    for (i = [0:11]) translate([sx(i), sy(r), plate_t - eps]) linear_extrude(rows[r][2] + eps) symbol(i, rows[r][1]);
+}
 
 if (part == "body") body();
 if (part == "inlay") inlay();

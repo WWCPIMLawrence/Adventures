@@ -21,10 +21,15 @@ One plate, 136 × 53 × 2 mm, printed face up exactly as the inner ring prints.
 | 2 | Flush two-colour inlay, 0.4 mm deep | 7 mm |
 | 3 | Recessed 0.4 mm, for paint-fill | 6 mm |
 | 4 | Recessed 0.6 mm, for paint-fill | 6 mm |
+| 5 | **Raised 0.4 mm**, in black | 7 mm |
 
 Left to right is clockwise on the dial: sun, moon, key, flame, star, wave, mountain,
 hourglass, tree, compass, diamond, eye. The render shows only rows 1 and 2; rows 3 and 4 are
 the same symbols as open recesses.
+
+Row 5 tests raised symbols. Printed in two colours they need only one filament change for the
+whole plate, because the raised layers contain nothing but the symbols. Printed in one colour
+they can be coloured by running an acrylic marker over their tops.
 
 The 7 mm row is there because the label area on the ring is about 9 mm wide, so a slightly
 larger symbol fits if 6 mm proves marginal.

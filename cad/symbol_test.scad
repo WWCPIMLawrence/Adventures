@@ -17,7 +17,7 @@
 //  Import both STLs into Bambu Studio together as ONE object with two parts.
 // ============================================================================
 
-part = "preview"; // [preview, body, inlay]
+part = "preview"; // [preview, body, inlay, raised_plate]
 
 /* [Plate] */
 plate_t     = 2.0;    // plate thickness
@@ -122,3 +122,39 @@ module inlay() {
 if (part == "body") body();
 if (part == "inlay") inlay();
 if (part == "preview") { color([0.90, 0.87, 0.78]) body(); color([0.1, 0.1, 0.1]) inlay(); }
+
+// ---------------------------------------------------- single-file raised plate ---
+// One STL, no multi-part loading: a 2 mm plate with everything standing 0.4 mm proud.
+// Print the plate in bone white and switch to black at the layer where the raised
+// features start (layer 11 at 0.2 mm layers), using "Change filament" on the layer
+// slider in Bambu Studio's preview.
+//   row 1: symbols at 7 mm      row 2: symbols at 6 mm
+//   rows 3-4: hour numerals I-XII at 7 mm with bold strokes
+raised_h = 0.4;
+ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+function _gw(c, H, sw) = c == "I" ? sw : 0.5*H;
+function _gx(t, i, H, sw) = i <= 0 ? 0 : _gx(t, i - 1, H, sw) + _gw(t[i - 1], H, sw) + 0.17*H;
+module roman2d(t, H = 7, sw = 1.2) {
+  n = len(t);
+  Wn = _gx(t, n - 1, H, sw) + _gw(t[n - 1], H, sw);
+  translate([-Wn/2, -H/2]) {
+    for (i = [0:n - 1]) translate([_gx(t, i, H, sw), 0]) {
+      w = _gw(t[i], H, sw);
+      if (t[i] == "I") seg([w/2, 0], [w/2, H], sw);
+      if (t[i] == "V") { seg([0, H], [w/2, 0], sw); seg([w, H], [w/2, 0], sw); }
+      if (t[i] == "X") { seg([0, H], [w, 0], sw); seg([0, 0], [w, H], sw); }
+    }
+    seg([-0.6, 0], [Wn + 0.6, 0], 0.9);
+    seg([-0.6, H], [Wn + 0.6, H], 0.9);
+  }
+}
+module raised_plate() {
+  Wp = 2*margin + 11*pitch + 8; Dp = 2*margin + 3*13 + 9;
+  hull() for (x = [2, Wp - 2], y = [2, Dp - 2]) translate([x, y, 0]) cylinder(r = 2, h = plate_t);
+  translate([0, 0, plate_t - eps]) linear_extrude(raised_h + eps) {
+    for (i = [0:11]) translate([margin + 4 + i*pitch, Dp - margin - 4.5]) symbol(i, 7);
+    for (i = [0:11]) translate([margin + 4 + i*pitch, Dp - margin - 4.5 - 12]) symbol(i, 6);
+    for (i = [0:11]) translate([margin + 12 + (i % 6)*20, Dp - margin - 4.5 - 25 - floor(i/6)*12]) roman2d(ROMAN[i]);
+  }
+}
+if (part == "raised_plate") raised_plate();

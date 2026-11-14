@@ -130,11 +130,13 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
 | Flashlight bay | Pass: light fits with room to spare (line the side walls with felt); bridged ceiling does not rub |
 | Door slide | Pass |
 | Door latch | Holds the door shut, but no felt click and it opens with little effort. Steeper catch faces, closer-fitting notch and a stiffer spring issued; awaiting a print |
-| Rim above the door | The bridged rim drooped on two prints. The rim there is now an upright tab on the door, so the base has nothing to bridge. Awaiting a print |
+| Rim above the door | The upright door tab printed cleanly. A thin pointed end on the tab broke off; that end is now square. Awaiting a print |
 | Rings on the deck | Pass: both fit, spin and sit flat under the index cap with the screws tight |
 | Detents | Pass with the 1.4 mm PETG springs: outer ring clicks at every numeral, inner ring at every symbol panel |
 | Index-cap screws | Pass: pan-head self-tapping screws, about 3 × 16 mm, driven into the printed pilots without cracking |
-| Fragments and keystone, printed symbols, full assembly | Not yet tested |
+| Fragments and centre knob | Pass: each fragment fits one position only and all four are locked with the knob tight. The M3×8 screw was hard to start, so the knob's screw bore is now 0.8 mm deeper |
+| Printed symbols | First plate was printed in one colour without its inlay part, so it tested recesses only. A single-file raised version (`stl/symbol_test_raised.stl`) replaces it |
+| Full assembly | Not yet tested |
 
 ## Prototype build order
 

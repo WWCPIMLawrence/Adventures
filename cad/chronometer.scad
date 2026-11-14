@@ -91,7 +91,7 @@ uv_ring_w     = 2.1;    // radial thickness of the ring (latch stiffness); PETG 
 knob_r        = 10.0;
 knob_h        = 7.0;
 knob_head_d   = 5.4;    // press-fit bore for the M3 socket head
-knob_head_h   = 3.2;
+knob_head_h   = 4.0;    // deeper bore: the M3x8 screw reaches 0.8 mm further into the nut (it was hard to start)
 knob_clamp_gap = 0.3;   // knob underside stays this far off the cover when its cone is seated on
                         // the fragment bevels, so the screw load goes into the tiles
 nut_retain    = 0.35;   // the mouth of the nut pocket is this much under size: the nut is drawn
@@ -286,15 +286,21 @@ module base(h = base_h, with_uv = uv_enabled) {
       // closes it), so there is no flat ceiling to bridge. The rim above the door is not part
       // of the base at all: it is an upright tab on the end of the door (see door()), which
       // drops into this open notch. Nothing in the base bridges the door opening.
-      translate([door_x0 - bay_x, 0, 0]) rotate([90, 0, 90]) linear_extrude(2*body_r)
-        polygon([[-door_wt/2 - c, zc - eps], [door_wt/2 + c, zc - eps],
-                 [door_wt/2 + c - (h + 1 - zc), h + 1], [-door_wt/2 - c + (h + 1 - zc), h + 1]]);
+      intersection() {                               // sloped roof, kept inside the rim wall
+        translate([door_x0 - bay_x, 0, 0]) rotate([90, 0, 90]) linear_extrude(2*body_r)
+          polygon([[-door_wt/2 - c, zc - eps], [door_wt/2 + c, zc - eps],
+                   [door_wt/2 + c - (h + 1 - zc), h + 1], [-door_wt/2 - c + (h + 1 - zc), h + 1]]);
+        translate([-bay_x, -bay_y, -1]) cylinder(r = body_r - door_rim_wall - 0.3, h = h + 4, $fn = fn_big);
+      }
       intersection() {                               // notch for the door's rim tab
         translate([0, -door_wt/2 - c, zc - eps]) cube([2*body_r, door_wt + 2*c, h + 2]);
         translate([-bay_x, -bay_y, 0]) difference() {
           cylinder(r = body_r + 1, h = h + 2, $fn = fn_big);
           translate([0, 0, -1]) cylinder(r = body_r - door_rim_wall - 0.3, h = h + 4, $fn = fn_big);
         }
+        // square upper end: without this the notch and the tab both ran out to a thin
+        // 27 deg sliver where the channel edge meets the rim, and the sliver broke off
+        translate([-bay_x, -bay_y, 0]) linear_extrude(h + 2) wedge2d(body_r + 5, -10, door_tab_a1 + 0.5);
       }
       // dovetail slot for the door, exits through the rim on +X
       translate([door_x0 - bay_x, 0, 0]) rotate([90, 0, 90]) linear_extrude(2*body_r)
@@ -310,6 +316,7 @@ module base(h = base_h, with_uv = uv_enabled) {
 // bump / notch that follows the 45 deg dovetail flank on the -Y side of the door
 door_nub_x = 45.5;
 door_rim_wall = 3.0; // thickness of the upright rim tab on the end of the door
+door_tab_a1 = asin((bay_y + door_wt/2)/body_r) - 0.3;   // angle of the tab's square upper end
 door_nub_h = 1.1;   // latch nub height on the door's side spring (0.7 barely caught: the door's
                     // 0.4 mm of side play ate most of it)
 door_nub_k = 0.5;   // ramp length as a fraction of nub height: 1 = 45 deg faces, 0.5 = about 63 deg
@@ -339,6 +346,7 @@ module door() {
           cylinder(r = body_r, h = base_h, $fn = fn_big);
           translate([0, 0, -1]) cylinder(r = body_r - door_rim_wall, h = base_h + 2, $fn = fn_big);
         }
+        translate([-bay_x, -bay_y, 0]) linear_extrude(base_h) wedge2d(body_r + 5, -10, door_tab_a1);
       }
     }
     // side spring: slot + end cut

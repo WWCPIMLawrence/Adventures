@@ -104,7 +104,7 @@ Verified against the current model:
 
 | Item | Exact specification | Per unit | 4× | Spares | Buy total | Essential? | Likely source |
 |---|---|---|---|---|---|---|---|
-| Cap screw | M3 × 16 mm, socket-head cap (ISO 4762 / DIN 912), fully threaded, 5.5 mm head | 3 | 12 | 6 | 18 | Essential | Your assortment; hardware-store metric drawers; Amazon M3 socket-cap assortment |
+| Cap screw | M3 × 16 mm, socket-head cap (ISO 4762 / DIN 912), fully threaded, 5.5 mm head — or a pan-head self-tapping screw of about 3 mm × 16 mm, which the owner has test-driven into the printed pilots without cracking | 3 | 12 | 6 | 18 | Essential | Your assortment; hardware-store metric drawers; Amazon M3 socket-cap assortment |
 | Keystone screw | M3 × 8 mm, socket-head cap, same standard (the round 5.5 mm head presses into the knob — button or pan heads will not hold) | 1 | 4 | 3 | 7 | Essential | Same |
 | Nut | M3 plain hex, ISO 4032 / DIN 934 (5.5 mm AF, 2.4 mm thick). Not nyloc, not square, not flanged | 1 | 4 | 4 | 8 | Essential | Same |
 | Draw-in screw (tool) | Any M3 × 20–30 mm, to pull the nut into its pocket | — | 1 | — | 1 | Essential tool | Your assortment |

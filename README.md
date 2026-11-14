@@ -70,7 +70,7 @@ parts — see the build order below.
 
 | Item | Qty | Use |
 |---|---|---|
-| M3 × 16 socket-head cap screw | 3 | index cap → deck → base (M3 × 20 is too long for the 12.2 mm base) |
+| M3 × 16 socket-head cap screw, **or** a pan-head self-tapping screw of about 3 mm × 16 mm | 3 | index cap → deck → base (20 mm is too long for the 12.2 mm base). The self-tapping type has been driven into the printed PLA pilots: tight, no cracking |
 | M3 × 8 socket-head cap screw | 1 | keystone |
 | M3 hex nut | 1 | captive in the centre cover |
 | Keychain UV squeeze light, 40.3 × 22.6 × 8.7 mm (caliper-measured) | 1 | key ring and split ring removed |

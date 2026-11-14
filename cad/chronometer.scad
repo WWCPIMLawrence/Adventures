@@ -8,7 +8,7 @@
 // ============================================================================
 
 /* [View / export] */
-part = "assembly"; // [assembly, exploded, section, base, test_base, test_seat, test_screw_ring, test_uv_bay, deck, outer_ring, inner_ring, index_cap, pawl_outer, pawl_inner, cover, keystone, mask, uv_ring, door, fragment_1, fragment_2, fragment_3, fragment_4, plate_small_parts, plate_springs, plate_fragments]
+part = "assembly"; // [assembly, exploded, section, base, back_plate, test_base, test_seat, test_screw_ring, test_uv_bay, deck, outer_ring, inner_ring, index_cap, pawl_outer, pawl_inner, cover, keystone, mask, uv_ring, door, fragment_1, fragment_2, fragment_3, fragment_4, plate_small_parts, plate_springs, plate_fragments]
 
 /* [Envelope] */
 body_r   = 62.5;   // outer radius of the instrument
@@ -142,6 +142,19 @@ bay_y       = 41.5;   // distance of bay centre line from instrument centre
 bay_x       = 3.5;    // shift of bay along its own length (toward the door exit)
 door_t      = 2.0;    // door thickness
 uv_enabled  = true;   // false = no bay and no door (issue the light as a separate prop)
+// How the flashlight is reached.
+//  "plate": the whole back is a plain plate held by four sunk hex-socket screws, like a watch
+//           case back. No door, no seams on the back, nothing to suggest a compartment; a hex
+//           key opens it. This is the concealed version.
+//  "door":  the sliding door on V-rails (tested and working, but visibly a hatch).
+uv_access   = "plate";  // [plate, door]
+back_screw_r      = 54;                  // back-plate screw circle
+back_screw_angles = [45, 135, 225, 315];
+back_boss_d       = 8.4;                 // boss on the plate's inner face around each screw
+back_boss_h       = 2.4;
+back_cb_d         = 6.0;                 // counterbore for an M3 socket head (5.5 mm)
+back_cb_depth     = 3.2;                 // head sits fully below the back face
+back_pin_angle    = 0;                   // hidden locating pin: the plate fits one way only
 base_plain_h = 11;    // base height when uv_enabled is false
 
 /* [Decoration] */
@@ -210,11 +223,14 @@ if (bay_y - door_wt/2 - door_clear < well_r + 2.0)
 // hardware self-check: cap screws must reach >= 6 mm of thread without bottoming out; the
 // keystone screw must pass fully through the nut with the fragments fitted
 _cap_stack = cap_t + rib_h + deck_t;
-_cap_pilot = min(screw_pilot_depth, base_h - 1.5);
+_cap_pilot = (uv_enabled && uv_access == "plate") ? base_h - door_t : min(screw_pilot_depth, base_h - 1.5);
 _cap_thread = cap_screw_len - _cap_stack;
 echo(str("Cap screws: M3x", cap_screw_len, " - ", _cap_stack, " mm clearance stack, ", _cap_thread,
          " mm of thread in a ", _cap_pilot, " mm pilot"));
 if (_cap_thread > _cap_pilot - 0.5) echo("WARNING: cap screws bottom out in the base - use a shorter screw");
+_back_tip = back_cb_depth + knob_screw_len;      // back-plate screws are the same M3x8 as the keystone
+echo(str("Back-plate screws: M3x", knob_screw_len, " socket-head, head sunk ", back_cb_depth - 3, " mm, tip ", base_h - _back_tip, " mm below the base top"));
+if (_back_tip > base_h - 0.3) echo("WARNING: back-plate screws are too long for this base");
 if (_cap_thread < 6) echo("WARNING: cap screws have under 6 mm of thread - use a longer screw");
 _knob_reach = knob_screw_len - (knob_h - knob_head_h) - knob_clamp_gap;   // below the cover face, fragments fitted
 _nut_bottom = 1.4 + nut_t;                                                 // below the cover face
@@ -311,7 +327,9 @@ module dial_symbol(i, size) scale(size/2) {
 // Rear module: mask seat, sheet-registration notches, UV bay + door slot.
 module base(h = base_h, with_uv = uv_enabled) {
   zc = ledge_t + mask_t/2;
-  pilot = min(screw_pilot_depth, h - 1.5);
+  plate_mode = with_uv && uv_access == "plate";
+  // with a back plate the base is thinner, so the cap-screw pilots go right through (the plate hides them)
+  pilot = plate_mode ? h + 1 : min(screw_pilot_depth, h - 1.5);
   difference() {
     rev([[ledge_r, 0], [body_r - edge_ch, 0], [body_r, edge_ch], [body_r, h - 0.4], [body_r - 0.4, h],
          [well_r + 0.6, h], [well_r, h - 0.6],
@@ -331,8 +349,19 @@ module base(h = base_h, with_uv = uv_enabled) {
     // sheet registration notches: 12 o'clock is a double notch
     for (a = [0, 180, 270, 87, 93]) rotate([0, 0, a]) translate([body_r, 0, -1])
       rotate([0, 0, 45]) cube([1.8, 1.8, h + 2], center = false);
-    if (with_uv && decoy_doors) for (a = [90, 180, 270]) rotate([0, 0, a]) decoy_door(h);
-    if (with_uv) translate([bay_x, bay_y, 0]) {
+    if (plate_mode) {
+      // the bottom door_t of the base is the separate back plate
+      translate([0, 0, -1]) cylinder(r = body_r + 5, h = door_t + 1, $fn = 12);
+      // flashlight bay: a plain pocket, open to the plate below and the deck above
+      translate([bay_x - bay_len/2, bay_y - bay_w/2, 0]) cube([bay_len, bay_w, h + 1]);
+      for (a = back_screw_angles) rotate([0, 0, a]) translate([back_screw_r, 0, 0]) {
+        cylinder(d = back_boss_d + 0.5, h = door_t + back_boss_h + 0.2, $fn = 32);   // pocket for the boss
+        cylinder(d = screw_pilot_d, h = h + 1, $fn = 24);                             // self-tapping pilot
+      }
+      rotate([0, 0, back_pin_angle]) translate([back_screw_r, 0, 0]) cylinder(d = 4.4, h = door_t + 2.3, $fn = 24);
+    }
+    if (with_uv && !plate_mode && decoy_doors) for (a = [90, 180, 270]) rotate([0, 0, a]) decoy_door(h);
+    if (with_uv && !plate_mode) translate([bay_x, bay_y, 0]) {
       c = door_clear;
       // The door runs on V-shaped rails: its edges are widest at mid-thickness and the channel
       // matches, so the door can move neither out of the back nor up into the body. (The first
@@ -389,6 +418,27 @@ module flank_bump(xc, len, d) {     // follows the V-rail on the -Y edge: lower 
   multmatrix([[1, 0, 0, 0], [0, 1, 1, -door_t], [0, 0, 1, 0], [0, 0, 0, 1]])
     translate([xc, -door_wb/2, door_t/2]) linear_extrude(door_t/2) prof();
 }
+
+// ============================================================ BACK PLATE ====
+// The bottom door_t of the instrument as a separate plate: carries the mask ledge and click
+// groove, the sheet-registration notches and the back face. Four M3x8 socket-head screws go
+// through sunk counterbores into the base. Print back face down.
+module back_plate() {
+  difference() {
+    union() {
+      intersection() { base(h = base_h, with_uv = false); translate([0, 0, -1]) cylinder(r = body_r + 5, h = door_t + 1, $fn = 12); }
+      for (a = back_screw_angles) rotate([0, 0, a]) translate([back_screw_r, 0, door_t - eps])
+        cylinder(d = back_boss_d, h = back_boss_h + eps, $fn = 32);
+      rotate([0, 0, back_pin_angle]) translate([back_screw_r, 0, door_t - eps]) cylinder(d1 = 4.0, d2 = 3.4, h = 2.0, $fn = 24);
+    }
+    for (a = back_screw_angles) rotate([0, 0, a]) translate([back_screw_r, 0, -1]) {
+      cylinder(d = screw_clear_d, h = door_t + back_boss_h + 2, $fn = 24);
+      cylinder(d = back_cb_d, h = back_cb_depth + 1, $fn = 32);
+    }
+  }
+}
+// rear of the instrument as built: base plus whatever closes it
+module rear() { base(); if (uv_enabled && uv_access == "plate") back_plate(); }
 
 // false door: the real door's visible lines, engraved decoy_d deep (drawn in the real door's position)
 module decoy_door(h) {
@@ -713,7 +763,12 @@ module screw(len, head = true) color(C_STEEL) {
 
 module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = false) {
   color(C_BRASS) base();
-  if (uv_enabled) translate([door_out, 0, -1.2*e]) color(C_DARK) door();
+  if (uv_enabled && uv_access == "door") translate([door_out, 0, -1.2*e]) color(C_DARK) door();
+  if (uv_enabled && uv_access == "plate") translate([0, 0, -1.5*e - (door_out > 0 ? 22 : 0)]) {
+    color(C_BRASS) back_plate();
+    for (a = back_screw_angles) rotate([0, 0, a]) translate([back_screw_r, 0, back_cb_depth - 3 - 0.6*e])
+      rotate([180, 0, 0]) translate([0, 0, -3]) screw(8);
+  }
   if (light) translate([bay_x + (door_out > 0 ? 6 : 0), bay_y, door_t + 0.3 - (door_out > 0 ? 16 : 0)]) uv_light();
   translate([0, 0, ledge_t + 0.35*e]) color(C_DARK) mask();
   translate([0, 0, z_deck + e]) color(C_BRASS) deck();
@@ -756,6 +811,7 @@ if (part == "view_aperture") assembly(cover_on = false);                  // cov
 if (part == "view_uv") assembly(fragments = false, door_out = 58, light = true);
 if (part == "section") difference() { assembly(); translate([0, -200, -50]) cube([200, 400, 200]); }
 if (part == "base") base();
+if (part == "back_plate") back_plate();
 if (part == "test_base") base(h = test_base_h, with_uv = false);
 // short fit test for the cover bayonet, the latch and the mask: centre of deck + base in one piece
 test_mark = 0;   // number of notches cut in the rim of the seat test piece, to tell variants apart
@@ -831,15 +887,16 @@ if (part == "chk_rings_deck") intersection() { translate([0, 0, z_deck]) deck();
 if (part == "chk_rings_cap") intersection() { translate([0, 0, z_cap]) index_cap(); at_floor() { outer_ring(); inner_ring(); } }
 if (part == "chk_rings_cover") intersection() { translate([0, 0, z_cap]) cover(); at_floor() inner_ring(); }
 if (part == "chk_cover_deck") intersection() { translate([0, 0, z_cap]) cover(); translate([0, 0, z_deck]) deck(); }
-if (part == "chk_cover_base") intersection() { translate([0, 0, z_cap]) cover(); base(); }
+if (part == "chk_cover_base") intersection() { translate([0, 0, z_cap]) cover(); rear(); }
 if (part == "chk_cover_insert") intersection() {   // cover in the lift-out position must also be free
   translate([0, 0, z_cap + 2]) rotate([0, 0, bay_travel]) cover(); translate([0, 0, z_deck]) deck(); }
 if (part == "chk_pawls_deck") intersection() { translate([0, 0, z_deck]) deck();
   at_floor() { for (a = outer_pawl_angles) rotate([0, 0, a]) pawl(true); for (a = inner_pawl_angles) rotate([0, 0, a]) pawl(false); } }
 if (part == "chk_pawls_cap") intersection() { translate([0, 0, z_cap]) index_cap();
   at_floor() { for (a = outer_pawl_angles) rotate([0, 0, a]) pawl(true); for (a = inner_pawl_angles) rotate([0, 0, a]) pawl(false); } }
-if (part == "chk_door_base") intersection() { base(); door(); }
-if (part == "chk_mask_base") intersection() { base(); translate([0, 0, ledge_t]) linear_extrude(mask_t) circle(r = well_r - mask_clear); }
+if (part == "chk_door_base" && uv_access == "door") intersection() { base(); door(); }
+if (part == "chk_plate_base") intersection() { base(); back_plate(); }
+if (part == "chk_mask_base") intersection() { rear(); translate([0, 0, ledge_t]) linear_extrude(mask_t) circle(r = well_r - mask_clear); }
 if (part == "chk_frag_cover") intersection() { cover(); translate([0, 0, cover_t]) for (i = [0:3]) fragment(i); }
 if (part == "chk_frag_knob") intersection() { translate([0, 0, knob_clamp_gap]) keystone(); for (i = [0:3]) fragment(i); }
 // knob underside must still be clear of the cover when the cone is seated on the tiles
@@ -857,14 +914,14 @@ module cover_swept() {
                 [skirt_ro + bay_lug_r, -skirt_len + 1.25], [skirt_ro - 0.2, -skirt_len + 1.25 + bay_lug_r + 0.2]]);
 }
 if (part == "chk_cover_path") intersection() { translate([0, 0, z_deck]) deck(); translate([0, 0, z_cap]) cover_swept(); }
-if (part == "chk_cover_path_base") intersection() { base(); translate([0, 0, z_cap]) cover_swept(); }
+if (part == "chk_cover_path_base") intersection() { rear(); translate([0, 0, z_cap]) cover_swept(); }
 // latch: free in its groove when locked and at the insert position, compressed in between (non-empty)
 module latch_at(a) translate([0, 0, z_cap - uv_ring_h - 0.3]) rotate([0, 0, a]) uv_ring();
 if (part == "chk_latch_locked") intersection() { translate([0, 0, z_deck]) deck(); union() { latch_at(0); latch_at(bay_travel); } }
 if (part == "chk_latch_mid") intersection() { translate([0, 0, z_deck]) deck(); latch_at(bay_travel/2); }
 if (part == "chk_latch_cover") intersection() { cover(); translate([0, 0, -uv_ring_h - 0.3]) uv_ring(); }
 // the real mask: its spring nubs must press on the well wall (non-empty), nothing else may touch
-if (part == "chk_mask_springs") intersection() { base(); translate([0, 0, ledge_t]) mask(); }
+if (part == "chk_mask_springs") intersection() { rear(); translate([0, 0, ledge_t]) mask(); }
 if (part == "chk_frag_frag") intersection() { union() { fragment(0); fragment(2); } union() { fragment(1); fragment(3); } }
 // wrong-socket test: fragment 1 rotated into socket 2 must COLLIDE (non-empty)
 if (part == "chk_keying") intersection() { cover(); translate([0, 0, cover_t]) rotate([0, 0, -90]) fragment(0); }

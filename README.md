@@ -48,7 +48,8 @@ PLA. STLs are already oriented; do not rotate them. Suggested colours are only t
 
 | Part (per instrument) | Qty | Orientation as exported | Notes |
 |---|---|---|---|
-| `base` | 1 | back face down | Longest print (several hours, not yet sliced). One short 29 mm bridge (door-slot ceiling). Bay sized for the purple squeeze light. |
+| `base` | 1 | underside down | Brass. Flashlight bay is a plain pocket closed by the back plate. |
+| `back_plate` | 1 | back face down | Brass. The whole back of the instrument; four sunk screw holes. |
 | `deck` | 1 | underside down | Order of walls **outer/inner**, the setting every passing fit test was printed with. Keep it the same for production. |
 | `outer_ring` | 1 | face up | Matte black. Raised numerals: change to bone white at layer 29. |
 | `inner_ring` | 1 | face up | Bone white. Raised symbols and finger ribs: change to black at layer 29. |
@@ -71,7 +72,7 @@ parts — see the build order below.
 | Item | Qty | Use |
 |---|---|---|
 | M3 × 16 socket-head cap screw, **or** a pan-head self-tapping screw of about 3 mm × 16 mm | 3 | index cap → deck → base (20 mm is too long for the 12.2 mm base). The self-tapping type has been driven into the printed PLA pilots: tight, no cracking |
-| M3 × 8 socket-head cap screw | 1 | keystone |
+| M3 × 8 socket-head cap screw | 5 | keystone (1) and back plate (4) |
 | M3 hex nut | 1 | captive in the centre cover |
 | Keychain UV squeeze light, 40.3 × 22.6 × 8.7 mm (caliper-measured) | 1 | key ring and split ring removed |
 | Self-adhesive felt, ~6 × 40 mm | 2 | on the two long **side walls** of the bay, against rattle |
@@ -224,6 +225,7 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 | `knob_clamp_gap` | 0.3 | Gap left under the keystone when its cone is seated on the fragments. |
 | `nut_retain` | 0.35 | How much the nut-pocket mouth is under size. |
 | `mask_style`, `uv_enabled` | `"spring"`, true | Fallbacks: drop-in mask; no integrated flashlight bay. |
+| `uv_access` | `"plate"` | How the flashlight is reached. `"plate"`: the whole back is a plain plate on four sunk M3×8 socket-head screws, with nothing to suggest a compartment. `"door"`: the sliding door (tested, but visibly a hatch). |
 | `decoy_doors` | true | Engraves three false copies of the door's seams, slit, grooves and rim tab at 90° intervals, so the back reads as four identical panels and only one opens. |
 | `cap_screw_style` | `"cap"` | `"csk"` for flush countersunk screws. |
 | `cover_proud` | 3 | Grip height of the cover above the dials. |

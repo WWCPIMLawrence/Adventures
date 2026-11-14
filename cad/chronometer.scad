@@ -283,13 +283,15 @@ module base(h = base_h, with_uv = uv_enabled) {
                  [door_wt/2 + c, door_t + door_ceil], [-door_wt/2 - c, door_t + door_ceil],
                  [-door_wt/2 - c, door_t]]);
       // detent notch for the door's side spring
-      translate([-bay_x, -c, 0]) flank_bump(door_nub_x, 4.0, 0.75);
+      translate([-bay_x, -c, 0]) flank_bump(door_nub_x, 4.0, door_nub_h + 0.05);
     }
   }
 }
 
 // bump / notch that follows the 45 deg dovetail flank on the -Y side of the door
 door_nub_x = 45.5;
+door_nub_h = 1.1;   // latch nub height on the door's side spring (0.7 barely caught: the door's
+                    // 0.4 mm of side play ate most of it)
 module flank_bump(xc, len, d)
   multmatrix([[1, 0, 0, 0], [0, 1, -1, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
     translate([xc, -door_wb/2, 0]) linear_extrude(door_t)
@@ -297,7 +299,7 @@ module flank_bump(xc, len, d)
 
 // ================================================================== DOOR ====
 module door() {
-  beam_w = 2.0; xa = 31.5; xb = 48;
+  beam_w = 2.4; xa = 27; xb = 48;      // longer, wider spring: more travel at lower strain
   translate([bay_x, bay_y, 0]) difference() {
     union() {
       intersection() {
@@ -306,7 +308,7 @@ module door() {
         translate([-bay_x, -bay_y, 0])
           rev([[0, -1], [body_r - edge_ch - 1, -1], [body_r, edge_ch], [body_r, door_t + 1], [0, door_t + 1]]);
       }
-      translate([-bay_x, 0, 0]) flank_bump(door_nub_x, 3.0, 0.7);
+      translate([-bay_x, 0, 0]) flank_bump(door_nub_x, 3.0, door_nub_h);
     }
     // side spring: slot + end cut
     translate([xa - bay_x, -door_wb/2 + beam_w, -1]) cube([xb - xa + 0.8, 0.8, door_t + 2]);

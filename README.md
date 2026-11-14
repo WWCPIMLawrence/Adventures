@@ -129,7 +129,8 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
 | Cover latch | Pass with the 2.1 mm PETG ring and 1.1 mm groove: clear click at both ends. Thinner rings were too faint |
 | Flashlight bay | Pass: light fits with room to spare (line the side walls with felt); bridged ceiling does not rub |
 | Door slide | Pass |
-| Door latch | First version barely caught; taller catch and longer spring issued, awaiting reprint |
+| Door latch | Pass with the taller catch and longer spring: closes securely |
+| Rim above the door | The bridged rim drooped on two prints. The rim there is now an upright tab on the door, so the base has nothing to bridge. Awaiting a print |
 | Rings on the deck | Pass: both fit, spin and sit flat under the index cap with the screws tight |
 | Detents | Pass with the 1.4 mm PETG springs: outer ring clicks at every numeral, inner ring at every symbol panel |
 | Index-cap screws | Pass: pan-head self-tapping screws, about 3 × 16 mm, driven into the printed pilots without cracking |

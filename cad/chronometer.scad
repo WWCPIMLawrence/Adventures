@@ -361,10 +361,11 @@ module base(h = base_h, with_uv = uv_enabled) {
       // flashlight bay: a plain pocket, open to the plate below and the deck above
       translate([bay_x - bay_len/2, bay_y - bay_w/2, 0]) cube([bay_len, bay_w, h + 1]);
       for (a = back_screw_angles) rotate([0, 0, a]) translate([back_screw_r, 0, 0]) {
-        cylinder(d = back_boss_d + 0.5, h = door_t + back_boss_h + 0.2, $fn = 32);   // pocket for the boss
+        cylinder(d = back_boss_d + 0.8, h = door_t + back_boss_h + 0.9, $fn = 32);   // pocket for the boss; its ceiling
+                                                                                     // is a small bridge that sags, so it gets 0.9 mm of room
         cylinder(d = screw_pilot_d, h = h + 1, $fn = 24);                             // self-tapping pilot
       }
-      rotate([0, 0, back_pin_angle]) translate([back_screw_r, 0, 0]) cylinder(d = 4.4, h = door_t + 2.3, $fn = 24);
+      rotate([0, 0, back_pin_angle]) translate([back_screw_r, 0, 0]) cylinder(d = 4.6, h = door_t + 3.0, $fn = 24);
     }
     if (with_uv && !plate_mode && decoy_doors) for (a = [90, 180, 270]) rotate([0, 0, a]) decoy_door(h);
     if (with_uv && !plate_mode) translate([bay_x, bay_y, 0]) {
@@ -435,7 +436,7 @@ module back_plate() {
       intersection() { base(h = base_h, with_uv = false); translate([0, 0, -1]) cylinder(r = body_r + 5, h = door_t + 1, $fn = 12); }
       for (a = back_screw_angles) rotate([0, 0, a]) translate([back_screw_r, 0, door_t - eps])
         cylinder(d = back_boss_d, h = back_boss_h + eps, $fn = 32);
-      rotate([0, 0, back_pin_angle]) translate([back_screw_r, 0, door_t - eps]) cylinder(d1 = 4.0, d2 = 3.4, h = 2.0, $fn = 24);
+      rotate([0, 0, back_pin_angle]) translate([back_screw_r, 0, door_t - eps]) cylinder(d1 = 4.0, d2 = 3.2, h = 1.6, $fn = 24);
     }
     for (a = back_screw_angles) rotate([0, 0, a]) translate([back_screw_r, 0, -1]) {
       cylinder(d = screw_clear_d, h = door_t + back_boss_h + 2, $fn = 24);

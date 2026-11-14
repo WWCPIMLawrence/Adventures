@@ -331,6 +331,7 @@ module base(h = base_h, with_uv = uv_enabled) {
     // sheet registration notches: 12 o'clock is a double notch
     for (a = [0, 180, 270, 87, 93]) rotate([0, 0, a]) translate([body_r, 0, -1])
       rotate([0, 0, 45]) cube([1.8, 1.8, h + 2], center = false);
+    if (with_uv && decoy_doors) for (a = [90, 180, 270]) rotate([0, 0, a]) decoy_door(h);
     if (with_uv) translate([bay_x, bay_y, 0]) {
       c = door_clear;
       // The door runs on V-shaped rails: its edges are widest at mid-thickness and the channel
@@ -362,6 +363,7 @@ module base(h = base_h, with_uv = uv_enabled) {
       translate([door_x0 - bay_x, 0, 0]) rotate([90, 0, 90]) linear_extrude(2*body_r)
         polygon([[-door_wb/2 - c, -eps], [door_wb/2 + c, -eps], [door_wt/2 + c, door_t/2],
                  [door_wb/2 + c, door_t], [-door_wb/2 - c, door_t], [-door_wt/2 - c, door_t/2]]);
+      // (decoy panels are cut below, outside this translate)
       // detent notch for the door's side spring
       translate([-bay_x, -c, 0]) flank_bump(door_nub_x, 3.4, door_nub_h + 0.05);   // close fit: little free travel
     }
@@ -370,6 +372,10 @@ module base(h = base_h, with_uv = uv_enabled) {
 
 // bump / notch that follows the 45 deg dovetail flank on the -Y side of the door
 door_nub_x = 45.5;
+// Camouflage: three false copies of the door's seams, spring slit, thumb grooves and rim tab are
+// engraved at 90 deg intervals, so the back and rim read as four identical panels. Only one opens.
+decoy_doors = true;
+decoy_d = 0.3;      // depth of the false seams
 door_rim_wall = 3.0; // thickness of the upright rim tab on the end of the door
 door_tab_a1 = asin((bay_y + door_wb/2)/body_r) - 0.3;   // angle of the tab's square upper end
 door_nub_h = 1.1;   // latch nub height on the door's side spring (0.7 barely caught: the door's
@@ -382,6 +388,25 @@ module flank_bump(xc, len, d) {     // follows the V-rail on the -Y edge: lower 
     translate([xc, -door_wb/2, 0]) linear_extrude(door_t/2 + eps) prof();
   multmatrix([[1, 0, 0, 0], [0, 1, 1, -door_t], [0, 0, 1, 0], [0, 0, 0, 1]])
     translate([xc, -door_wb/2, door_t/2]) linear_extrude(door_t/2) prof();
+}
+
+// false door: the real door's visible lines, engraved decoy_d deep (drawn in the real door's position)
+module decoy_door(h) {
+  a_lo = asin((bay_y - door_wb/2)/body_r);
+  module fp() intersection() { translate([door_x0, bay_y - door_wb/2]) square([2*body_r, door_wb]); circle(r = body_r + 2, $fn = fn_big); }
+  translate([0, 0, -eps]) linear_extrude(decoy_d + eps) intersection() {
+    circle(r = body_r + 2, $fn = fn_big);
+    union() {
+      difference() { offset(delta = 0.2) fp(); offset(delta = -0.2) fp(); }                 // outline seam
+      translate([27, bay_y - door_wb/2 + 2.8]) square([21.8, 0.6]);                          // spring slit
+      translate([48, bay_y - door_wb/2]) square([0.6, 3.4]);
+    }
+  }
+  for (i = [0:3]) translate([22 + 3*i, bay_y - 3, -eps]) cube([1.0, 9, 0.4]);              // thumb grooves
+  // rim: the two ends of the tab, the seam under it and the gap above it
+  for (a = [a_lo, door_tab_a1]) rotate([0, 0, a]) translate([body_r - decoy_d, -0.2, -1]) cube([2, 0.4, h + 2]);
+  for (z = [door_t, h - 0.15]) rev_sector(a_lo, door_tab_a1 - a_lo,
+    [[body_r - decoy_d, z - 0.15], [body_r + 1, z - 0.15], [body_r + 1, z + 0.15], [body_r - decoy_d, z + 0.15]]);
 }
 
 // ================================================================== DOOR ====

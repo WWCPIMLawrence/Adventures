@@ -224,6 +224,7 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 | `knob_clamp_gap` | 0.3 | Gap left under the keystone when its cone is seated on the fragments. |
 | `nut_retain` | 0.35 | How much the nut-pocket mouth is under size. |
 | `mask_style`, `uv_enabled` | `"spring"`, true | Fallbacks: drop-in mask; no integrated flashlight bay. |
+| `decoy_doors` | true | Engraves three false copies of the door's seams, slit, grooves and rim tab at 90° intervals, so the back reads as four identical panels and only one opens. |
 | `cap_screw_style` | `"cap"` | `"csk"` for flush countersunk screws. |
 | `cover_proud` | 3 | Grip height of the cover above the dials. |
 | `show_numerals` | true | Roman numerals on the outer ring. |

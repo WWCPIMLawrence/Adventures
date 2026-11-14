@@ -117,6 +117,7 @@ peg_radii_b   = [20.5, 18.0, 15.5, 13.0];
 code_ring     = ["8","1","3","6","1","9","2","4","5","0","7","2"];
 frag_text_r   = 19.5;
 frag_text_h   = 6.5;
+frag_text_d   = 0.4;    // digit depth: exactly two layers, so a filament change at layer 3 colours the digits
 frag_font     = "Liberation Sans:style=Bold";
 
 /* [Aperture mask] */
@@ -722,7 +723,7 @@ module fragment(i) {
       linear_extrude(frag_t) offset(delta = -frag_gap/2) wedge2d(40, c - 45, c + 45);
     }
     // three code characters, tops outward
-    for (j = [-1, 0, 1]) rotate([0, 0, clock_angle(3*i + j)]) translate([frag_text_r, 0, frag_t - 0.5])
+    for (j = [-1, 0, 1]) rotate([0, 0, clock_angle(3*i + j)]) translate([frag_text_r, 0, frag_t - frag_text_d])
       rotate([0, 0, -90]) linear_extrude(1)
         text(code_ring[(3*i + j + 12) % 12], size = frag_text_h, font = frag_font, halign = "center", valign = "center");
     // order pips (1-4)

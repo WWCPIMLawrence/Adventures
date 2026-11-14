@@ -48,151 +48,128 @@ def pair(a, ca, b, cb, w=86):
 
 s = [P("The Chronometer &mdash; project status handoff", H1),
      P("A 3D-printed mechanical puzzle instrument for a family scavenger hunt, <i>The Timekeeper's Paradox</i>, on "
-       "26 November 2026. Four identical units, Bambu Lab P1S with AMS, PLA/PETG, M3 hardware. This document "
-       "replaces the earlier status handoff and reflects everything decided since.", B),
+       "26 November 2026. Four identical units, Bambu Lab P1S with AMS, PLA and PETG, M3 hardware. This document "
+       "supersedes the earlier status handoffs.", B),
      Spacer(1, 4),
-     P("<b>To the reviewer.</b> Please check the plan and the open risks, not just the design. Questions are in "
-       "section 10. All dimensions are millimetres.", B),
+     P("<b>To the reviewer.</b> Physical prototyping is well under way. Please check the remaining plan and "
+       "risks. Questions are in section 9. Dimensions are millimetres.", B),
 
      P("1. Status in one paragraph", H2),
-     P("The design is complete in CAD and has had one outside mechanical review, applied in full. The game "
-       "configuration is approved and applied to the fragments and printed sheets. The UV flashlight has now been "
-       "measured with calipers and its compartment resized. A separate test plate for printing the dial symbols "
-       "into the ring is ready. Twenty-two automated geometry checks pass. <b>Nothing has been printed or "
-       "physically tested yet</b>; no full instrument and no batch of four will be printed until the fit tests pass.", B),
+     P("Every mechanism has now passed on a printed test piece: mask, nut pocket, cover twist-lock and latch, both "
+       "rings and their detents, the index-cap screws, the flashlight compartment and its door, and the fragments "
+       "with their centre knob. Several needed one to four design revisions to get there; those are listed in "
+       "section 3. Raised two-colour lettering passed on a test plate and is now built into both rings. "
+       "<b>No complete instrument has been assembled yet.</b> The full base is printing now; the deck and the two "
+       "lettered rings follow. Test parts so far are in black PLA; the brass-coloured filament has not arrived. "
+       "No production batch has been started.", B),
      Spacer(1, 4),
-     pair("fn0_as_issued.png", "As issued to players (flat-colour CAD preview, no decoration yet).",
-          "exploded.png", "Exploded view: 18 printed parts, 4 screws, 1 nut."),
+     pair("fn1_top.png", "Current CAD, top view: raised bone-white numerals on the black ring, raised black symbols and ribs on the bone-white ring.",
+          "fn0_as_issued.png", "Current CAD, as issued to players. Flat-colour preview, not a photograph."),
 
-     P("2. What is new since the last status handoff", H2),
-     table([["Item", "Then", "Now"],
-            ["UV flashlight size", "Estimated from photos: 43.5 × 23 × 8.5", "Caliper-measured, key ring removed: <b>40.3 long (LED included) × 22.6 wide × 8.7 thick</b>"],
-            ["Flashlight compartment", "On hold", "Resized to 42.3 × 24.1 × 10.2 (1 mm free at each end, 1.5 mm total at sides and faces); moved 1 mm in from the rim; thinnest walls now 3.2&ndash;3.6 mm (were 2.3&ndash;2.9). Fit-test piece released for printing; full base still on hold"],
-            ["Overall height", "19.6 at the rim", "19.8 at the rim, 29.8 over the centre knob (base is 12.2 tall)"],
-            ["Game configuration", "Demo values (TIME, 1847)", "Approved and applied &mdash; section 4"],
-            ["Dial symbols", "Adhesive labels only", "Printed-symbol test plate prepared &mdash; section 5. Labels remain the fallback"],
-            ["Label stock", "Inkjet vinyl assumed", "Owner has a colour laser printer: laser-compatible matte labels only, if labels are used"],
-            ["Hardware", "M3 × 16, M3 × 8, nut", "Unchanged and re-verified: M3 × 16 has 8.6 mm of thread in a 10.7 mm pilot; the model checks screw lengths on every build"]],
-           [38, 46, 92]),
+     P("2. Test results on printed parts", H2),
+     table([["Feature", "Result", "Setting that passed"],
+            ["Aperture mask", "Pass", "Spring arms click into the well; stays in when inverted; pushes out from the back"],
+            ["Captive nut in the cover", "Pass", "Drawn in with a screw past an undersized pocket mouth; stays put"],
+            ["Cover twist-lock", "Pass", "0.75 mm axial play at entry, 0.50 mm locked: turns easily, no wiggle"],
+            ["Cover latch", "Pass", "PETG ring 2.1 mm thick, 1.1 mm groove with steep sides: clear click at both ends"],
+            ["Rings on the deck", "Pass", "0.30 mm radial clearance, 0.35 mm axial play; both spin and sit flat"],
+            ["Detents", "Pass", "1.4 mm PETG leaf springs: both rings click at all 12 positions"],
+            ["Index-cap screws", "Pass", "Pan-head self-tapping screws, about 3 × 16 mm, into printed 2.8 mm pilots"],
+            ["Flashlight fit", "Pass", "Bay 42.3 × 24.1 × 10.2 for a 40.3 × 22.6 × 8.7 light; loose in plan, to be lined with felt"],
+            ["Door slide, latch and rim", "Pass", "V-shaped rails, catch on an in-plane spring, upright rim tab on the door"],
+            ["Fragments and centre knob", "Pass", "Each fragment fits one socket only; all four lock under the knob"],
+            ["Raised lettering", "Pass on a plate", "0.4 mm high, 7 mm symbols and numerals, one filament change; clear at arm's length"],
+            ["Lettering on the actual rings", "Not yet printed", "&mdash;"],
+            ["Complete instrument", "Not yet assembled", "&mdash;"],
+            ["Aperture sheet read through the well", "Not yet tested", "&mdash;"],
+            ["Fits in the final brass filament", "Not yet tested", "Filament not delivered"]],
+           [46, 26, 104]),
 
-     P("3. The instrument, briefly", H2)]
+     P("3. What had to change during testing", H2),
+     table([["Part", "What happened on the print", "Fix"],
+            ["Cover twist-lock", "Bound through the whole turn at 0.45 / 0.30 mm play; over-corrected to 0.90 / 0.70 (about 1 mm of lift); 0.70 / 0.40 bound again", "Two seat variants printed side by side settled it at 0.75 / 0.50. The two facing 45&deg; overhangs droop by roughly 0.4 mm"],
+            ["Cover latch", "No click with a 1.6 mm ring and 0.7 mm groove; faint at 1.8 / 0.9", "2.1 mm ring, 1.1 mm groove, steeper groove sides"],
+            ["Door latch", "Three progressively stronger catches all gave almost no resistance", "Root cause was the rails, not the catch: on a plain dovetail the door could lift into the body and free the catch. V-shaped rails (widest at mid-thickness) stop it lifting"],
+            ["Ceiling over the door channel", "A 29 mm flat bridge strung and sagged; a 0.5 mm unsupported ledge fell away", "Channel roof now rises at 45&deg; to the base top, which the deck closes. No flat bridge"],
+            ["Rim above the door", "The bridged rim strip drooped visibly; later a thin 27&deg; sliver broke off", "That piece of rim is now an upright tab on the door, with a square end"],
+            ["Centre knob", "M3 × 8 screw hard to start in the nut", "Screw bore deepened by 0.8 mm"],
+            ["Symbol test, first attempt", "Two-part file loaded as separate objects; plate printed in one colour without its inlay", "Replaced by a single file with raised lettering and a filament change at one layer"],
+            ["Order of walls", "The designer asked for inner-first; all passing parts were in fact printed outer/inner", "Outer/inner is now the documented setting, since the fits are calibrated to it"]],
+           [34, 70, 72]),
+
+     P("4. Design as it now stands", H2)]
 s += bullets([
-    "<b>Two dials:</b> an outer hour ring (the knurled rim) and an inner symbol ring, 12 detented positions each, read "
-    "against a fixed arrow at XII. Both are trapped by one fixed index ring held by three screws.",
-    "<b>Detents:</b> four separate arc-shaped leaf springs in pockets of a fixed rib, two per ring; PETG planned.",
-    "<b>Centre cover:</b> three-lug twist-lock, 28&deg; turn, loose running fit (0.30 mm axial play locked). A sprung nub "
-    "on the UV retaining ring inside the cover clicks into a groove in the well wall to hold it shut.",
-    "<b>Aperture:</b> an interchangeable stencil at the bottom of a 50 mm well, 0.8 mm above the paper, four Ø10.5 apertures.",
-    "<b>UV:</b> the flat squeeze-type light lies in a bay in the base behind a flush sliding door in the back face. "
-    "The UV-reactive paper disc lives inside the centre cover.",
-    "<b>Final code:</b> four keyed fragments dock on the cover face, clamped by a centre thumb-knob whose cone seats "
-    "on their bevels. They form a 12-character ring read against the inner dial.",
+    "<b>Size:</b> Ø125, 19.8 thick at the rim, about 30 over the centre knob. Base 12.2, deck 5.0.",
+    "<b>Two dials</b> with 12 detented positions each, read against a fixed arrow at XII; trapped by one index cap on three screws.",
+    "<b>Centre cover:</b> three-lug twist-lock, 28&deg; turn, held shut by a sprung nub on the PETG retaining ring inside the cover.",
+    "<b>Aperture:</b> interchangeable stencil at the bottom of a 50 mm well, four Ø10.5 apertures.",
+    "<b>UV light:</b> lies flat in a bay in the base behind a sliding door in the back face. The door runs on V-shaped "
+    "rails, carries the strip of rim above its opening as an upright tab, and has a side-spring catch. The light goes "
+    "in with its slide-lock tab away from the door and its LED toward the closed end.",
+    "<b>Fragments:</b> four keyed tiles dock on the cover face and are clamped by a centre thumb-knob.",
+    "<b>Lettering:</b> raised 0.4 mm. Outer ring black with bone-white numerals; inner ring bone white with black symbols "
+    "and finger ribs. One filament change per ring, at layer 29. Sticker pockets and engraved numerals remain as fallbacks.",
 ])
 
-s += [P("4. Approved game configuration (applied; no mechanical geometry changed)", H2),
-      table([["Element", "Approved value", "Verification"],
-             ["Final answer", "1147 (11:47)", "Sheet generator refuses to build unless the four read symbols give 1147"],
-             ["Code ring, clockwise from XII", "813619245072", "&mdash;"],
-             ["Fragment tiles 1&ndash;4", "281 / 361 / 924 / 507", "Follows from the existing socket positions (tiles centred on XII, III, VI, IX). Decoy 6 and 9 kept pending a readability check on printed tiles"],
-             ["Dial symbols, clockwise from XII", "Sun, moon, key, flame, star, wave, mountain, hourglass, tree, compass, diamond, eye", "Sun is the setting symbol"],
-             ["Reading rule", "Sun at the arrow; read moon, star, hourglass, diamond", "Positions I, IV, VII, X. One click off reads 3952 or 8620; sun at III, VI or IX gives 1471, 4711, 7114, none a valid time"],
-             ["Aperture word", "RIFT", "Reads cleanly for placement errors up to 1.7 mm (geometric check)"],
-             ["UV disc text", "\"THE SUN IS FALSE. TRUST THE ARROW.\"", "Fits the writable circle as four lines of 4 mm capitals, by calculation. <b>Not yet tested with the real marker</b>; a practice disc is on the template sheet"],
-             ["Final instruction (given separately)", "\"Place the false hour beneath the arrow. Then read the records in the order they were witnessed: Moon, Star, Hourglass, Diamond.\"", "&mdash;"]],
-            [40, 62, 74]),
+s += [P("5. Game configuration (approved, unchanged)", H2),
+      P("Final answer 1147. Code ring clockwise from XII: 813619245072; fragments read 281 / 361 / 924 / 507. Dial "
+        "symbols clockwise from XII: sun, moon, key, flame, star, wave, mountain, hourglass, tree, compass, diamond, "
+        "eye. Set the sun to the arrow, then read moon, star, hourglass, diamond. Aperture word RIFT. UV disc: "
+        "\"THE SUN IS FALSE. TRUST THE ARROW.\" The UV text and the 6 / 9 decoys have not yet been checked on real parts.", B),
 
-      P("5. Printed dial-symbol experiment", H2),
-      Image(os.path.join(IMG, "symbol_test_labelled.png"), width=176 * mm, height=176 * mm * 350 / 1580),
-      P("CAD render of the two flush rows of the test plate: 6 mm symbols above, 7 mm below.", CAP)]
+      P("6. Print settings in use", H2),
+      table([["Setting", "Value"],
+             ["Preset", "0.20 mm Standard, 0.4 mm nozzle, saved as a project preset"],
+             ["Changes from default", "Order of walls outer/inner; wall loops 3; bottom shell layers 4; gyroid infill at 15 %; no brim"],
+             ["Unchanged", "Top shell layers 5, aligned seam, no ironing, classic wall generator, supports off, prime tower on"],
+             ["PETG springs and latch ring", "Same preset with wall loops 4"],
+             ["Rings", "Filament change at layer 29"],
+             ["Measured speed", "Full base slices at 1 h 27 min on the P1S, about a third of the designer's generic estimate"]],
+            [44, 132]),
+
+      P("7. Colours and hardware", H2),
+      table([["Filament", "Parts"],
+             ["Brass-coloured PLA (ERYONE, non-silk), on order", "Base, deck, index cap, centre cover, door"],
+             ["Matte black PLA, on hand", "Outer ring body, mask, centre knob, inner-ring symbols"],
+             ["SUNLU Matte Bone White PLA, on hand", "Inner ring body, fragments, outer-ring numerals"],
+             ["Dark PETG, on hand", "Four detent springs, latch ring"]],
+            [70, 106]),
+      P("Hardware per unit: three self-tapping screws of about 3 × 16 mm (or M3 × 16 socket-head), one M3 × 8 "
+        "socket-head screw, one plain M3 nut. The owner has enough of all three.", B),
+
+      P("8. What remains", H2),
+      table([["Step", "Owner", "State"],
+             ["Print base, deck and both lettered rings; assemble one complete instrument", "Owner", "Base printing now"],
+             ["Check rings, cover, door and rim alignment on the full assembly; read the aperture sheet through the well", "Owner", "Next"],
+             ["Decide fragment digit colouring: black-faced tiles with ivory digits from one filament change, or ivory tiles with paint-filled digits", "Owner", "Open"],
+             ["UV marker test on the practice disc; brightener-free paper", "Owner", "Open"],
+             ["When the brass filament arrives: reprint cover and one seat piece to confirm the twist-lock, then base, deck, index cap, cover, door", "Owner", "Waiting on delivery"],
+             ["Issue the master file set once the full instrument passes", "Designer", "After assembly test"],
+             ["Batch three more instruments plus spares (about 17 h of printing at measured speed)", "Owner", "After freeze"]],
+            [112, 26, 38]),
+
+      P("9. Questions for the reviewer", H2)]
 s += bullets([
-    "Stand-alone test plate, 136 × 53 × 2, SUNLU Matte Bone White body with matte black inlays. Rows: flush two-colour "
-    "at 6 mm, flush two-colour at 7 mm, recessed 0.4 mm and recessed 0.6 mm for paint-fill. Inlay depth 0.4 mm (two "
-    "layers), ironing off, Bambu Studio's calculated flushing volumes.",
-    "Every stroke is at least 0.6 mm and every gap at least 0.5 mm at the 6 mm size. Three symbols were corrected to "
-    "meet that rule (compass needle shortened, eye pupil reduced, hourglass waist widened).",
-    "<b>7 mm is the preferred size and fits the ring:</b> 1.0 mm radial margin inside the label area, 1.8 mm to the edge "
-    "of the ring face, 3.7 mm clearance to each finger rib.",
-    "Estimate for four rings on one plate: 2&ndash;4 filament changes in total, very roughly 1&ndash;4 g of purge plus a "
-    "small prime tower, about 4 h 40 of printing. Estimates until Bambu Studio reports the flushed weight.",
-    "If the 7 mm two-colour symbols are clean and legible, they become the production approach as a switchable option; "
-    "they occupy only the top 0.4 mm of the ring face, so no mating surface changes. The production model is unchanged "
-    "until then.",
+    "The fits were calibrated in black PLA. What is the most efficient way to re-check them in the brass filament, and which fit is most likely to shift?",
+    "The door now carries a 3 mm upright rim tab on a 2 mm plate. Is that tab likely to snap in handling, and would you reinforce it?",
+    "With raised lettering, the inner ring's finger ribs print in the lettering colour. Is that acceptable visually, or should the ribs be lowered to the ring face?",
+    "Fragment digits print face-down and cannot be raised. Which of the two colouring options is more robust?",
+    "Is there anything in the full-assembly test that should be checked and is missing from section 8?",
+    "Given measured print speed, is it worth printing a second complete instrument in final colours before batching the last two?",
 ])
 
-s += [P("6. Print queue", H2),
-      P("Any ordinary PLA for prints 1, 3, 4, 5 and 6; any PETG for print 2. Weights and times are from PrusaSlicer "
-        "with a generic profile, not Bambu Studio.", B),
-      table([["#", "Parts", "Filament", "Weight", "Time", "Tests"],
-             ["1", "Seat test piece, cover, mask", "PLA", "22 g", "~2 h 20", "Twist-lock through its full turn, latch grooves, mask retention"],
-             ["2", "Spring plate: pawls at 1.0 / 1.2 / 1.4 mm, 2 latch rings", "PETG", "3 g", "~25 min", "Detent stiffness, cover latch"],
-             ["3", "Deck, index cap, screw backing ring", "PLA", "60 g", "~6 h 30", "Ring journals, pawl pockets, cap"],
-             ["4", "Outer ring, inner ring", "PLA", "30 g", "~3 h 10", "Ring fit, detent scallops"],
-             ["5", "PLA spring set + keystone; four fragments (approved characters)", "PLA", "9 g", "~1 h 10", "PLA vs PETG springs, fragment keying and clamp, 6/9 readability"],
-             ["6", "Flashlight bay corner of the base, door", "PLA", "17 g", "~1 h 30", "Light fit, accidental switch-on, door slide and click, bridge sag"],
-             ["7", "Symbol test plate (two parts, two colours)", "Bone white + black PLA", "17 g", "~2 h 15 + changes", "Symbol legibility at 6 and 7 mm; flush vs paint-fill"]],
-            [8, 62, 26, 14, 22, 44]),
-      Spacer(1, 3),
-      P("Settings: 0.20 mm layers, 0.4 mm nozzle, 3 walls, 5 top / 4 bottom layers, 15 % gyroid, outer wall first on "
-        "the deck, rings, cover and seat piece, no supports, no brim, aligned seam, textured PEI. PETG spring plate: "
-        "4 walls so the springs are solid. Symbol plate: monotonic top surface, ironing off, prime tower on.", B),
-
-      P("7. Materials and hardware", H2),
-      table([["Filament", "Parts", "Four units", "To have (spares, 25 % failures, prototype)"],
-             ["Antique brass PLA, metallic-effect, not silk", "Base, deck, index cap, cover, door", "~410 g", "~700 g"],
-             ["Matte charcoal PLA", "Outer ring, keystone, mask", "89 g", "~150 g"],
-             ["Matte ivory / bone PLA (SUNLU Matte Bone White on hand)", "Inner ring, four fragments", "65 g", "~110 g"],
-             ["PETG, any dark colour", "Four detent springs, latch ring", "5 g", "~20 g"],
-             ["Matte black PLA (on hand)", "Dial symbols, if adopted", "under 0.5 g", "a few grams with purge"]],
-            [58, 46, 22, 50]),
-      P("Hardware per unit: 3 × M3 × 16 and 1 × M3 × 8 socket-head cap screws, 1 plain M3 hex nut. The owner is still "
-        "checking filament and hardware inventory; nothing has been purchased on the designer's advice.", B),
-
-      P("8. Open items", H2),
-      table([["Item", "Owner", "Blocks"],
-             ["Print and report on queue items 1&ndash;7", "Owner", "All tuning; instrument no. 1"],
-             ["UV marker legibility on the practice disc; brightener-free paper", "Owner", "Final UV discs"],
-             ["Whether a squeeze anywhere on the light's face switches it on; LED protrusion", "Owner", "Nothing unless the light switches on in test 6"],
-             ["Filament and hardware inventory; purchases", "Owner", "Final-material re-test; production"],
-             ["Parameter changes from test feedback; re-export", "Designer", "Next print round"],
-             ["Printed-symbol ring option in the production model", "Designer, after test 7 passes", "Inner rings for production"],
-             ["Decoy 6 / 9 decision; final symbol artwork", "Owner, after prints", "Final fragments and labels or symbols"],
-             ["Surface decoration", "Deferred", "Nothing"]],
-            [96, 40, 40]),
-
-      P("9. Production plan (unchanged; starts only after the tests pass)", H2)]
-s += bullets([
-    "Reprint deck, cover, both rings and springs once in the final filaments and repeat the checks; these become instrument no. 1.",
-    "Complete instrument no. 1, play-test it with the real symbols and a full-size clue sheet, then freeze.",
-    "Batch the other three plus spares on nine single-filament plates, mechanism parts first, bases and covers overnight: "
-    "about 52 h by the generic estimate, about 67 h if no. 1 must be reprinted.",
-    "Fallbacks already in the model: remove the flashlight bay and door (light issued as a prop); loose drop-in mask; "
-    "label pockets instead of printed symbols.",
-    "Schedule slack is about two days. The flashlight compartment is the piece to drop if a test round must be repeated.",
-])
-
-s += [P("10. Questions for the reviewer", H2)]
-s += bullets([
-    "With 1.5 mm total face clearance around an 8.7 mm squeeze light, is accidental switch-on still a realistic risk, and what would you check first?",
-    "Should the symbol plate (print 7) run earlier in the queue, given that it decides how the inner rings are made?",
-    "Is anything in the approved game configuration still ambiguous to a first-time player, for example which mark is \"the arrow\"?",
-    "Is four lines of 4 mm capitals a reasonable target for hand lettering with a UV marker on a 42 mm disc?",
-    "Which queued test do you expect to fail, and what should be prepared in advance?",
-    "Is about two days of slack enough, and at what point should the flashlight compartment or the printed symbols be dropped?",
-])
-
-s += [P("11. Files", H2),
-      P("Source: <font face='Courier'>cad/chronometer.scad</font>; symbol experiment: "
+s += [P("10. Files", H2),
+      P("Source: <font face='Courier'>cad/chronometer.scad</font> (single parametric file). Lettering test: "
         "<font face='Courier'>cad/symbol_test.scad</font>. Supporting documents: "
+        "<font face='Courier'>README.md</font> (results table, assembly, parameters), "
         "<font face='Courier'>docs/PRINT_PLAN.md</font>, <font face='Courier'>docs/MATERIALS.md</font>, "
-        "<font face='Courier'>docs/SYMBOL_TEST.md</font>, <font face='Courier'>docs/DESIGN_REVIEW.md</font>. Earlier "
-        "handoffs (design, puzzle review, symbol test) remain valid for detail but predate the caliper measurements; "
-        "where they differ, this document is current.", B)]
+        "<font face='Courier'>docs/SYMBOL_TEST.md</font>. Where earlier handoffs differ, this document is current.", B)]
 
 
 def footer(canvas, doc):
     canvas.setFont("Helvetica", 7.5)
     canvas.setFillGray(0.4)
-    canvas.drawString(18 * mm, 10 * mm, "The Chronometer - status handoff - CAD complete, nothing printed yet - supersedes the earlier status handoff")
+    canvas.drawString(18 * mm, 10 * mm, "The Chronometer - status handoff - mechanisms proven on test prints, full assembly pending")
     canvas.drawRightString(letter[0] - 18 * mm, 10 * mm, "page %d" % doc.page)
 
 

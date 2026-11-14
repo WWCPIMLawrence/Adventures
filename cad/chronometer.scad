@@ -275,11 +275,24 @@ module base(h = base_h, with_uv = uv_enabled) {
       rotate([0, 0, 45]) cube([1.8, 1.8, h + 2], center = false);
     if (with_uv) translate([bay_x, bay_y, 0]) {
       c = door_clear;
-      // flashlight bay (open to the deck above; 45 deg lead-out above the door)
+      zc = door_t + door_ceil;                       // top of the door channel
+      // flashlight bay (open to the deck above). Its 45 deg lead-out starts at the top of the
+      // door channel at full channel width, so there is no flat ledge to print in mid-air.
       rotate([90, 0, 90]) linear_extrude(bay_len, center = true)
-        polygon([[-door_wt/2 - c, door_t], [door_wt/2 + c, door_t],
-                 [bay_w/2, door_t + door_wt/2 + c - bay_w/2], [bay_w/2, h + 1],
-                 [-bay_w/2, h + 1], [-bay_w/2, door_t + door_wt/2 + c - bay_w/2]]);
+        polygon([[-door_wt/2 - c, zc - eps], [door_wt/2 + c, zc - eps],
+                 [bay_w/2, zc + door_wt/2 + c - bay_w/2], [bay_w/2, h + 1],
+                 [-bay_w/2, h + 1], [-bay_w/2, zc + door_wt/2 + c - bay_w/2]]);
+      // roof over the rest of the door channel: 45 deg walls rising to the base top (the deck
+      // closes it), instead of a wide flat bridge. A rim wall is kept above the door, sloping
+      // back at 45 deg, so only the wall itself bridges the door opening.
+      intersection() {
+        translate([door_x0 - bay_x, 0, 0]) rotate([90, 0, 90]) linear_extrude(2*body_r)
+          polygon([[-door_wt/2 - c, zc - eps], [door_wt/2 + c, zc - eps],
+                   [door_wt/2 + c - (h + 1 - zc), h + 1], [-door_wt/2 - c + (h + 1 - zc), h + 1]]);
+        translate([-bay_x, -bay_y, 0])
+          rev([[0, zc - 1], [body_r - door_rim_wall, zc - 1], [body_r - door_rim_wall, zc],
+               [body_r - door_rim_wall - (h + 1 - zc), h + 1], [0, h + 1]]);
+      }
       // dovetail slot for the door, exits through the rim on +X
       translate([door_x0 - bay_x, 0, 0]) rotate([90, 0, 90]) linear_extrude(2*body_r)
         polygon([[-door_wb/2 - c, -eps], [door_wb/2 + c, -eps], [door_wt/2 + c, door_t],
@@ -293,6 +306,7 @@ module base(h = base_h, with_uv = uv_enabled) {
 
 // bump / notch that follows the 45 deg dovetail flank on the -Y side of the door
 door_nub_x = 45.5;
+door_rim_wall = 3.0; // thickness of the rim wall kept above the door opening
 door_nub_h = 1.1;   // latch nub height on the door's side spring (0.7 barely caught: the door's
                     // 0.4 mm of side play ate most of it)
 module flank_bump(xc, len, d)

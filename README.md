@@ -50,8 +50,8 @@ PLA. STLs are already oriented; do not rotate them. Suggested colours are only t
 |---|---|---|---|
 | `base` | 1 | back face down | Longest print (several hours, not yet sliced). One short 29 mm bridge (door-slot ceiling). Bay sized for the purple squeeze light. |
 | `deck` | 1 | underside down | Order of walls **outer/inner**, the setting every passing fit test was printed with. Keep it the same for production. |
-| `outer_ring` | 1 | face up | Numerals are 0.5 mm deep; paint-fill or colour-swap at the last 3 layers. Seam: aligned. |
-| `inner_ring` | 1 | face up | 12 label pockets, 0.4 mm deep. |
+| `outer_ring` | 1 | face up | Matte black. Raised numerals: change to bone white at layer 29. |
+| `inner_ring` | 1 | face up | Bone white. Raised symbols and finger ribs: change to black at layer 29. |
 | `index_cap` | 1 | face up | |
 | `pawl_outer`, `pawl_inner` | 2 + 2 | flat | Start with the medium (1.2 mm) ones. PETG recommended for the final sets. |
 | `cover` | 1 | face down | Smooth plate gives the best face. |
@@ -129,13 +129,13 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
 | Cover latch | Pass with the 2.1 mm PETG ring and 1.1 mm groove: clear click at both ends. Thinner rings were too faint |
 | Flashlight bay | Pass: light fits with room to spare (line the side walls with felt); bridged ceiling does not rub |
 | Door slide | Pass |
-| Door latch | Three versions held the door but gave almost no resistance. Cause found: on plain dovetail rails the door could lift into the body, freeing the catch. Door now runs on V-shaped rails that stop it lifting. Awaiting a print |
-| Rim above the door | The upright door tab printed cleanly. A thin pointed end on the tab broke off; that end is now square. Awaiting a print |
+| Door latch | Pass on V-shaped rails: secure, with a click |
+| Rim above the door | Pass: upright tab on the door, square-ended; no sagging |
 | Rings on the deck | Pass: both fit, spin and sit flat under the index cap with the screws tight |
 | Detents | Pass with the 1.4 mm PETG springs: outer ring clicks at every numeral, inner ring at every symbol panel |
 | Index-cap screws | Pass: pan-head self-tapping screws, about 3 × 16 mm, driven into the printed pilots without cracking |
-| Fragments and centre knob | Pass: each fragment fits one position only and all four are locked with the knob tight. The M3×8 screw was hard to start, so the knob's screw bore is now 0.8 mm deeper |
-| Printed symbols | First plate was printed in one colour without its inlay part, so it tested recesses only. A single-file raised version (`stl/symbol_test_raised.stl`) replaces it |
+| Fragments and centre knob | Pass: each fragment fits one position only and all four lock under the knob. Deeper screw bore lets the M3×8 start easily |
+| Printed symbols and numerals | Pass on a test plate: raised 0.4 mm with one filament change, clear at arm's length. Now built into both rings (`numeral_style`, `dial_symbols`); not yet printed on a ring |
 | Full assembly | Not yet tested |
 
 ## Prototype build order
@@ -227,6 +227,7 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 | `cap_screw_style` | `"cap"` | `"csk"` for flush countersunk screws. |
 | `cover_proud` | 3 | Grip height of the cover above the dials. |
 | `show_numerals` | true | Roman numerals on the outer ring. |
+| `numeral_style`, `dial_symbols` | `"raised"`, `"raised"` | Lettering stands 0.4 mm proud and prints in a second colour with one filament change at layer 29. Fallbacks: `"recessed"` numerals, `"labels"` sticker pockets. |
 
 Override from the command line without editing the file:
 

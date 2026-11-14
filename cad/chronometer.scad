@@ -146,7 +146,15 @@ base_plain_h = 11;    // base height when uv_enabled is false
 
 /* [Decoration] */
 show_numerals = true;
-numeral_h     = 6.0;
+// Lettering style. "raised" stands 0.4 mm proud of the ring face and is printed in a second
+// colour with ONE filament change, at the first layer above the ring face (layer 29 at
+// 0.2 mm layers). Tested on a plate: clear at arm's length. The other values are fallbacks.
+numeral_style = "raised";   // [raised, recessed]
+dial_symbols  = "raised";   // [raised: printed symbols, labels: 0.4 mm pockets for stickers]
+raised_h      = 0.4;        // height of raised lettering (two layers)
+numeral_h     = 7.0;        // numeral height
+numeral_sw    = 1.2;        // numeral stroke width (raised style)
+symbol_size   = 7.0;        // dial symbol size
 knurl_n       = 60;
 
 /* [Hidden] */
@@ -234,7 +242,7 @@ module seg(p, q, w) hull() { translate(p) circle(d = w, $fn = 8); translate(q) c
 ROMAN = ["XII", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"];
 function _gw(c, H, sw) = c == "I" ? sw : 0.5*H;
 function _gx(s, i, H, sw) = i <= 0 ? 0 : _gx(s, i - 1, H, sw) + _gw(s[i - 1], H, sw) + 0.16*H;
-module roman2d(s, H = 6, sw = 0.9) {
+module roman2d(s, H = 6, sw = 0.9, rw = 0.7) {
   n = len(s);
   W = _gx(s, n - 1, H, sw) + _gw(s[n - 1], H, sw);
   translate([-W/2, -H/2]) {
@@ -244,9 +252,59 @@ module roman2d(s, H = 6, sw = 0.9) {
       if (s[i] == "V") { seg([0, H], [w/2, 0], sw); seg([w, H], [w/2, 0], sw); }
       if (s[i] == "X") { seg([0, H], [w, 0], sw); seg([0, 0], [w, H], sw); }
     }
-    seg([-0.6, 0], [W + 0.6, 0], 0.7);   // foot rail
-    seg([-0.6, H], [W + 0.6, H], 0.7);   // head rail
+    seg([-0.6, 0], [W + 0.6, 0], rw);   // foot rail
+    seg([-0.6, H], [W + 0.6, H], rw);   // head rail
   }
+}
+
+// ----------------------------------------------------------- dial symbols ---
+// Twelve symbols, each drawn upright in a box of +/-1 unit and scaled to size/2. At 6 mm no
+// solid stroke is under 0.6 mm and no gap under 0.5 mm. Order = clock position from XII:
+// sun moon key flame star wave mountain hourglass tree compass diamond eye
+module sym_sun() { circle(r = 0.44); for (k = [0:7]) rotate(45*k) translate([0.66, -0.11]) square([0.34, 0.22]); }
+module sym_moon() difference() { circle(r = 0.92); translate([0.46, 0.14]) circle(r = 0.78); }
+module sym_key() {
+  difference() { translate([0, 0.55]) circle(r = 0.45); translate([0, 0.55]) circle(r = 0.2); }
+  translate([-0.13, -1]) square([0.26, 1.15]);
+  translate([0, -1]) square([0.5, 0.24]);
+  translate([0, -0.56]) square([0.38, 0.22]);
+}
+module sym_flame() difference() {
+  union() {
+    hull() { translate([0.05, -0.38]) circle(r = 0.62); translate([0.22, 0.95]) circle(r = 0.05); }
+    hull() { translate([-0.3, -0.3]) circle(r = 0.42); translate([-0.62, 0.5]) circle(r = 0.05); }
+  }
+  hull() { translate([0.05, -0.5]) circle(r = 0.25); translate([0.1, 0.1]) circle(r = 0.04); }
+}
+module sym_star() polygon([for (k = [0:9]) let (r = k % 2 == 0 ? 1 : 0.42, a = 90 + 36*k) [r*cos(a), r*sin(a)]]);
+module sym_wave() for (y0 = [-0.4, 0.4]) for (i = [0:15])
+  hull() { translate([-0.88 + i*0.11, y0 + 0.22*sin(360*(i*0.11)/0.88)]) circle(d = 0.26, $fn = 12);
+           translate([-0.88 + (i + 1)*0.11, y0 + 0.22*sin(360*((i + 1)*0.11)/0.88)]) circle(d = 0.26, $fn = 12); }
+module sym_mountain() polygon([[-1, -0.75], [-0.32, 0.85], [0.14, -0.02], [0.46, 0.38], [1, -0.75]]);
+module sym_hourglass() {
+  polygon([[-0.6, 0.8], [0.6, 0.8], [0.1, 0], [0.6, -0.8], [-0.6, -0.8], [-0.1, 0]]);
+  for (y = [-1, 0.78]) translate([-0.8, y]) square([1.6, 0.22]);
+}
+module sym_tree() {
+  for (c = [[-0.4, 0.18, 0.42], [0.4, 0.18, 0.42], [0, 0.55, 0.45], [0, 0.15, 0.4]]) translate([c[0], c[1]]) circle(r = c[2]);
+  translate([-0.14, -0.8]) square([0.28, 0.8]);
+  translate([-0.6, -1]) square([1.2, 0.22]);
+}
+module sym_compass() {
+  difference() { circle(r = 0.95); circle(r = 0.72); }
+  polygon([[0, 0.52], [0.24, 0], [0, -0.52], [-0.24, 0]]);
+}
+module sym_diamond() polygon([[0, 1], [0.66, 0], [0, -1], [-0.66, 0]]);
+module sym_eye() {
+  module lens(r) intersection() { translate([0, -r + 0.62]) circle(r = r, $fn = 80); translate([0, r - 0.62]) circle(r = r, $fn = 80); }
+  difference() { lens(1.1); offset(delta = -0.2) lens(1.1); }
+  circle(r = 0.26);
+}
+module dial_symbol(i, size) scale(size/2) {
+  if (i == 0) sym_sun();       if (i == 1) sym_moon();      if (i == 2) sym_key();
+  if (i == 3) sym_flame();     if (i == 4) sym_star();      if (i == 5) sym_wave();
+  if (i == 6) sym_mountain();  if (i == 7) sym_hourglass(); if (i == 8) sym_tree();
+  if (i == 9) sym_compass();   if (i == 10) sym_diamond();  if (i == 11) sym_eye();
 }
 
 // =================================================================== BASE ===
@@ -411,7 +469,8 @@ module bay_recess(a0, da, play)
                       [well_r - 0.5, bay_line + play - well_r + 0.5]]);
 
 // ================================================================= RINGS ====
-module outer_ring() {
+module outer_ring() { outer_ring_body(); outer_ring_lettering(); }
+module outer_ring_body() {
   difference() {
     rev([[outer_ring_ri_low + 0.4, 0], [body_r - 0.4, 0], [body_r, 0.4], [body_r, ring_h - 1.0],
          [body_r - 1.0, ring_h], [outer_ring_ri_top, ring_h], [outer_ring_ri_top, flange_h],
@@ -422,14 +481,21 @@ module outer_ring() {
     // rim knurl
     for (k = [0:knurl_n - 1]) rotate([0, 0, (k + 0.5)*360/knurl_n])
       translate([body_r + 0.9, 0, -1]) cylinder(r = 1.5, h = ring_h + 2, $fn = 16);
-    // hour numerals
-    if (show_numerals) for (k = [0:11]) rotate([0, 0, clock_angle(k)])
+    // hour numerals, engraved (fallback style)
+    if (show_numerals && numeral_style == "recessed") for (k = [0:11]) rotate([0, 0, clock_angle(k)])
       translate([(outer_ring_ri_top + body_r - 1.6)/2, 0, ring_h - 0.5]) rotate([0, 0, -90])
-        linear_extrude(1) roman2d(ROMAN[k], numeral_h);
+        linear_extrude(1) roman2d(ROMAN[k], 6.0);
   }
 }
+// hour numerals, raised: everything above the ring face prints in the second colour
+module outer_ring_lettering() {
+  if (show_numerals && numeral_style == "raised") for (k = [0:11]) rotate([0, 0, clock_angle(k)])
+    translate([(outer_ring_ri_top + body_r - 1.6)/2, 0, ring_h - eps]) rotate([0, 0, -90])
+      linear_extrude(raised_h + eps) roman2d(ROMAN[k], numeral_h, numeral_sw, 0.9);
+}
 
-module inner_ring() {
+module inner_ring() { inner_ring_body(); inner_ring_lettering(); }
+module inner_ring_body() {
   lab_ri = inner_ring_ri + 1.2; lab_ro = inner_ring_ro_top - 1.2;
   difference() {
     rev([[inner_ring_ri, 0], [inner_ring_ro_low - 0.4, 0], [inner_ring_ro_low, 0.4],
@@ -437,10 +503,18 @@ module inner_ring() {
          [inner_ring_ro_top - 0.4, ring_h], [inner_ring_ri + 0.4, ring_h], [inner_ring_ri, ring_h - 0.4]]);
     for (k = [0:positions - 1]) rotate([0, 0, k*360/positions])
       translate([inner_ring_ro_low - notch_depth + notch_r, 0, -1]) cylinder(r = notch_r, h = flange_h + 1);
-    // 0.4 mm label pockets for replaceable symbol stickers
-    for (k = [0:11]) rotate([0, 0, clock_angle(k)]) translate([0, 0, ring_h - 0.4])
+    // 0.4 mm label pockets for replaceable symbol stickers (fallback style)
+    if (dial_symbols == "labels") for (k = [0:11]) rotate([0, 0, clock_angle(k)]) translate([0, 0, ring_h - 0.4])
       linear_extrude(1) arc2d(lab_ri, lab_ro, -12.5, 12.5, 12);
   }
+}
+// everything above the inner ring's face: symbols and finger ribs (second colour)
+module inner_ring_lettering() {
+  lab_ri = inner_ring_ri + 1.2; lab_ro = inner_ring_ro_top - 1.2;
+  // printed dial symbols, raised, tops outward. Position 0 (XII) is the sun.
+  if (dial_symbols == "raised") for (k = [0:11]) rotate([0, 0, clock_angle(k)])
+    translate([(lab_ri + lab_ro)/2, 0, ring_h - eps]) rotate([0, 0, -90])
+      linear_extrude(raised_h + eps) dial_symbol(k, symbol_size);
   // raised finger ribs between positions
   for (k = [0:11]) rotate([0, 0, clock_angle(k) + 15]) translate([lab_ri, -0.8, ring_h - 0.2])
     cube([lab_ro - lab_ri, 1.6, 1.0]);
@@ -622,8 +696,8 @@ module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = 
     color(C_RED) for (a = outer_pawl_angles) rotate([0, 0, a]) pawl(true);
     color(C_RED) for (a = inner_pawl_angles) rotate([0, 0, a]) pawl(false);
   }
-  translate([0, 0, z_floor + 2*e]) color(C_DARK) outer_ring();
-  translate([0, 0, z_floor + 2*e]) color(C_IVORY) inner_ring();
+  translate([0, 0, z_floor + 2*e]) { color(C_DARK) outer_ring_body(); color(C_IVORY) outer_ring_lettering(); }
+  translate([0, 0, z_floor + 2*e]) { color(C_IVORY) inner_ring_body(); color(C_DARK) inner_ring_lettering(); }
   translate([0, 0, z_cap + 2.6*e]) {
     color(C_BRASS) index_cap();
     for (a = screw_angles) rotate([0, 0, a]) translate([screw_r, 0, cap_t + 0.6*e]) screw(cap_screw_len);

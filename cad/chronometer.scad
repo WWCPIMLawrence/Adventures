@@ -38,7 +38,8 @@ flange_h   = rib_h - ring_axial; // ring flange height (part trapped under cap)
 /* [Detents] */
 positions     = 12;
 pawl_span     = 36;    // angular length of a pawl spring, deg
-pawl_t        = 1.2;   // spring beam thickness: 1.0 soft, 1.2 medium, 1.4 firm
+pawl_t        = 1.4;   // spring beam thickness. 1.4 mm in PETG is the tested setting: both rings
+                       // click at all 12 positions (1.0 soft, 1.2 medium, 1.4 firm)
 pawl_h        = 2.7;   // pawl height
 pawl_wall     = 1.2;   // rib wall left between pawl pocket and ring
 pawl_foot     = 1.0;   // spring travel available behind the beam (at pawl_t = 1.2)

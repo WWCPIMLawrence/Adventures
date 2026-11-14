@@ -130,7 +130,10 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
 | Flashlight bay | Pass: light fits with room to spare (line the side walls with felt); bridged ceiling does not rub |
 | Door slide | Pass |
 | Door latch | First version barely caught; taller catch and longer spring issued, awaiting reprint |
-| Rings, detents, fragments, symbols | Not yet tested |
+| Rings on the deck | Pass: both fit, spin and sit flat under the index cap with the screws tight |
+| Detents | Pass with the 1.4 mm PETG springs: outer ring clicks at every numeral, inner ring at every symbol panel |
+| Index-cap screws | Pass: pan-head self-tapping screws, about 3 × 16 mm, driven into the printed pilots without cracking |
+| Fragments and keystone, printed symbols, full assembly | Not yet tested |
 
 ## Prototype build order
 
@@ -211,7 +214,7 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 | `apertures`, `aperture_d` | 4 × R15, 10.5 | Stencil holes `[x, y]`. Re-run `make_sheets.py` after changing. |
 | `code_ring` | `813619245072` | The 12 fragment characters, clockwise from XII (approved game configuration). |
 | `peg_radii_a/b` | — | Fragment keying. |
-| `pawl_t`, `notch_depth`, `pawl_preload` | 1.2, 0.6, 0.15 | Detent strength. |
+| `pawl_t`, `notch_depth`, `pawl_preload` | 1.4, 0.6, 0.15 | Detent strength. Confirmed on printed rings with PETG springs. |
 | `ring_clear`, `ring_axial`, `cover_clear`, `mask_clear`, `door_clear`, `frag_clear` | — | Fits. |
 | `bay_play_free`, `bay_play_end` | 0.75, 0.50 | Cover bayonet axial play at entry / when locked. Confirmed on a printed seat piece. |
 | `latch_depth`, `uv_ring_w` | 1.1, 2.1 | Cover latch travel and spring stiffness (PETG ring). Confirmed on a printed seat piece. |

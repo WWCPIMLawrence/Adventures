@@ -4,6 +4,10 @@ All times and weights below are from PrusaSlicer with a generic machine profile 
 3 walls, 15 % gyroid). They are **not** Bambu Studio estimates: a P1S normally finishes
 sooner, and Bambu Studio's own figure for each plate is the one to plan around.
 
+> **Measured on the P1S:** Bambu Studio slices the full base at **1 h 27 min** in SUNLU PLA+ 2.0,
+> against 4 h 34 min from the generic profile used for the estimates in this document. Treat
+> every time below as roughly three times too long.
+
 ## 1. First test prints
 
 Nothing here needs the final filament colours. Use any ordinary PLA you already own —

@@ -84,6 +84,10 @@ bay_floor_relief = 0.3; // relief cut in the base top under the lugs' path (adds
 latch_angle   = 60;     // where the latch sits when the cover is locked
 latch_depth   = 1.1;    // groove depth in the well wall = spring travel (0.7: no click; 0.9: very faint)
 latch_groove_r = 1.6;   // groove radius: smaller = steeper flanks = sharper click (nub tip is r 1.2)
+latch_stub    = 35;     // how far the ring continues past the latch nub, deg. The first rings ended at
+                        // the nub, so the nub sat on a long floppy free end and the click was faint.
+                        // With ring on both sides the nub is properly sprung. Longer stub = softer.
+latch_mark    = 0;      // small notches on the ring's inner edge, to tell test variants apart
 uv_ring_h     = 2.4;    // height of the retaining ring / latch spring
 uv_ring_w     = 2.1;    // radial thickness of the ring (latch stiffness); PETG only
 
@@ -125,6 +129,8 @@ apertures     = [[0, 15], [15, 0], [0, -15], [-15, 0]];
 sight_d       = 2.5;    // centre sighting hole (0 = none)
 mask_style    = "spring"; // [spring: three spring arms grip the well, dropin: loose keyed disc with a finger notch]
 mask_key_angle = 270;   // must equal one of bay_entry_angles
+mask_nub      = 0.65;   // spring-nub interference with the well wall. At 0.35 the nubs sat in the click
+                        // groove (0.25 deep) with almost no preload left, and the mask rattled.
 mask_key_w    = 3.0;
 mask_key_r    = 26.2;
 
@@ -673,7 +679,10 @@ module cover() {
 module uv_ring() {
   ro = skirt_ri + 0.1; tip = well_r + latch_depth - 0.05;
   linear_extrude(uv_ring_h) {
-    arc2d(ro - uv_ring_w, ro, latch_angle - 5, latch_angle + 325, 96);
+    difference() {
+      arc2d(ro - uv_ring_w, ro, latch_angle - latch_stub, latch_angle - latch_stub + 330, 96);
+      for (k = [0:1:latch_mark - 1]) rotate([0, 0, latch_angle + 150 + 6*k]) translate([ro - uv_ring_w, 0]) circle(r = 0.7, $fn = 16);
+    }
     // latch nub on the free end: the last ~13 mm of the ring is the spring
     rotate([0, 0, latch_angle]) hull() {
       translate([ro - 0.4, -1.6]) square([0.4, 3.2]);
@@ -727,7 +736,7 @@ module fragment(i) {
 // Opaque stencil. Three in-plane spring arms grip the well wall; one key tab
 // fixes rotation. Push it out from the back with a finger to swap it.
 module mask() {
-  r = well_r - mask_clear; arm_w = 1.6; slot = 0.8; arm_deg = 30;
+  r = well_r - mask_clear; arm_w = 1.6; slot = 0.8; arm_deg = 38;
   spring = mask_style == "spring";
   spring_angles = [mask_key_angle + 60, mask_key_angle + 180, mask_key_angle + 300];
   difference() {
@@ -735,7 +744,7 @@ module mask() {
       union() {
         circle(r = r, $fn = fn_big);
         rotate([0, 0, mask_key_angle]) translate([r - 2, -mask_key_w/2]) square([mask_key_r - r + 2, mask_key_w]);
-        if (spring) for (a = spring_angles) rotate([0, 0, a + arm_deg/2 - 3]) translate([r - 0.75, 0]) circle(r = 1.4, $fn = 24);
+        if (spring) for (a = spring_angles) rotate([0, 0, a + arm_deg/2 - 3]) translate([well_r + mask_nub - 1.4, 0]) circle(r = 1.4, $fn = 24);
       }
       if (spring) for (a = spring_angles) rotate([0, 0, a]) {
         arc2d(r - arm_w - slot, r - arm_w, -arm_deg/2, arm_deg/2 + 2);

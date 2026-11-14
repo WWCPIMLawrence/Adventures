@@ -59,12 +59,13 @@ s = [P("The Chronometer &mdash; project status handoff", H1),
        "rings and their detents, the index-cap screws, the flashlight compartment and its door, and the fragments "
        "with their centre knob. Several needed one to four design revisions to get there; those are listed in "
        "section 3. Raised two-colour lettering passed on a test plate and is now built into both rings. "
-       "<b>No complete instrument has been assembled yet.</b> The full base is printing now; the deck and the two "
-       "lettered rings follow. Test parts so far are in black PLA; the brass-coloured filament has not arrived. "
-       "No production batch has been started.", B),
+       "<b>The newest change is to the flashlight compartment:</b> the owner needs it to be a genuine surprise, so "
+       "the sliding door has been replaced by a plain back plate held by four sunk hex-socket screws. That plate "
+       "has not been printed yet. <b>No complete instrument has been assembled yet.</b> Test parts so far are in "
+       "black PLA; the brass-coloured filament has not arrived. No production batch has been started.", B),
      Spacer(1, 4),
      pair("fn1_top.png", "Current CAD, top view: raised bone-white numerals on the black ring, raised black symbols and ribs on the bone-white ring.",
-          "fn0_as_issued.png", "Current CAD, as issued to players. Flat-colour preview, not a photograph."),
+          "back_plate.png", "Current CAD, back view: one plain plate, four sunk screws, no door. Single-colour render."),
 
      P("2. Test results on printed parts", H2),
      table([["Feature", "Result", "Setting that passed"],
@@ -76,7 +77,8 @@ s = [P("The Chronometer &mdash; project status handoff", H1),
             ["Detents", "Pass", "1.4 mm PETG leaf springs: both rings click at all 12 positions"],
             ["Index-cap screws", "Pass", "Pan-head self-tapping screws, about 3 × 16 mm, into printed 2.8 mm pilots"],
             ["Flashlight fit", "Pass", "Bay 42.3 × 24.1 × 10.2 for a 40.3 × 22.6 × 8.7 light; loose in plan, to be lined with felt"],
-            ["Door slide, latch and rim", "Pass", "V-shaped rails, catch on an in-plane spring, upright rim tab on the door"],
+            ["Sliding door: slide, latch and rim", "Pass, now retired", "V-shaped rails, catch on an in-plane spring, upright rim tab. Worked, but replaced for concealment (section 3a)"],
+            ["Back plate and its four screws", "Not yet printed", "&mdash;"],
             ["Fragments and centre knob", "Pass", "Each fragment fits one socket only; all four lock under the knob"],
             ["Raised lettering", "Pass on a plate", "0.4 mm high, 7 mm symbols and numerals, one filament change; clear at arm's length"],
             ["Lettering on the actual rings", "Not yet printed", "&mdash;"],
@@ -97,15 +99,36 @@ s = [P("The Chronometer &mdash; project status handoff", H1),
             ["Order of walls", "The designer asked for inner-first; all passing parts were in fact printed outer/inner", "Outer/inner is now the documented setting, since the fits are calibrated to it"]],
            [34, 70, 72]),
 
-     P("4. Design as it now stands", H2)]
+     P("3a. Concealing the flashlight: door replaced by a back plate", H2),
+     P("<b>Requirement from the owner:</b> players must not be aware of the hidden light until the game reveals it, "
+       "and the fix must not spoil the finished look. The sliding door failed that on two counts: its outline, "
+       "spring slit, thumb grooves and rim tab read as a hatch, and it was not locked, so a push opened it.", B),
+     table([["Option considered", "Assessment"],
+            ["Engrave three decoy copies of the door (four identical panels, one real)", "Built and still in the model. Disguises the door but does not lock it, and the back becomes busy"],
+            ["Lock the door with one sunk hex screw, plus shorter decoy screws (owner's suggestion)", "Would lock it, but the door outline remains, and one working screw among decoys invites the question of what it holds"],
+            ["Thin false back that twists off over the door", "Hides the seams but adds a part, thickness and a new twist mechanism to tune"],
+            ["<b>Chosen: no door. The whole back is a plate on four sunk screws</b>", "Looks like the screwed back of any instrument, so there is nothing to notice. Cannot be opened by hand. Simpler than the door: no moving fits"]],
+           [70, 106]),
+     Spacer(1, 3)]
+s += bullets([
+    "The bottom 2 mm of the base is now a separate plate, so overall thickness is unchanged (19.8 at the rim).",
+    "Four M3 × 8 socket-head screws at R54, 45&deg; off the axes, pass through sunk counterbores (3.2 deep, so heads sit "
+    "0.2 below the surface and the instrument still lies flat on the clue sheet) into self-tapped pilots in the base. "
+    "Each hole has a boss on the plate's inner face that sits in a pocket in the base.",
+    "A hidden pin lets the plate go on one way only, which keeps the sheet-registration notches and the mask keyway aligned.",
+    "The plate carries the mask's ledge and click groove; the mask still pushes in from above.",
+    "The flashlight bay is a plain rectangular pocket, open to the plate below and the deck above.",
+    "Players are given a 2.5 mm hex key at the chosen moment, remove four screws and lift the plate.",
+    "The door version remains selectable in the model with one setting.",
+    "<b>Known trade-off:</b> with the plate off, the mask has no ledge under it and could be pushed out through the back.",
+])
+s += [P("4. Design as it now stands", H2)]
 s += bullets([
     "<b>Size:</b> Ø125, 19.8 thick at the rim, about 30 over the centre knob. Base 12.2, deck 5.0.",
     "<b>Two dials</b> with 12 detented positions each, read against a fixed arrow at XII; trapped by one index cap on three screws.",
     "<b>Centre cover:</b> three-lug twist-lock, 28&deg; turn, held shut by a sprung nub on the PETG retaining ring inside the cover.",
     "<b>Aperture:</b> interchangeable stencil at the bottom of a 50 mm well, four Ø10.5 apertures.",
-    "<b>UV light:</b> lies flat in a bay in the base behind a sliding door in the back face. The door runs on V-shaped "
-    "rails, carries the strip of rim above its opening as an upright tab, and has a side-spring catch. The light goes "
-    "in with its slide-lock tab away from the door and its LED toward the closed end.",
+    "<b>UV light:</b> lies flat in a pocket in the base, closed underneath by the screwed back plate (section 3a).",
     "<b>Fragments:</b> four keyed tiles dock on the cover face and are clamped by a centre thumb-knob.",
     "<b>Lettering:</b> raised 0.4 mm. Outer ring black with bone-white numerals; inner ring bone white with black symbols "
     "and finger ribs. One filament change per ring, at layer 29. Sticker pockets and engraved numerals remain as fallbacks.",
@@ -129,21 +152,23 @@ s += [P("5. Game configuration (approved, unchanged)", H2),
 
       P("7. Colours and hardware", H2),
       table([["Filament", "Parts"],
-             ["Brass-coloured PLA (ERYONE, non-silk), on order", "Base, deck, index cap, centre cover, door"],
+             ["Brass-coloured PLA (ERYONE, non-silk), on order", "Base, back plate, deck, index cap, centre cover"],
              ["Matte black PLA, on hand", "Outer ring body, mask, centre knob, inner-ring symbols"],
              ["SUNLU Matte Bone White PLA, on hand", "Inner ring body, fragments, outer-ring numerals"],
              ["Dark PETG, on hand", "Four detent springs, latch ring"]],
             [70, 106]),
-      P("Hardware per unit: three self-tapping screws of about 3 × 16 mm (or M3 × 16 socket-head), one M3 × 8 "
-        "socket-head screw, one plain M3 nut. The owner has enough of all three.", B),
+      P("Hardware per unit: three self-tapping screws of about 3 × 16 mm (or M3 × 16 socket-head) for the index cap; "
+        "five M3 × 8 socket-head screws (one for the centre knob, four for the back plate); one plain M3 nut. "
+        "Twenty M3 × 8 are needed in total; whether the owner has that many is not yet confirmed.", B),
 
       P("8. What remains", H2),
       table([["Step", "Owner", "State"],
-             ["Print base, deck and both lettered rings; assemble one complete instrument", "Owner", "Base printing now"],
+             ["Print the new base and back plate, the deck and both lettered rings; assemble one complete instrument", "Owner", "Next"],
+             ["Check the back plate: sits flat and flush, light stays off, instrument lies flat, screws hold after several removals", "Owner", "Next"],
              ["Check rings, cover, door and rim alignment on the full assembly; read the aperture sheet through the well", "Owner", "Next"],
              ["Decide fragment digit colouring: black-faced tiles with ivory digits from one filament change, or ivory tiles with paint-filled digits", "Owner", "Open"],
              ["UV marker test on the practice disc; brightener-free paper", "Owner", "Open"],
-             ["When the brass filament arrives: reprint cover and one seat piece to confirm the twist-lock, then base, deck, index cap, cover, door", "Owner", "Waiting on delivery"],
+             ["When the brass filament arrives: reprint cover and one seat piece to confirm the twist-lock, then base, back plate, deck, index cap, cover", "Owner", "Waiting on delivery"],
              ["Issue the master file set once the full instrument passes", "Designer", "After assembly test"],
              ["Batch three more instruments plus spares (about 17 h of printing at measured speed)", "Owner", "After freeze"]],
             [112, 26, 38]),
@@ -151,7 +176,10 @@ s += [P("5. Game configuration (approved, unchanged)", H2),
       P("9. Questions for the reviewer", H2)]
 s += bullets([
     "The fits were calibrated in black PLA. What is the most efficient way to re-check them in the brass filament, and which fit is most likely to shift?",
-    "The door now carries a 3 mm upright rim tab on a 2 mm plate. Is that tab likely to snap in handling, and would you reinforce it?",
+    "Is a plain screwed back the best concealment available, or is there an option that hides the compartment better without spoiling the look?",
+    "Four screws self-tapped into printed PLA will be removed and refitted during play and testing. Is that durable enough, or should those four holes get threaded inserts?",
+    "Should the mask be made independent of the back plate, so that it cannot be pushed out while the plate is off?",
+    "Would fewer screws (two or three) make the reveal quicker without weakening the disguise?",
     "With raised lettering, the inner ring's finger ribs print in the lettering colour. Is that acceptable visually, or should the ribs be lowered to the ring face?",
     "Fragment digits print face-down and cannot be raised. Which of the two colouring options is more robust?",
     "Is there anything in the full-assembly test that should be checked and is missing from section 8?",
@@ -169,7 +197,7 @@ s += [P("10. Files", H2),
 def footer(canvas, doc):
     canvas.setFont("Helvetica", 7.5)
     canvas.setFillGray(0.4)
-    canvas.drawString(18 * mm, 10 * mm, "The Chronometer - status handoff - mechanisms proven on test prints, full assembly pending")
+    canvas.drawString(18 * mm, 10 * mm, "The Chronometer - status handoff - mechanisms proven on test prints; back plate and full assembly pending")
     canvas.drawRightString(letter[0] - 18 * mm, 10 * mm, "page %d" % doc.page)
 
 

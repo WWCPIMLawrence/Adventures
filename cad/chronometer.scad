@@ -302,7 +302,7 @@ module base(h = base_h, with_uv = uv_enabled) {
                  [door_wt/2 + c, door_t + door_ceil], [-door_wt/2 - c, door_t + door_ceil],
                  [-door_wt/2 - c, door_t]]);
       // detent notch for the door's side spring
-      translate([-bay_x, -c, 0]) flank_bump(door_nub_x, 4.0, door_nub_h + 0.05);
+      translate([-bay_x, -c, 0]) flank_bump(door_nub_x, 3.4, door_nub_h + 0.05);   // close fit: little free travel
     }
   }
 }
@@ -312,14 +312,16 @@ door_nub_x = 45.5;
 door_rim_wall = 3.0; // thickness of the upright rim tab on the end of the door
 door_nub_h = 1.1;   // latch nub height on the door's side spring (0.7 barely caught: the door's
                     // 0.4 mm of side play ate most of it)
+door_nub_k = 0.5;   // ramp length as a fraction of nub height: 1 = 45 deg faces, 0.5 = about 63 deg
+                    // (steeper = a more definite catch that takes more push to open)
 module flank_bump(xc, len, d)
   multmatrix([[1, 0, 0, 0], [0, 1, -1, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
     translate([xc, -door_wb/2, 0]) linear_extrude(door_t)
-      polygon([[-len/2 - d, eps], [-len/2, -d], [len/2, -d], [len/2 + d, eps]]);
+      polygon([[-len/2 - d*door_nub_k, eps], [-len/2, -d], [len/2, -d], [len/2 + d*door_nub_k, eps]]);
 
 // ================================================================== DOOR ====
 module door() {
-  beam_w = 2.4; xa = 27; xb = 48;      // longer, wider spring: more travel at lower strain
+  beam_w = 2.8; xa = 27; xb = 48;      // long, wide spring: firm catch at about 1 % strain
   translate([bay_x, bay_y, 0]) difference() {
     union() {
       intersection() {

@@ -83,15 +83,16 @@ bay_play_end  = 0.50;   // axial play at the locked position - a running fit, NO
 bay_floor_relief = 0.3; // relief cut in the base top under the lugs' path (adds to the 0.25 mm gap)
 // Transport retention is a sprung latch: the free end of the UV retaining ring carries a nub
 // that passes through a slot in the cover skirt and clicks into a groove in the well wall.
-latch_angle   = 60;     // where the latch sits when the cover is locked
-latch_depth   = 1.1;    // groove depth in the well wall = spring travel (0.7: no click; 0.9: very faint)
-latch_groove_r = 1.6;   // groove radius: smaller = steeper flanks = sharper click (nub tip is r 1.2)
-latch_stub    = 35;     // how far the ring continues past the latch nub, deg. The first rings ended at
-                        // the nub, so the nub sat on a long floppy free end and the click was faint.
-                        // With ring on both sides the nub is properly sprung. Longer stub = softer.
+latch_angle   = 60;     // locked position of the first nub (cover frame); the others follow every 360/latch_n
+latch_n       = 3;      // sprung nubs, equally spaced. One nub on a ring with a gap beside it (versions 1-4) gave a
+                        // weak, lopsided spring however it was tuned. Three identical arms pull the cover square.
+latch_depth   = 1.1;    // groove depth in the well wall = spring travel
+latch_arm_w   = 1.4;    // radial thickness of each spring arm: 1.2 soft, 1.4 medium, 1.6 firm (PETG)
+latch_arm_deg = 32;     // arm length from its root to the nub, degrees
+latch_slit    = 1.3;    // gap behind each arm; must exceed the 1.05 mm the arm is pushed in
 latch_mark    = 0;      // small notches on the ring's inner edge, to tell test variants apart
 uv_ring_h     = 2.4;    // height of the retaining ring / latch spring
-uv_ring_w     = 2.1;    // radial thickness of the ring (latch stiffness); PETG only
+uv_ring_w     = 3.9;    // radial thickness of the whole ring: arm + slit + inner strap (PETG only)
 
 /* [Keystone knob] */
 knob_r        = 10.0;
@@ -124,7 +125,8 @@ frag_font     = "Liberation Sans:style=Bold";
 
 /* [Aperture mask] */
 mask_t        = 1.2;
-ledge_t       = 0.8;    // floor ledge the mask sits on (sets mask height above the paper)
+ledge_t       = 0.6;    // floor ledge the mask sits on (sets mask height above the paper). 0.2 mm lower than
+                        // before so the mask has 0.2 mm of play under the base's retaining lip
 ledge_r       = 22.0;   // clear opening under the mask
 aperture_d    = 10.5;
 // aperture centres [x, y]; demo = T-I-M-E clockwise from the top
@@ -157,6 +159,7 @@ uv_enabled  = true;   // false = no bay and no door (issue the light as a separa
 //           key opens it. This is the concealed version.
 //  "door":  the sliding door on V-rails (tested and working, but visibly a hatch).
 uv_access   = "plate";  // [plate, door]
+mask_lip_t  = 1.4;      // retaining lip over the mask's rim, part of the base (plate mode only)
 back_screw_r      = 54;                  // back-plate screw circle
 back_screw_angles = [45, 135, 225, 315];
 back_boss_d       = 8.4;                 // boss on the plate's inner face around each screw
@@ -340,6 +343,7 @@ module base(h = base_h, with_uv = uv_enabled) {
   plate_mode = with_uv && uv_access == "plate";
   // with a back plate the base is thinner, so the cap-screw pilots go right through (the plate hides them)
   pilot = plate_mode ? h + 1 : min(screw_pilot_depth, h - 1.5);
+  union() {
   difference() {
     rev([[ledge_r, 0], [body_r - edge_ch, 0], [body_r, edge_ch], [body_r, h - 0.4], [body_r - 0.4, h],
          [well_r + 0.6, h], [well_r, h - 0.6],
@@ -352,7 +356,7 @@ module base(h = base_h, with_uv = uv_enabled) {
                  [[well_r - 1, h - bay_floor_relief], [bay_groove_r, h - bay_floor_relief], [bay_groove_r, h + 1], [well_r - 1, h + 1]]);
     // mask keyway
     rotate([0, 0, mask_key_angle]) translate([well_r - 1, -(mask_key_w + 0.6)/2, ledge_t])
-      cube([mask_key_r + 0.3 - well_r + 1, mask_key_w + 0.6, h]);
+      cube([mask_key_r + 0.3 - well_r + 1, mask_key_w + 0.6, plate_mode ? door_t : h]);
     // self-tapping pilots for the cap screws
     for (a = screw_angles) rotate([0, 0, a]) translate([screw_r, 0, h - pilot])
       cylinder(d = screw_pilot_d, h = pilot + 1, $fn = 24);
@@ -407,6 +411,12 @@ module base(h = base_h, with_uv = uv_enabled) {
       // detent notch for the door's side spring
       translate([-bay_x, -c, 0]) flank_bump(door_nub_x, 3.4, door_nub_h + 0.05);   // close fit: little free travel
     }
+  }
+  // Retaining lip: with the back plate on, the mask is captured between the plate's ledge and the
+  // underside of this lip, so nothing can push it up into the instrument. (Printed as the first
+  // layers of the base, flat on the bed: no overhang.) The mask is fitted into the plate before the
+  // base goes on; the lip's opening matches the clear opening in the plate, so the view is unchanged.
+  if (plate_mode) rev([[ledge_r, door_t], [well_r + 0.1, door_t], [well_r + 0.1, door_t + mask_lip_t], [ledge_r, door_t + mask_lip_t]]);
   }
 }
 
@@ -532,8 +542,9 @@ module deck() {
     for (a = bay_entry_angles) rotate([0, 0, a]) translate([0, 0, -1]) linear_extrude(top + 2)
       arc2d(well_r - 0.5, bay_groove_r, -bay_lug_w/2 - 1.5, bay_lug_w/2 + 1.5);
     // latch grooves in the well wall: one at the locked position, one at the insert position
-    for (a = [latch_angle, latch_angle + bay_travel]) rotate([0, 0, a])
-      translate([well_r + latch_depth - latch_groove_r, 0, deck_t]) cylinder(r = latch_groove_r, h = rib_h + 1, $fn = 32);
+    for (i = [0:latch_n - 1], off = [0, bay_travel]) rotate([0, 0, latch_angle + i*360/latch_n + off])
+      translate([0, 0, deck_t]) linear_extrude(rib_h + 1)
+        polygon([[well_r - 0.6, -1.45], [well_r - 0.6, 1.45], [well_r + latch_depth, 0.65], [well_r + latch_depth, -0.65]]);
     // bayonet: locking recess with 45 deg ceiling, ramping down to bay_play_end
     for (a = bay_entry_angles) {
       a_stop = a - bay_travel - bay_lug_w/2 - 0.3;      // hard stop
@@ -676,7 +687,7 @@ module cover() {
     translate([0, 0, cover_t - 1.4 - nut_t - 0.2]) cylinder(d = nut_af/cos(30), h = nut_t + 0.2, $fn = 6);
     translate([0, 0, -eps]) cylinder(d = (nut_af - nut_retain)/cos(30), h = cover_t - 1.4 - nut_t, $fn = 6);
     // slot in the skirt for the latch nub
-    rotate([0, 0, latch_angle]) translate([skirt_ri - 1, -2.3, -skirt_len - 1]) cube([skirt_wall + 2, 4.6, skirt_len + 1]);
+    for (i = [0:latch_n - 1]) rotate([0, 0, latch_angle + i*360/latch_n]) translate([skirt_ri - 1, -2.3, -skirt_len - 1]) cube([skirt_wall + 2, 4.6, skirt_len + 1]);
     cylinder(d = 3.4, h = cover_t + 1, $fn = 24);
     // keyed sockets for the four fragments
     for (i = [0:3]) for (p = frag_peg_pos(i)) translate([p[0], p[1], cover_t - peg_h - 0.3])
@@ -687,18 +698,32 @@ module cover() {
 }
 
 // split ring that holds the UV-reactive paper disc inside the cover skirt
-module uv_ring() {
+// Retaining ring for the UV disc AND the cover's latch. Printed flat in PETG, so every spring arm
+// bends in the plane of the layers. Three arms, each: outer strip (the spring) / slit / inner strap.
+// An arm is rooted at its clockwise end and carries a nub at its free end that passes through a
+// slot in the cover skirt and drops into a groove in the deck's well wall.
+module latch_arm_cuts() {
+  ro = skirt_ri + 0.1; ra = ro - latch_arm_w; rs = ra - latch_slit;
+  tip_ext = 5.5; gap = 0.8/ro*180/PI;
+  for (i = [0:latch_n - 1]) rotate([0, 0, latch_angle + i*360/latch_n]) {
+    arc2d(rs, ra, -latch_arm_deg, tip_ext + gap + 0.01, 24);       // slit behind the arm, open at its tip
+    arc2d(ra - 0.01, ro + 0.5, tip_ext, tip_ext + gap, 4);         // radial cut freeing the tip
+  }
+}
+module latch_nubs2d() {
   ro = skirt_ri + 0.1; tip = well_r + latch_depth - 0.05;
+  for (i = [0:latch_n - 1]) rotate([0, 0, latch_angle + i*360/latch_n])
+    polygon([[ro - 0.6, -1.7], [ro, -1.7], [tip, -0.4], [tip, 0.4], [ro, 1.7], [ro - 0.6, 1.7]]);
+}
+module uv_ring() {
+  ro = skirt_ri + 0.1;
   linear_extrude(uv_ring_h) {
     difference() {
-      arc2d(ro - uv_ring_w, ro, latch_angle - latch_stub, latch_angle - latch_stub + 330, 96);
-      for (k = [0:1:latch_mark - 1]) rotate([0, 0, latch_angle + 150 + 6*k]) translate([ro - uv_ring_w, 0]) circle(r = 0.7, $fn = 16);
+      arc2d(ro - uv_ring_w, ro, latch_angle + 70, latch_angle + 70 + 340, 120);   // 20 deg split so it can be sprung in
+      latch_arm_cuts();
+      for (k = [0:1:latch_mark - 1]) rotate([0, 0, latch_angle + 25 + 5*k]) translate([ro - uv_ring_w, 0]) circle(r = 0.7, $fn = 16);
     }
-    // latch nub on the free end: the last ~13 mm of the ring is the spring
-    rotate([0, 0, latch_angle]) hull() {
-      translate([ro - 0.4, -1.6]) square([0.4, 3.2]);
-      translate([tip - 1.2, 0]) circle(r = 1.2, $fn = 24);
-    }
+    latch_nubs2d();
   }
 }
 
@@ -939,7 +964,9 @@ if (part == "chk_cover_path_base") intersection() { rear(); translate([0, 0, z_c
 module latch_at(a) translate([0, 0, z_cap - uv_ring_h - 0.3]) rotate([0, 0, a]) uv_ring();
 if (part == "chk_latch_locked") intersection() { translate([0, 0, z_deck]) deck(); union() { latch_at(0); latch_at(bay_travel); } }
 if (part == "chk_latch_mid") intersection() { translate([0, 0, z_deck]) deck(); latch_at(bay_travel/2); }
-if (part == "chk_latch_cover") intersection() { cover(); translate([0, 0, -uv_ring_h - 0.3]) uv_ring(); }
+if (part == "chk_latch_cover") intersection() { cover(); translate([0, 0, -uv_ring_h - 0.3]) linear_extrude(uv_ring_h) latch_nubs2d(); }   // nubs pass through their slots: must be EMPTY
+if (part == "chk_latch_insert") intersection() { translate([0, 0, z_deck]) deck(); latch_at(bay_travel); }      // nubs seated in the insert grooves: must be EMPTY
+if (part == "chk_mask_lip") intersection() { base(); translate([0, 0, ledge_t]) linear_extrude(mask_t + 0.19) circle(r = well_r - mask_clear); }  // mask must clear the lip: EMPTY
 // the real mask: its spring nubs must press on the well wall (non-empty), nothing else may touch
 if (part == "chk_mask_springs") intersection() { rear(); translate([0, 0, ledge_t]) mask(); }
 if (part == "chk_frag_frag") intersection() { union() { fragment(0); fragment(2); } union() { fragment(1); fragment(3); } }

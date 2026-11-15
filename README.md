@@ -103,8 +103,9 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
 6. **Index cap:** arrow at XII, which is directly above the flashlight pocket and next to the
    one-dot fragment when the cover is locked. The three screw holes are unevenly spaced so it
    only fits this way. Snug only — over-tightening strips PLA and can pinch the rings.
-7. **Mask:** drop it into the well, marker up, key tab toward VI; it follows a groove down
-   and clicks onto the ledge. To remove, push it up from the back.
+7. **Mask:** fitted into the back plate *before* the base goes on: lay the plate face down,
+   drop the mask into its pocket (arrow up, key tab toward the keyway) and press until it clicks.
+   The base's retaining lip then holds it in; it cannot be pushed up into the instrument.
 8. **Cover:** lower with its mark ~1 hour anticlockwise of XII, twist clockwise to the stop.
 
 ## Using the four functions
@@ -222,7 +223,8 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 | `pawl_t`, `notch_depth`, `pawl_preload` | 1.4, 0.6, 0.15 | Detent strength. Confirmed on printed rings with PETG springs. |
 | `ring_clear`, `ring_axial`, `cover_clear`, `mask_clear`, `door_clear`, `frag_clear` | — | Fits. |
 | `bay_play_free`, `bay_play_end` | 0.75, 0.50 | Cover bayonet axial play at entry / when locked. Confirmed on a printed seat piece. |
-| `latch_depth`, `uv_ring_w` | 1.1, 2.1 | Cover latch travel and spring stiffness (PETG ring). Confirmed on a printed seat piece. |
+| `latch_n`, `latch_arm_w`, `latch_arm_deg`, `latch_depth` | 3, 1.4, 32, 1.1 | Cover latch: three sprung arms on the PETG ring (1.2 soft, 1.6 firm), each dropping into a groove in the deck's well wall. Replaces the single-nub ring. |
+| `mask_lip_t`, `ledge_t` | 1.4, 0.6 | Retaining lip over the mask's rim and the height of the ledge under it. |
 | `knob_clamp_gap` | 0.3 | Gap left under the keystone when its cone is seated on the fragments. |
 | `nut_retain` | 0.35 | How much the nut-pocket mouth is under size. |
 | `mask_style`, `uv_enabled` | `"spring"`, true | Fallbacks: drop-in mask; no integrated flashlight bay. |

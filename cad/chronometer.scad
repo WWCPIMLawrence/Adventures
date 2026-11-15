@@ -52,7 +52,9 @@ outer_pawl_angles = [60, 240];
 inner_pawl_angles = [120, 300];
 
 /* [Hardware] */
-screw_angles  = [30, 150, 270];  // index-cap screws
+screw_angles  = [25, 150, 270];  // index-cap screws. Deliberately uneven (the first is 5 deg off the
+                                 // 120 deg pattern) so the cap fits one way only and its arrow cannot
+                                 // end up a third of a turn away from fragment 1 and the flashlight
 screw_r       = 45.0;            // radius of the screw circle
 screw_clear_d = 3.4;             // M3 clearance hole
 screw_pilot_d = 2.8;             // M3 self-tapping pilot in PLA (4.0-4.2 for heat-set inserts)

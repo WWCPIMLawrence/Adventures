@@ -100,8 +100,9 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
    outward, `pawl_inner` (nose on the concave side) in the two that open inward.
 5. **Rings:** lower the inner ring, then the outer ring, each with a scallop over each pawl
    nose. They should drop in under light pressure.
-6. **Index cap:** arrow at XII (the side opposite the lone screw). Three M3 × 16 screws,
-   snug only — over-tightening strips PLA and can pinch the rings.
+6. **Index cap:** arrow at XII, which is directly above the flashlight pocket and next to the
+   one-dot fragment when the cover is locked. The three screw holes are unevenly spaced so it
+   only fits this way. Snug only — over-tightening strips PLA and can pinch the rings.
 7. **Mask:** drop it into the well, marker up, key tab toward VI; it follows a groove down
    and clicks onto the ledge. To remove, push it up from the back.
 8. **Cover:** lower with its mark ~1 hour anticlockwise of XII, twist clockwise to the stop.

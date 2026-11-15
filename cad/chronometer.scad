@@ -801,7 +801,7 @@ module mask() {
 C_BRASS = [0.72, 0.58, 0.30]; C_DARK = [0.16, 0.17, 0.20]; C_IVORY = [0.90, 0.87, 0.78];
 C_STEEL = [0.55, 0.57, 0.60]; C_RED = [0.55, 0.12, 0.10];
 
-module screw(len, head = true) color(C_STEEL) {
+module screw(len, head = true) color([0.07, 0.07, 0.08]) {   // black screws
   translate([0, 0, -len]) cylinder(d = 2.9, h = len, $fn = 16);
   if (head) cylinder(d = 5.5, h = 3, $fn = 24);
 }
@@ -822,9 +822,9 @@ module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = 
     color(C_RED) for (a = inner_pawl_angles) rotate([0, 0, a]) pawl(false);
   }
   translate([0, 0, z_floor + 2*e]) { color(C_DARK) outer_ring_body(); color(C_IVORY) outer_ring_lettering(); }
-  translate([0, 0, z_floor + 2*e]) { color(C_IVORY) inner_ring_body(); color(C_DARK) inner_ring_lettering(); }
+  translate([0, 0, z_floor + 2*e]) { color(C_DARK) inner_ring_body(); color(C_IVORY) inner_ring_lettering(); }   // approved: black body, ivory symbols AND ribs
   translate([0, 0, z_cap + 2.6*e]) {
-    color(C_BRASS) index_cap_body(); color(C_DARK) index_cap_lettering();
+    color(C_BRASS) index_cap_body(); color(C_IVORY) index_cap_lettering();   // approved: ivory arrow on brass
     for (a = screw_angles) rotate([0, 0, a]) translate([screw_r, 0, cap_t + 0.6*e]) screw(cap_screw_len);
   }
   if (cover_on) translate([0, 0, z_cap + 3.6*e]) {
@@ -832,7 +832,7 @@ module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = 
     translate([0, 0, -uv_ring_h - 0.3 - 0.3*e]) color(C_DARK) uv_ring();
     if (fragments) translate([0, 0, cover_t + 0.5*e]) color(C_IVORY) for (i = [0:3]) fragment(i);
     translate([0, 0, cover_t + (fragments ? knob_clamp_gap : 0) + 1.2*e]) {
-      color(C_DARK) keystone();
+      color(C_BRASS) keystone();   // approved: brass knob
       translate([0, 0, knob_h - knob_head_h + 0.6*e]) screw(knob_screw_len);
     }
   }

@@ -1,5 +1,8 @@
 # Materials, filament and shopping list
 
+> **Colours:** the approved plan in [`COLOR_PLAN.md`](COLOR_PLAN.md) supersedes the colour
+> assignments below (inner ring is now black, centre knob brass, index-cap arrow ivory).
+
 Based on the CAD as of the first review round (running-fit bayonet with latch ring, 12 mm
 base, flat UV light). Nothing here changes the CAD. Nothing has been ordered.
 

@@ -30,6 +30,7 @@ The reasoning behind the layout (and what was changed from the original brief) i
 | `build.sh` | Re-exports STLs, renders images, runs the interference checks. |
 | `scripts/make_sheets.py` | Regenerates the PDFs from the CAD parameters. |
 | `docs/SYMBOL_TEST.md` | Experiment: printed dial symbols instead of stickers (separate test plate). |
+| `docs/COLOR_PLAN.md` | Approved colour and screw plan, with the filament-change layer for each part. |
 | `docs/MATERIALS.md` | Materials, filament quantities (slicer-measured) and shopping list. |
 | `docs/Chronometer_design_handoff.pdf` | Self-contained design brief for an outside reviewer (`scripts/make_handoff.py`). |
 
@@ -52,11 +53,11 @@ PLA. STLs are already oriented; do not rotate them. Suggested colours are only t
 | `back_plate` | 1 | back face down | Brass. The whole back of the instrument; four sunk screw holes. |
 | `deck` | 1 | underside down | Order of walls **outer/inner**, the setting every passing fit test was printed with. Keep it the same for production. |
 | `outer_ring` | 1 | face up | Matte black. Raised numerals: change to bone white at layer 29. |
-| `inner_ring` | 1 | face up | Bone white. Raised symbols and finger ribs: change to black at layer 29. |
-| `index_cap` | 1 | face up | Brass. Raised arrow: change to black at layer 13. |
+| `inner_ring` | 1 | face up | Matte black. Raised symbols and ribs: change to bone white at layer 29 (one change). |
+| `index_cap` | 1 | face up | Brass. Raised arrow: change to bone white at layer 13. |
 | `pawl_outer`, `pawl_inner` | 2 + 2 | flat | Start with the medium (1.2 mm) ones. PETG recommended for the final sets. |
 | `cover` | 1 | face down | Smooth plate gives the best face. |
-| `keystone` | 1 | top down | |
+| `keystone` | 1 | top down | Brass. |
 | `uv_ring` | 1 | flat | Holds the UV disc and is the cover's latch spring. Print spares. |
 | `mask` | 1 | flat, marker up | Matte black. |
 | `door` | 1 | back face down | |

@@ -775,6 +775,18 @@ function frag_peg_pos(i) = let (c = frag_centre(i))
    [peg_radii_b[i]*cos(c - peg_angle), peg_radii_b[i]*sin(c - peg_angle)]];
 
 // Drawn in place on the cover face (local z = 0). Print upside-down (text on the plate).
+// The three code characters and the order pips, as a solid that starts frag_text_d below the face
+// and runs up through it. fragment() subtracts it; fragment_inlay() is the same shape cut off at the
+// face, for printing the digits in black directly on the bed (see plate_fragments_digits).
+module fragment_marks(i) {
+  c = frag_centre(i);
+  for (j = [-1, 0, 1]) rotate([0, 0, clock_angle(3*i + j)]) translate([frag_text_r, 0, frag_t - frag_text_d])
+    rotate([0, 0, -90]) linear_extrude(1)
+      text(code_ring[(3*i + j + 12) % 12], size = frag_text_h, font = frag_font, halign = "center", valign = "center");
+  for (n = [0:i]) rotate([0, 0, c]) translate([12.0, (n - i/2)*2.4, frag_t - frag_text_d]) cylinder(d = 1.3, h = 1, $fn = 12);
+}
+module fragment_inlay(i) intersection() { fragment_marks(i); translate([-100, -100, frag_t - 1]) cube([200, 200, 1]); }
+
 module fragment(i) {
   c = frag_centre(i);
   difference() {
@@ -783,12 +795,7 @@ module fragment(i) {
            [frag_ri + frag_t, frag_t]]);
       linear_extrude(frag_t) offset(delta = -frag_gap/2) wedge2d(40, c - 45, c + 45);
     }
-    // three code characters, tops outward
-    for (j = [-1, 0, 1]) rotate([0, 0, clock_angle(3*i + j)]) translate([frag_text_r, 0, frag_t - frag_text_d])
-      rotate([0, 0, -90]) linear_extrude(1)
-        text(code_ring[(3*i + j + 12) % 12], size = frag_text_h, font = frag_font, halign = "center", valign = "center");
-    // order pips (1-4)
-    for (n = [0:i]) rotate([0, 0, c]) translate([12.0, (n - i/2)*2.4, frag_t - 0.4]) cylinder(d = 1.3, h = 1, $fn = 12);
+    fragment_marks(i);
   }
   for (p = frag_peg_pos(i)) translate([p[0], p[1], -peg_h])
     cylinder(d1 = peg_d - 0.8, d2 = peg_d, h = 0.4 + eps, $fn = 24);
@@ -931,6 +938,10 @@ for (i = [0:3]) if (part == str("fragment_", i + 1))
 if (part == "plate_fragments")
   for (i = [0:3]) translate([(i % 2)*42, floor(i/2)*26, 0]) rotate([180, 0, 0]) translate([0, -16, -frag_t])
     rotate([0, 0, 90 - frag_centre(i)]) fragment(i);
+// the black digits for the same plate: load it together with plate_fragments (one object, two parts)
+if (part == "plate_fragments_digits")
+  for (i = [0:3]) translate([(i % 2)*42, floor(i/2)*26, 0]) rotate([180, 0, 0]) translate([0, -16, -frag_t])
+    rotate([0, 0, 90 - frag_centre(i)]) fragment_inlay(i);
 // spring plates: two of each pawl in three stiffnesses (1.0 / 1.2 / 1.4 mm, left to right,
 // marked with 1 / 2 / 3 bars beside them). plate_small_parts adds the keystone and is meant
 // for PLA; plate_springs has two latch rings and no keystone and is meant for PETG.

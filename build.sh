@@ -12,7 +12,7 @@ mkdir -p stl images build
 OSC="openscad"
 command -v xvfb-run >/dev/null && [ -z "${DISPLAY:-}" ] && OSC="xvfb-run -a openscad"
 
-PARTS="base back_plate test_base test_seat test_screw_ring test_uv_bay deck outer_ring inner_ring index_cap pawl_outer pawl_inner cover keystone mask uv_ring door fragment_1 fragment_2 fragment_3 fragment_4 plate_small_parts plate_springs plate_fragments"
+PARTS="base back_plate test_base test_seat test_screw_ring test_uv_bay deck outer_ring inner_ring index_cap pawl_outer pawl_inner cover keystone mask uv_ring door fragment_1 fragment_2 fragment_3 fragment_4 plate_small_parts plate_springs plate_fragments plate_fragments_digits"
 EMPTY_CHECKS="chk_rings_deck chk_rings_cap chk_rings_cover chk_cover_deck chk_cover_base chk_cover_insert chk_pawls_deck chk_pawls_cap chk_door_base chk_plate_base chk_mask_base chk_frag_cover chk_frag_knob chk_frag_frag chk_knob_cover chk_cover_path chk_cover_path_base chk_latch_locked chk_latch_cover chk_latch_insert chk_mask_lip chk_ring_bumps"
 NONEMPTY_CHECKS="chk_keying chk_detent chk_clamp chk_latch_mid chk_mask_springs"
 

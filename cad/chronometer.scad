@@ -172,6 +172,7 @@ show_numerals = true;
 // colour with ONE filament change, at the first layer above the ring face (layer 29 at
 // 0.2 mm layers). Tested on a plate: clear at arm's length. The other values are fallbacks.
 numeral_style = "raised";   // [raised, recessed]
+index_style   = "raised";   // [raised, recessed] the arrow on the index cap
 dial_symbols  = "raised";   // [raised: printed symbols, labels: 0.4 mm pockets for stickers]
 raised_h      = 0.4;        // height of raised lettering (two layers)
 numeral_h     = 7.0;        // numeral height
@@ -608,7 +609,13 @@ module inner_ring_lettering() {
 // ============================================================= INDEX CAP ====
 // Fixed ring between the two dials: traps both ring flanges and the pawls,
 // carries the reference index at 12 o'clock.
-module index_cap() {
+module index_cap() { index_cap_body(); index_cap_lettering(); }
+// the double arrow that both dials are read against, pointing at each ring
+module index_arrow2d() rotate([0, 0, 90]) {
+  polygon([[cap_ro - 0.8, 0], [screw_r + 0.6, 2.4], [screw_r + 0.6, -2.4]]);
+  polygon([[cap_ri + 0.8, 0], [screw_r - 0.6, 2.4], [screw_r - 0.6, -2.4]]);
+}
+module index_cap_body() {
   difference() {
     rev([[cap_ri, 0], [cap_ro, 0], [cap_ro, cap_t - 0.4], [cap_ro - 0.4, cap_t],
          [cap_ri + 0.4, cap_t], [cap_ri, cap_t - 0.4]]);
@@ -616,12 +623,12 @@ module index_cap() {
       cylinder(d = screw_clear_d, h = cap_t + 2, $fn = 24);
       if (cap_screw_style == "csk") translate([0, 0, cap_t + 1 - 1.7]) cylinder(d1 = 3.0, d2 = 6.4, h = 1.7 + eps, $fn = 32);
     }
-    // index: double arrow pointing at both rings
-    translate([0, 0, cap_t - 0.6]) linear_extrude(1) rotate([0, 0, 90]) {
-      polygon([[cap_ro - 0.8, 0], [screw_r + 0.6, 2.2], [screw_r + 0.6, -2.2]]);
-      polygon([[cap_ri + 0.8, 0], [screw_r - 0.6, 2.2], [screw_r - 0.6, -2.2]]);
-    }
+    if (index_style == "recessed") translate([0, 0, cap_t - 0.6]) linear_extrude(1) index_arrow2d();
   }
+}
+// raised arrow: prints in a second colour with one filament change (layer 13 at 0.2 mm layers)
+module index_cap_lettering() {
+  if (index_style == "raised") translate([0, 0, cap_t - eps]) linear_extrude(raised_h + eps) index_arrow2d();
 }
 
 // ================================================================= PAWLS ====
@@ -792,7 +799,7 @@ module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = 
   translate([0, 0, z_floor + 2*e]) { color(C_DARK) outer_ring_body(); color(C_IVORY) outer_ring_lettering(); }
   translate([0, 0, z_floor + 2*e]) { color(C_IVORY) inner_ring_body(); color(C_DARK) inner_ring_lettering(); }
   translate([0, 0, z_cap + 2.6*e]) {
-    color(C_BRASS) index_cap();
+    color(C_BRASS) index_cap_body(); color(C_DARK) index_cap_lettering();
     for (a = screw_angles) rotate([0, 0, a]) translate([screw_r, 0, cap_t + 0.6*e]) screw(cap_screw_len);
   }
   if (cover_on) translate([0, 0, z_cap + 3.6*e]) {

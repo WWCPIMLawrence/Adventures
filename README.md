@@ -53,7 +53,7 @@ PLA. STLs are already oriented; do not rotate them. Suggested colours are only t
 | `deck` | 1 | underside down | Order of walls **outer/inner**, the setting every passing fit test was printed with. Keep it the same for production. |
 | `outer_ring` | 1 | face up | Matte black. Raised numerals: change to bone white at layer 29. |
 | `inner_ring` | 1 | face up | Bone white. Raised symbols and finger ribs: change to black at layer 29. |
-| `index_cap` | 1 | face up | |
+| `index_cap` | 1 | face up | Brass. Raised arrow: change to black at layer 13. |
 | `pawl_outer`, `pawl_inner` | 2 + 2 | flat | Start with the medium (1.2 mm) ones. PETG recommended for the final sets. |
 | `cover` | 1 | face down | Smooth plate gives the best face. |
 | `keystone` | 1 | top down | |

@@ -99,3 +99,17 @@ working example. **The final Music House sheet is not on this side.**
   Do not twist the large brass disc under it.
 - To use the optical sheet: twist the large brass disc anticlockwise about a quarter turn and lift.
   Refit by dropping it in and twisting clockwise until it clicks.
+
+## Update, 16 Nov: the two approved changes
+
+- **Ring retention bumps** (cover only): three bumps on the skirt's inner wall just below the latch ring,
+  0.5 mm high, 16° wide, 30° after each latch nub. 45° retaining ramp (prints without support), 26° lead-in.
+  They sit below the ring's height, so the spring arms keep their full movement. A beam model puts the
+  force to push the ring past them at about 0.3 N per bump (roughly 1 N of pull-out retention in total).
+  That is light but many times the friction hold it has now, and ample against a 1 g ring. If the test
+  shows it is not enough, the next step is a flat ledge, which needs a pinch to release.
+- **Deck notches**: the same V notch as the base, at 0°, 180°, 270° and the double at 87°/93°, through the
+  2.0 mm deck flange. The black outer ring is untouched. All 27 interference checks pass.
+- **Only two part files changed**: cover (+9 mm³) and deck (−15 mm³).
+- **Mask**: the lip blocks the mask from being pushed up. With the back plate off it is no longer locked:
+  it comes away with the plate (held by its spring nubs) and can be pressed out of it.

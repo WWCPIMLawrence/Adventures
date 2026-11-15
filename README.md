@@ -30,6 +30,7 @@ The reasoning behind the layout (and what was changed from the original brief) i
 | `build.sh` | Re-exports STLs, renders images, runs the interference checks. |
 | `scripts/make_sheets.py` | Regenerates the PDFs from the CAD parameters. |
 | `docs/SYMBOL_TEST.md` | Experiment: printed dial symbols instead of stickers (separate test plate). |
+| `images/parts_guide.png` | Labelled part-name diagram. |
 | `docs/ASSESSMENT_2026-11-15.md` | Assessment of the 15 Nov handoff: diagnoses, ranked issues, test plan and go/no-go criteria. |
 | `docs/COLOR_PLAN.md` | Approved colour and screw plan, with the filament-change layer for each part. |
 | `docs/MATERIALS.md` | Materials, filament quantities (slicer-measured) and shopping list. |

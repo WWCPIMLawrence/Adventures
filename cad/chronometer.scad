@@ -91,6 +91,9 @@ latch_depth   = 1.1;    // groove depth in the well wall = spring travel
 latch_arm_w   = 1.4;    // radial thickness of each spring arm: 1.2 soft, 1.4 medium, 1.6 firm (PETG)
 latch_arm_deg = 32;     // arm length from its root to the nub, degrees
 latch_slit    = 1.3;    // gap behind each arm; must exceed the 1.05 mm the arm is pushed in
+ring_bump_h   = 0.5;    // how far each retention bump stands out from the skirt's inner wall
+ring_bump_deg = 16;     // angular width of each bump
+ring_bump_at  = 30;     // bump position after each latch nub, degrees (lands in the ring's full-thickness body)
 latch_mark    = 0;      // small notches on the ring's inner edge, to tell test variants apart
 uv_ring_h     = 2.4;    // height of the retaining ring / latch spring
 uv_ring_w     = 3.9;    // radial thickness of the whole ring: arm + slit + inner strap (PETG only)
@@ -341,6 +344,14 @@ module dial_symbol(i, size) scale(size/2) {
 
 // =================================================================== BASE ===
 // Rear module: mask seat, sheet-registration notches, UV bay + door slot.
+// Sheet-registration notches on the fixed body: single at 0, 180 and 270 deg, double at 87/93 deg
+// (the double marks the top). Cut through the base, the back plate and the deck so the pattern runs
+// unbroken down the brass side of the instrument. The black rotating outer ring is never cut.
+module reg_notches(h) {
+  for (a = [0, 180, 270, 87, 93]) rotate([0, 0, a]) translate([body_r, 0, -1])
+    rotate([0, 0, 45]) cube([1.8, 1.8, h + 2], center = false);
+}
+
 module base(h = base_h, with_uv = uv_enabled) {
   zc = ledge_t + mask_t/2;
   plate_mode = with_uv && uv_access == "plate";
@@ -364,8 +375,7 @@ module base(h = base_h, with_uv = uv_enabled) {
     for (a = screw_angles) rotate([0, 0, a]) translate([screw_r, 0, h - pilot])
       cylinder(d = screw_pilot_d, h = pilot + 1, $fn = 24);
     // sheet registration notches: 12 o'clock is a double notch
-    for (a = [0, 180, 270, 87, 93]) rotate([0, 0, a]) translate([body_r, 0, -1])
-      rotate([0, 0, 45]) cube([1.8, 1.8, h + 2], center = false);
+    reg_notches(h);
     if (plate_mode) {
       // the bottom door_t of the base is the separate back plate
       translate([0, 0, -1]) cylinder(r = body_r + 5, h = door_t + 1, $fn = 12);
@@ -527,6 +537,7 @@ module deck() {
         ring2d(rib_ro, rib_ri);
       }
     }
+    reg_notches(top);
     // cap screws
     for (a = screw_angles) rotate([0, 0, a]) translate([screw_r, 0, -1])
       cylinder(d = screw_clear_d, h = top + 2, $fn = 24);
@@ -672,12 +683,25 @@ module pawl(outward = true, t = pawl_t) {
 // ================================================================= COVER ====
 // Local z = 0 is the underside of the flange (sits on the hub top).
 // Drawn in its LOCKED orientation. Print upside-down (face on the plate).
+// Three small snap bumps just below the latch ring, on the skirt's inner wall. The ring is pressed in
+// from the open end past a gentle lead-in ramp (26 deg); its lower face then rests on a 45 deg
+// retaining ramp, which prints without support. They stay below the ring's own height, so the spring
+// arms keep their full movement. The ring contracts like a circlip to pass them (about 1 N, estimated).
+module ring_bumps() {
+  zt = -(uv_ring_h + 0.3) - 0.15;
+  for (i = [0:latch_n - 1])
+    rev_sector(latch_angle + i*360/latch_n + ring_bump_at - ring_bump_deg/2, ring_bump_deg,
+               [[skirt_ri + 0.3, zt], [skirt_ri, zt], [skirt_ri - ring_bump_h, zt - ring_bump_h],
+                [skirt_ri - ring_bump_h, zt - ring_bump_h - 0.2], [skirt_ri, zt - 2*ring_bump_h - 0.7], [skirt_ri + 0.3, zt - 2*ring_bump_h - 0.7]]);
+}
+
 module cover() {
   lug_z0 = -skirt_len;
   difference() {
     union() {
       rev([[0, 0], [cover_r, 0], [cover_r, cover_t - 0.8], [cover_r - 0.8, cover_t], [0, cover_t]]);
       rev([[skirt_ri, -skirt_len], [skirt_ro, -skirt_len], [skirt_ro, eps], [skirt_ri, eps]]);
+      ring_bumps();
       for (a = bay_entry_angles)
         rev_sector(a - bay_travel - bay_lug_w/2, bay_lug_w,
                    [[skirt_ro - 0.2, lug_z0], [skirt_ro + bay_lug_r, lug_z0],
@@ -968,6 +992,7 @@ module latch_at(a) translate([0, 0, z_cap - uv_ring_h - 0.3]) rotate([0, 0, a]) 
 if (part == "chk_latch_locked") intersection() { translate([0, 0, z_deck]) deck(); union() { latch_at(0); latch_at(bay_travel); } }
 if (part == "chk_latch_mid") intersection() { translate([0, 0, z_deck]) deck(); latch_at(bay_travel/2); }
 if (part == "chk_latch_cover") intersection() { cover(); translate([0, 0, -uv_ring_h - 0.3]) linear_extrude(uv_ring_h) latch_nubs2d(); }   // nubs pass through their slots: must be EMPTY
+if (part == "chk_ring_bumps") intersection() { ring_bumps(); translate([0, 0, -uv_ring_h - 0.3]) uv_ring(); }   // bumps clear the seated ring: EMPTY
 if (part == "chk_latch_insert") intersection() { translate([0, 0, z_deck]) deck(); latch_at(bay_travel); }      // nubs seated in the insert grooves: must be EMPTY
 if (part == "chk_mask_lip") intersection() { base(); translate([0, 0, ledge_t]) linear_extrude(mask_t + 0.19) circle(r = well_r - mask_clear); }  // mask must clear the lip: EMPTY
 // the real mask: its spring nubs must press on the well wall (non-empty), nothing else may touch

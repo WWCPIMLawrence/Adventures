@@ -30,6 +30,7 @@ The reasoning behind the layout (and what was changed from the original brief) i
 | `build.sh` | Re-exports STLs, renders images, runs the interference checks. |
 | `scripts/make_sheets.py` | Regenerates the PDFs from the CAD parameters. |
 | `docs/SYMBOL_TEST.md` | Experiment: printed dial symbols instead of stickers (separate test plate). |
+| `docs/ASSESSMENT_2026-11-15.md` | Assessment of the 15 Nov handoff: diagnoses, ranked issues, test plan and go/no-go criteria. |
 | `docs/COLOR_PLAN.md` | Approved colour and screw plan, with the filament-change layer for each part. |
 | `docs/MATERIALS.md` | Materials, filament quantities (slicer-measured) and shopping list. |
 | `docs/Chronometer_design_handoff.pdf` | Self-contained design brief for an outside reviewer (`scripts/make_handoff.py`). |
@@ -73,7 +74,8 @@ parts — see the build order below.
 | Item | Qty | Use |
 |---|---|---|
 | M3 × 16 socket-head cap screw, **or** a pan-head self-tapping screw of about 3 mm × 16 mm | 3 | index cap → deck → base (20 mm is too long for the 12.2 mm base). The self-tapping type has been driven into the printed PLA pilots: tight, no cracking |
-| M3 × 8 socket-head cap screw | 5 | keystone (1) and back plate (4) |
+| M3 × 8 socket-head cap screw, black, 2.5 mm hex | 4 | back plate |
+| M3 × 10 black Phillips machine screw | 1 | centre knob (head size to be measured before the pocket is changed) |
 | M3 hex nut | 1 | captive in the centre cover |
 | Keychain UV squeeze light, 40.3 × 22.6 × 8.7 mm (caliper-measured) | 1 | key ring and split ring removed |
 | Self-adhesive felt, ~6 × 40 mm | 2 | on the two long **side walls** of the bay, against rattle |

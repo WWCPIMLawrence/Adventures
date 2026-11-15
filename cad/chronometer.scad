@@ -60,7 +60,8 @@ screw_clear_d = 3.4;             // M3 clearance hole
 screw_pilot_d = 2.8;             // M3 self-tapping pilot in PLA (4.0-4.2 for heat-set inserts)
 screw_pilot_depth = 14;          // maximum; the pilot is capped at base height - 1.5 mm
 cap_screw_len = 16;              // M3x16 socket-head cap screws (checked below)
-knob_screw_len = 8;              // M3x8 socket-head cap screw in the keystone (checked below)
+knob_screw_len = 10;             // centre knob screw: M3x10 (owner-tested; 8 mm was too short to hold without spinning)
+back_screw_len = 8;              // back-plate screws: M3x8 socket-head, 2.5 mm hex (checked below)
 cap_screw_style = "cap";         // [cap: socket-head sits proud, csk: countersunk flush]
 nut_af        = 5.7;             // M3 nut across flats + fit
 nut_t         = 2.4;
@@ -241,14 +242,16 @@ _cap_thread = cap_screw_len - _cap_stack;
 echo(str("Cap screws: M3x", cap_screw_len, " - ", _cap_stack, " mm clearance stack, ", _cap_thread,
          " mm of thread in a ", _cap_pilot, " mm pilot"));
 if (_cap_thread > _cap_pilot - 0.5) echo("WARNING: cap screws bottom out in the base - use a shorter screw");
-_back_tip = back_cb_depth + knob_screw_len;      // back-plate screws are the same M3x8 as the keystone
-echo(str("Back-plate screws: M3x", knob_screw_len, " socket-head, head sunk ", back_cb_depth - 3, " mm, tip ", base_h - _back_tip, " mm below the base top"));
+_back_tip = back_cb_depth + back_screw_len;
+echo(str("Back-plate screws: M3x", back_screw_len, " socket-head, head sunk ", back_cb_depth - 3, " mm, tip ", base_h - _back_tip, " mm below the base top"));
 if (_back_tip > base_h - 0.3) echo("WARNING: back-plate screws are too long for this base");
 if (_cap_thread < 6) echo("WARNING: cap screws have under 6 mm of thread - use a longer screw");
 _knob_reach = knob_screw_len - (knob_h - knob_head_h) - knob_clamp_gap;   // below the cover face, fragments fitted
 _nut_bottom = 1.4 + nut_t;                                                 // below the cover face
 echo(str("Keystone screw: M3x", knob_screw_len, " reaches ", _knob_reach, " mm below the cover face; nut spans 1.4 to ",
          _nut_bottom, " mm"));
+echo(str("Keystone screw tip: ", _knob_reach - cover_t, " mm below the cover's flange underside with fragments fitted (",
+         _knob_reach + knob_clamp_gap - cover_t, " mm with none); ", _knob_reach - _nut_bottom, " mm of thread beyond the nut. Nothing to bottom against."));
 if (_knob_reach < _nut_bottom - 0.3) echo("WARNING: keystone screw does not pass fully through the nut");
 if (_knob_reach + knob_clamp_gap > cover_t + skirt_len - 0.5) echo("WARNING: keystone screw is too long");
 for (a = screw_angles)
@@ -812,7 +815,7 @@ module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = 
   if (uv_enabled && uv_access == "plate") translate([0, 0, -1.5*e - (door_out > 0 ? 22 : 0)]) {
     color(C_BRASS) back_plate();
     for (a = back_screw_angles) rotate([0, 0, a]) translate([back_screw_r, 0, back_cb_depth - 3 - 0.6*e])
-      rotate([180, 0, 0]) translate([0, 0, -3]) screw(8);
+      rotate([180, 0, 0]) translate([0, 0, -3]) screw(back_screw_len);
   }
   if (light) translate([bay_x + (door_out > 0 ? 6 : 0), bay_y, door_t + 0.3 - (door_out > 0 ? 16 : 0)]) uv_light();
   translate([0, 0, ledge_t + 0.35*e]) color(C_DARK) mask();

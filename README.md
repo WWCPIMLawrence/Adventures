@@ -271,3 +271,8 @@ SCAD_ARGS="-D uv_w=23.6 -D uv_t=8.9" ./build.sh
 
 Feed back measurements and impressions; then: tune fits, and add the visual layer (minute track, engraved borders, AMS colour inlays, final
 symbol set and code).
+
+
+## Push-and-turn gate (variant under test, not production)
+
+See `docs/GATE_TEST.md` and `docs/Chronometer_gate_test_handoff.pdf`. Optional parameters `gate_on`, `latch_on`, `ring_retain`, `cover_rim`; the defaults leave the approved design unchanged.

@@ -96,6 +96,27 @@ ring_bump_h   = 0.5;    // how far each retention bump stands out from the skirt
 ring_bump_deg = 16;     // angular width of each bump
 ring_bump_at  = 30;     // bump position after each latch nub, degrees (lands in the ring's full-thickness body)
 latch_mark    = 0;      // small notches on the ring's inner edge, to tell test variants apart
+latch_on      = true;   // false = no sprung nubs: no slots in the cover, no grooves in the deck, plain retaining ring
+ring_retain   = "bumps"; // "bumps" (approved) or "ledge" (variant): how the ring is held in the cover's skirt
+ledge_ov      = 0.7;    // ledge: how far its flat catch face reaches inward past the skirt wall
+ledge_lead    = 30;     // ledge: lead-in angle from the axis on the side the ring is pressed in from
+ring_split    = 30;     // plain ring only: gap in degrees (the ring is closed up to pass the ledge)
+
+/* [Push-and-turn gate (variant, OFF by default)] */
+// The cover is lifted by three-to-six printed bow springs. Its lugs sit in a pocket at the locked end of each
+// track, deeper than the rest of the track by gate_h. While the cover is up, a vertical wall stops it turning
+// the unlocking way. The cover has to be pressed down to clear the wall, then turned.
+gate_on       = false;
+gate_h        = 0.9;    // step height of the pocket ceiling = how far the cover must be pressed to turn
+gate_slack    = 1.0;    // deg of play inside the pocket (lets the lug rise into it despite print tolerance)
+bow_c         = 14;     // bow spring chord (printed straight, on its side)
+bow_t         = 0.7;    // strip thickness (0.7 soft, 0.8 firm)
+bow_w         = 1.4;    // radial width
+bow_lift      = 1.2;    // free height of the bow's top above the hub top
+bow_pocket    = 0.8;    // depth of the pocket under it: takes a 0.7 (soft) or a 0.8 (firm) strip
+bow_foot      = 0.9;    // end rib that keeps the bow in its slot
+bow_rm        = 26.25;  // radius of the pocket's mid-point
+bow_angles    = [61.7, 96.5, 178.8, 213.6, 301.4, 336.2];   // two in each gap between the cover's tracks
 uv_ring_h     = 2.4;    // height of the retaining ring / latch spring
 uv_ring_w     = 3.9;    // radial thickness of the whole ring: arm + slit + inner strap (PETG only)
 
@@ -557,21 +578,34 @@ module deck() {
     for (a = bay_entry_angles) rotate([0, 0, a]) translate([0, 0, -1]) linear_extrude(top + 2)
       arc2d(well_r - 0.5, bay_groove_r, -bay_lug_w/2 - 1.5, bay_lug_w/2 + 1.5);
     // latch grooves in the well wall: one at the locked position, one at the insert position
-    for (i = [0:latch_n - 1], off = [0, bay_travel]) rotate([0, 0, latch_angle + i*360/latch_n + off])
+    if (latch_on) for (i = [0:latch_n - 1], off = [0, bay_travel]) rotate([0, 0, latch_angle + i*360/latch_n + off])
       translate([0, 0, deck_t]) linear_extrude(rib_h + 1)
         polygon([[well_r - 0.6, -1.45], [well_r - 0.6, 1.45], [well_r + latch_depth, 0.65], [well_r + latch_depth, -0.65]]);
+    // push-and-turn gate: pockets that hold the bow springs
+    if (gate_on) for (a = bow_angles) rotate([0, 0, a]) translate([bow_rm, 0, 0]) rotate([0, 0, 90]) gate_bow_pocket();
     // bayonet: locking recess with 45 deg ceiling, ramping down to bay_play_end
     for (a = bay_entry_angles) {
       a_stop = a - bay_travel - bay_lug_w/2 - 0.3;      // hard stop
       a_dwell = a - bay_travel + bay_lug_w/2;           // tight zone for the seated lug
       a_open = a - bay_lug_w/2;
       n = 6;
-      bay_recess(a_stop, a_dwell - a_stop, bay_play_end);
+      // the pocket at the locked end: with the gate on its ceiling is gate_h higher, ending in a vertical wall
+      bay_recess(a_stop, a_dwell - a_stop + (gate_on ? gate_slack : 0), bay_play_end + (gate_on ? gate_h : 0));
       for (i = [0:n - 1])
         bay_recess(a_dwell + (a_open - a_dwell)*i/n - 0.01, (a_open - a_dwell)/n + 0.02,
                    bay_play_end + (bay_play_free - bay_play_end)*(i + 1)/n);
     }
   }
+}
+// Bow spring pocket, local frame: x along the chord (tangent), y radial, z deck height. The pocket floor is
+// bow_pocket below the hub top, so a flattened bow lies at or just under it. Two foot slots: one snug, one with room
+// for the bow to lengthen by about 0.25 mm as it flattens.
+module gate_bow_pocket() {
+  fl = deck_t + rib_h - bow_pocket;
+  pw = bow_w + 0.3;
+  translate([-(bow_c/2 + 0.6), -pw/2, fl]) cube([bow_c + 1.2, pw, bow_pocket + 2]);
+  translate([-bow_c/2 - 0.15, -pw/2, fl - 1.1]) cube([bow_foot + 0.3, pw, 1.2]);
+  translate([bow_c/2 - bow_foot - 0.15, -pw/2, fl - 1.1]) cube([bow_foot + 0.15 + 0.6, pw, 1.2]);
 }
 // lug chamfer line is r + z = well_r - cover_clear + bay_lug_r + 1.5 (deck coords)
 bay_line = well_r - cover_clear + bay_lug_r + 1.5;
@@ -696,13 +730,25 @@ module ring_bumps() {
                 [skirt_ri - ring_bump_h, zt - ring_bump_h - 0.2], [skirt_ri, zt - 2*ring_bump_h - 0.7], [skirt_ri + 0.3, zt - 2*ring_bump_h - 0.7]]);
 }
 
+// Positive snap-in ledge for the retaining ring. A flat catch face (normal along the axis) sits just below the
+// ring, so a load on the ring cannot cam it inwards the way the old 45 deg bump did. The ring is pressed in
+// from the open end over a 30 deg lead-in, closing like a circlip; it opens again once it is above the ledge.
+// The face toward the flange is a short horizontal overhang (0.7 mm) in the print; the lead-in prints as a
+// normal sloped top. The slots (if any) cut the ledge into arcs, so the nubs' path is not touched.
+module ring_ledge() {
+  zt = -(uv_ring_h + 0.3) - 0.15;
+  dz = ledge_ov/tan(ledge_lead);
+  rev([[skirt_ri + 0.3, zt], [skirt_ri - ledge_ov, zt], [skirt_ri - ledge_ov, zt - 0.5],
+       [skirt_ri, zt - 0.5 - dz], [skirt_ri + 0.3, zt - 0.5 - dz]]);
+}
+
 module cover() {
   lug_z0 = -skirt_len;
   difference() {
     union() {
       rev([[0, 0], [cover_r, 0], [cover_r, cover_t - 0.8], [cover_r - 0.8, cover_t], [0, cover_t]]);
       rev([[skirt_ri, -skirt_len], [skirt_ro, -skirt_len], [skirt_ro, eps], [skirt_ri, eps]]);
-      ring_bumps();
+      if (ring_retain == "ledge") ring_ledge(); else ring_bumps();
       for (a = bay_entry_angles)
         rev_sector(a - bay_travel - bay_lug_w/2, bay_lug_w,
                    [[skirt_ro - 0.2, lug_z0], [skirt_ro + bay_lug_r, lug_z0],
@@ -715,7 +761,7 @@ module cover() {
     translate([0, 0, cover_t - 1.4 - nut_t - 0.2]) cylinder(d = nut_af/cos(30), h = nut_t + 0.2, $fn = 6);
     translate([0, 0, -eps]) cylinder(d = (nut_af - nut_retain)/cos(30), h = cover_t - 1.4 - nut_t, $fn = 6);
     // slot in the skirt for the latch nub
-    for (i = [0:latch_n - 1]) rotate([0, 0, latch_angle + i*360/latch_n]) translate([skirt_ri - 1, -2.3, -skirt_len - 1]) cube([skirt_wall + 2, 4.6, skirt_len + 1]);
+    if (latch_on) for (i = [0:latch_n - 1]) rotate([0, 0, latch_angle + i*360/latch_n]) translate([skirt_ri - 1, -2.3, -skirt_len - 1]) cube([skirt_wall + 2, 4.6, skirt_len + 1]);
     cylinder(d = 3.4, h = cover_t + 1, $fn = 24);
     // keyed sockets for the four fragments
     for (i = [0:3]) for (p = frag_peg_pos(i)) translate([p[0], p[1], cover_t - peg_h - 0.3])
@@ -733,21 +779,25 @@ module cover() {
 module latch_arm_cuts() {
   ro = skirt_ri + 0.1; ra = ro - latch_arm_w; rs = ra - latch_slit;
   tip_ext = 5.5; gap = 0.8/ro*180/PI;
-  for (i = [0:latch_n - 1]) rotate([0, 0, latch_angle + i*360/latch_n]) {
+  if (latch_on) for (i = [0:latch_n - 1]) rotate([0, 0, latch_angle + i*360/latch_n]) {
     arc2d(rs, ra, -latch_arm_deg, tip_ext + gap + 0.01, 24);       // slit behind the arm, open at its tip
     arc2d(ra - 0.01, ro + 0.5, tip_ext, tip_ext + gap, 4);         // radial cut freeing the tip
   }
 }
 module latch_nubs2d() {
   ro = skirt_ri + 0.1; tip = well_r + latch_depth - 0.05;
-  for (i = [0:latch_n - 1]) rotate([0, 0, latch_angle + i*360/latch_n])
+  if (latch_on) for (i = [0:latch_n - 1]) rotate([0, 0, latch_angle + i*360/latch_n])
     polygon([[ro - 0.6, -1.7], [ro, -1.7], [tip, -0.4], [tip, 0.4], [ro, 1.7], [ro - 0.6, 1.7]]);
 }
 module uv_ring() {
   ro = skirt_ri + 0.1;
+  split = latch_on ? 20 : ring_split;
   linear_extrude(uv_ring_h) {
+    // plain ring (no latch): two pinch tabs on the split's ends, to close it up for the ledge
+    if (!latch_on) for (e = [0, 1]) rotate([0, 0, latch_angle + 70 + (e ? 360 - split : 0)])
+      translate([ro - uv_ring_w - 3.0, e ? -2.0 : 0]) square([3.2, 2.0]);
     difference() {
-      arc2d(ro - uv_ring_w, ro, latch_angle + 70, latch_angle + 70 + 340, 120);   // 20 deg split so it can be sprung in
+      arc2d(ro - uv_ring_w, ro, latch_angle + 70, latch_angle + 70 + 360 - split, 120);   // split so it can be sprung in
       latch_arm_cuts();
       for (k = [0:1:latch_mark - 1]) rotate([0, 0, latch_angle + 25 + 5*k]) translate([ro - uv_ring_w, 0]) circle(r = 0.7, $fn = 16);
     }
@@ -883,7 +933,28 @@ module uv_light() {
   color([0.9, 0.9, 1]) translate([uv_len/2 - 6, 0, uv_t/2]) rotate([0, 90, 0]) cylinder(d = 5, h = 6);
 }
 
+// ============================================================ GATE SPRING ====
+// Bow spring: a thin strip arched in the vertical plane, printed ON ITS SIDE (the arch lies in the print
+// plane, so there are no overhangs and the layer lines run along the strip). It stands in a pocket in the hub
+// top and lifts the cover by bow_lift. Pressing the cover flattens it down to the hub top.
+bow_sag = bow_lift + bow_pocket - bow_t;   // the strip's lower face rises this far above the pocket floor
+module gate_bow_profile() {
+  n = 28;
+  lo = [for (i = [0:n]) let(x = -bow_c/2 + bow_c*i/n) [x, bow_sag*(1 - pow(2*x/bow_c, 2))]];
+  hi = [for (i = [n:-1:0]) let(x = -bow_c/2 + bow_c*i/n) [x, bow_sag*(1 - pow(2*x/bow_c, 2)) + bow_t]];
+  union() {
+    polygon(concat(lo, hi));
+    for (s = [-1, 1]) translate([s*(bow_c/2 - bow_foot/2) - bow_foot/2, -1.0]) square([bow_foot, 1.0 + bow_t*0.5]);
+  }
+}
+// installed orientation: x along the chord, y across (radial), z up; base of the arch at z = 0
+module gate_bow() rotate([90, 0, 0]) linear_extrude(bow_w, center = true) gate_bow_profile();
+// print plate: bows lying on their side, one row of six
+module gate_bows_plate(n = 6) for (i = [0:n - 1]) translate([0, i*(bow_sag + bow_t + 5), 0]) linear_extrude(bow_w) gate_bow_profile();
+
 // ================================================================ OUTPUT ====
+if (part == "gate_bows") gate_bows_plate(6);
+if (part == "uv_ring_plain") uv_ring();                 // export with -D latch_on=false
 if (part == "assembly") assembly();
 if (part == "exploded") assembly(e = 14);
 if (part == "view_start") assembly(fragments = false);                    // as handed to players
@@ -1014,3 +1085,33 @@ if (part == "chk_frag_frag") intersection() { union() { fragment(0); fragment(2)
 if (part == "chk_keying") intersection() { cover(); translate([0, 0, cover_t]) rotate([0, 0, -90]) fragment(0); }
 // detent engagement: pawl noses must OVERLAP the ring notches by the preload (non-empty)
 if (part == "chk_detent") intersection() { outer_ring(); for (a = outer_pawl_angles) rotate([0, 0, a]) pawl(true); }
+
+// ---- push-and-turn gate checks (run with scripts/gate_check.sh, which sets the variant parameters) ----
+module cover_at(lift, rot = 0) translate([0, 0, z_cap + lift]) rotate([0, 0, rot]) cover();
+module bows_in_deck() for (a = bow_angles) translate([0, 0, z_deck]) rotate([0, 0, a]) translate([bow_rm, 0, deck_t + rib_h - bow_pocket]) rotate([0, 0, 90]) gate_bow();
+// locked, sprung up into the pocket: must be free (EMPTY)
+if (part == "chk_gate_up") intersection() { translate([0, 0, z_deck]) deck(); cover_at(bow_lift); }
+// locked and sprung up, trying to turn the unlocking way by 3 deg: the pocket wall must stop it (NON-EMPTY)
+if (part == "chk_gate_blocked") intersection() { translate([0, 0, z_deck]) deck(); cover_at(bow_lift, 3); }
+// the same turn with the cover pressed down: must be free (EMPTY)
+if (part == "chk_gate_pressed") intersection() { translate([0, 0, z_deck]) deck(); cover_at(0, 3); }
+// pressed down, all the way to the insert position and back: free (EMPTY)
+if (part == "chk_gate_pressed_path") intersection() { translate([0, 0, z_deck]) deck(); translate([0, 0, z_cap]) cover_swept(); }
+// bows seated in their pockets clear the deck (EMPTY) and only touch the cover's flange (EMPTY: face contact)
+if (part == "chk_bow_deck") intersection() { translate([0, 0, 0]) bows_in_deck(); translate([0, 0, z_deck]) deck(); }
+if (part == "chk_bow_cover") intersection() { bows_in_deck(); cover_at(bow_lift); }
+// the bows must reach the flange when the cover is down (NON-EMPTY: they stand proud of the hub top)
+if (part == "chk_bow_proud") intersection() { bows_in_deck(); cover_at(0); }
+// ring ledge: clears the seated ring (EMPTY); a ring that has slipped 0.6 mm is caught by it (NON-EMPTY)
+if (part == "chk_ring_ledge") intersection() { ring_ledge(); translate([0, 0, -uv_ring_h - 0.3]) uv_ring(); }
+if (part == "chk_ring_ledge_hold") intersection() { ring_ledge(); translate([0, 0, -uv_ring_h - 0.9]) uv_ring(); }
+if (part == "chk_probe") intersection() { translate([0, 0, z_deck]) deck(); cover_at(probe_lift, probe_rot); }
+probe_lift = 0; probe_rot = 0;
+
+// exploded view of the gate variant: seat, the six bow springs, and the cover floating above (locked orientation)
+gate_explode = 14;
+if (part == "gate_view") {
+  color("#8a6a3b") translate([0, 0, z_deck]) intersection() { cylinder(r = 36, h = 40, $fn = fn_big); deck(); }
+  color("#c0392b") bows_in_deck();
+  color("#e0b84e") cover_at(gate_explode);
+}

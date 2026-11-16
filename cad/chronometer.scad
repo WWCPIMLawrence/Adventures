@@ -68,6 +68,7 @@ nut_t         = 2.4;
 
 /* [Centre cover] */
 cover_r       = 27.8;   // flange radius
+cover_rim     = "knurl"; // "knurl" (approved, default) or "smooth" (test variant, not yet approved)
 cover_proud   = 3.0;    // how far the cover stands above the ring faces (finger grip)
 skirt_wall    = 1.6;
 bay_lug_w     = 10;     // bayonet lug angular width, deg
@@ -707,8 +708,8 @@ module cover() {
                    [[skirt_ro - 0.2, lug_z0], [skirt_ro + bay_lug_r, lug_z0],
                     [skirt_ro + bay_lug_r, lug_z0 + 1.25], [skirt_ro - 0.2, lug_z0 + 1.25 + bay_lug_r + 0.2]]);
     }
-    // grip scallops
-    for (k = [0:35]) rotate([0, 0, k*10 + 5]) translate([cover_r + 0.8, 0, -1])
+    // grip scallops ("knurl" = current/approved; "smooth" = plain rim so it does not read as a turning part)
+    if (cover_rim == "knurl") for (k = [0:35]) rotate([0, 0, k*10 + 5]) translate([cover_r + 0.8, 0, -1])
       cylinder(r = 1.4, h = cover_t + 2, $fn = 16);
     // M3 nut trap (from below) and screw hole for the keystone
     translate([0, 0, cover_t - 1.4 - nut_t - 0.2]) cylinder(d = nut_af/cos(30), h = nut_t + 0.2, $fn = 6);

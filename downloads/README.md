@@ -1,5 +1,7 @@
 # Downloads (latest files, 16 Nov 2026)
 
+**Everything in one file:** [ALL_LATEST_2026-11-16.zip](ALL_LATEST_2026-11-16.zip) (print zips, PDFs, reports, template, coordinates).
+
 On GitHub, click a file, then use the **Download raw file** button (the arrow icon at the top right of the file view).
 Markdown (`.md`) and PDF files also open in the browser.
 

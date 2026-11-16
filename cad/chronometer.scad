@@ -160,6 +160,17 @@ aperture_d    = 10.5;
 // aperture centres [x, y]; demo = T-I-M-E clockwise from the top
 apertures     = [[0, 15], [15, 0], [0, -15], [-15, 0]];
 sight_d       = 2.5;    // centre sighting hole (0 = none)
+// ---- asymmetric aperture proposal (NOT production-approved; default is the symmetric cross above) ----
+// View convention for every coordinate in this file: looking DOWN onto the instrument from above (the player's view, cover
+// off), +X to the right (3 o'clock), +Y up the page toward the DOUBLE notch (12 o'clock). A sheet lying face-up under the
+// instrument is drawn in this same view: NO mirror is needed. Reading order: clockwise from the double notch, R, I, F, T.
+aperture_pattern = "cross";   // [cross: approved baseline, asym_v1: proposal]
+asym_v1 = [[7.053, 9.708], [14.095, -5.130], [-4.603, -9.437], [-12.977, 3.721]];   // R, I, F, T; = bearing 36/110/206/286 deg at r 12.0/15.0/10.5/13.5
+ap_pts = aperture_pattern == "asym_v1" ? asym_v1 : apertures;
+// One-piece back plate: the aperture floor is printed with the plate, back face on the bed, flush with the sheet.
+aperture_integral = false;    // true: floor of plate_floor_t carries the holes; no separate mask, ledge, groove, key slot or base lip
+plate_floor_t = 1.2;          // thickness of the integral floor (same as the mask it replaces)
+back_pin_hole_d = 4.6;        // base: locating-pin hole. 4.2 is PROPOSED separately and untested; 4.6 is the approved value
 mask_style    = "spring"; // [spring: three spring arms grip the well, dropin: loose keyed disc with a finger notch]
 mask_key_angle = 270;   // must equal one of bay_entry_angles
 mask_nub      = 0.65;   // spring-nub interference with the well wall. At 0.35 the nubs sat in the click
@@ -376,13 +387,17 @@ module reg_notches(h) {
     rotate([0, 0, 45]) cube([1.8, 1.8, h + 2], center = false);
 }
 
-module base(h = base_h, with_uv = uv_enabled) {
+module base(h = base_h, with_uv = uv_enabled, floor_t = 0) {
   zc = ledge_t + mask_t/2;
   plate_mode = with_uv && uv_access == "plate";
   // with a back plate the base is thinner, so the cap-screw pilots go right through (the plate hides them)
   pilot = plate_mode ? h + 1 : min(screw_pilot_depth, h - 1.5);
   union() {
   difference() {
+    if (floor_t > 0)   // integral floor: flat, no ledge, no click groove; the holes are cut below
+      rev([[0, 0], [body_r - edge_ch, 0], [body_r, edge_ch], [body_r, h - 0.4], [body_r - 0.4, h],
+           [well_r + 0.6, h], [well_r, h - 0.6], [well_r, floor_t], [0, floor_t]]);
+    else
     rev([[ledge_r, 0], [body_r - edge_ch, 0], [body_r, edge_ch], [body_r, h - 0.4], [body_r - 0.4, h],
          [well_r + 0.6, h], [well_r, h - 0.6],
          [well_r, zc + 0.5], [well_r + 0.25, zc], [well_r, zc - 0.5],   // click groove for mask springs
@@ -392,8 +407,16 @@ module base(h = base_h, with_uv = uv_enabled) {
     for (a = bay_entry_angles)
       rev_sector(a - bay_travel - bay_lug_w/2 - 0.3, bay_travel + bay_lug_w + 1.8,
                  [[well_r - 1, h - bay_floor_relief], [bay_groove_r, h - bay_floor_relief], [bay_groove_r, h + 1], [well_r - 1, h + 1]]);
-    // mask keyway
-    rotate([0, 0, mask_key_angle]) translate([well_r - 1, -(mask_key_w + 0.6)/2, ledge_t])
+    // the optical holes, cut through the integral floor
+    if (floor_t > 0) {
+      translate([0, 0, -1]) linear_extrude(floor_t + 2) {
+        for (p = ap_pts) translate(p) circle(d = aperture_d, $fn = 64);
+        if (sight_d > 0) circle(d = sight_d, $fn = 24);
+      }
+      translate([0, 0, floor_t - 0.4]) linear_extrude(1) translate([0, 21.05]) polygon([[-1.2, 0], [1.2, 0], [0, 1.8]]);   // 12 o'clock marker
+    }
+    // mask keyway (none with an integral floor)
+    if (floor_t == 0 && !(aperture_integral && plate_mode)) rotate([0, 0, mask_key_angle]) translate([well_r - 1, -(mask_key_w + 0.6)/2, ledge_t])
       cube([mask_key_r + 0.3 - well_r + 1, mask_key_w + 0.6, plate_mode ? door_t : h]);
     // self-tapping pilots for the cap screws
     for (a = screw_angles) rotate([0, 0, a]) translate([screw_r, 0, h - pilot])
@@ -410,7 +433,7 @@ module base(h = base_h, with_uv = uv_enabled) {
                                                                                      // is a small bridge that sags, so it gets 0.9 mm of room
         cylinder(d = screw_pilot_d, h = h + 1, $fn = 24);                             // self-tapping pilot
       }
-      rotate([0, 0, back_pin_angle]) translate([back_screw_r, 0, 0]) cylinder(d = 4.6, h = door_t + 3.0, $fn = 24);
+      rotate([0, 0, back_pin_angle]) translate([back_screw_r, 0, 0]) cylinder(d = back_pin_hole_d, h = door_t + 3.0, $fn = 24);
     }
     if (with_uv && !plate_mode && decoy_doors) for (a = [90, 180, 270]) rotate([0, 0, a]) decoy_door(h);
     if (with_uv && !plate_mode) translate([bay_x, bay_y, 0]) {
@@ -453,7 +476,7 @@ module base(h = base_h, with_uv = uv_enabled) {
   // underside of this lip, so nothing can push it up into the instrument. (Printed as the first
   // layers of the base, flat on the bed: no overhang.) The mask is fitted into the plate before the
   // base goes on; the lip's opening matches the clear opening in the plate, so the view is unchanged.
-  if (plate_mode) rev([[ledge_r, door_t], [well_r + 0.1, door_t], [well_r + 0.1, door_t + mask_lip_t], [ledge_r, door_t + mask_lip_t]]);
+  if (plate_mode && !aperture_integral) rev([[ledge_r, door_t], [well_r + 0.1, door_t], [well_r + 0.1, door_t + mask_lip_t], [ledge_r, door_t + mask_lip_t]]);
   }
 }
 
@@ -484,7 +507,7 @@ module flank_bump(xc, len, d) {     // follows the V-rail on the -Y edge: lower 
 module back_plate() {
   difference() {
     union() {
-      intersection() { base(h = base_h, with_uv = false); translate([0, 0, -1]) cylinder(r = body_r + 5, h = door_t + 1, $fn = 12); }
+      intersection() { base(h = base_h, with_uv = false, floor_t = aperture_integral ? plate_floor_t : 0); translate([0, 0, -1]) cylinder(r = body_r + 5, h = door_t + 1, $fn = 12); }
       for (a = back_screw_angles) rotate([0, 0, a]) translate([back_screw_r, 0, door_t - eps])
         cylinder(d = back_boss_d, h = back_boss_h + eps, $fn = 32);
       rotate([0, 0, back_pin_angle]) translate([back_screw_r, 0, door_t - eps]) cylinder(d1 = 4.0, d2 = 3.2, h = 1.6, $fn = 24);
@@ -876,12 +899,12 @@ module mask() {
       }
       // drop-in version: finger notch opposite the key (stays over the ledge, so nothing shows)
       if (!spring) rotate([0, 0, mask_key_angle + 180]) translate([r + 3.2, 0]) circle(r = 5.6, $fn = 48);
-      for (p = apertures) translate(p) circle(d = aperture_d, $fn = 64);
+      for (p = ap_pts) translate(p) circle(d = aperture_d, $fn = 64);
       if (sight_d > 0) circle(d = sight_d, $fn = 24);
     }
-    // "top" marker above the first aperture
+    // "top" marker at 12 o'clock (the double notch side); 21.05 = where it always was above the baseline's first aperture
     translate([0, 0, mask_t - 0.4]) linear_extrude(1)
-      translate([0, apertures[0][1] + aperture_d/2 + 0.8]) polygon([[-1.2, 0], [1.2, 0], [0, 1.8]]);
+      translate([0, 21.05]) polygon([[-1.2, 0], [1.2, 0], [0, 1.8]]);
   }
 }
 
@@ -903,7 +926,7 @@ module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = 
       rotate([180, 0, 0]) translate([0, 0, -3]) screw(back_screw_len);
   }
   if (light) translate([bay_x + (door_out > 0 ? 6 : 0), bay_y, door_t + 0.3 - (door_out > 0 ? 16 : 0)]) uv_light();
-  translate([0, 0, ledge_t + 0.35*e]) color(C_DARK) mask();
+  if (!aperture_integral) translate([0, 0, ledge_t + 0.35*e]) color(C_DARK) mask();
   translate([0, 0, z_deck + e]) color(C_BRASS) deck();
   translate([0, 0, z_floor + 1.5*e]) {
     color(C_RED) for (a = outer_pawl_angles) rotate([0, 0, a]) pawl(true);
@@ -1118,3 +1141,25 @@ if (part == "gate_view") {
   color("#c0392b") bows_in_deck();
   color("#e0b84e") cover_at(gate_explode);
 }
+
+// ============================================ INTEGRAL APERTURE: COUPON AND EXPORTS ====
+// (variant, not production-approved; use -D aperture_integral=true -D aperture_pattern="asym_v1")
+// Coupon: the centre of the integral back plate, same orientation, thickness and floor as the real plate (back face on the
+// bed), r 34 mm. The edge carries the same notch pattern as the rim (3 singles + 1 double) so it can be registered to the
+// 1:1 paper template. It is NOT a seat: use a whole plate on a base to test repeatability.
+module plate_floor_cyl() cylinder(r = well_r, h = plate_floor_t, $fn = fn_big);
+module aperture_coupon_full() difference() {
+  intersection() { back_plate(); cylinder(r = 34, h = 10, $fn = fn_big); }
+  for (a = [0, 180, 270, 87, 93]) rotate([0, 0, a]) translate([33.9, 0, -1]) rotate([0, 0, 45]) cube([1.8, 1.8, door_t + 2]);
+}
+if (part == "aperture_coupon") aperture_coupon_full();
+// two-colour pair: the black floor (everything inside the well radius up to plate_floor_t) and the brass remainder.
+// They are exactly complementary, so import both into one Bambu Studio object and give each its own filament.
+if (part == "aperture_coupon_black") intersection() { aperture_coupon_full(); plate_floor_cyl(); }
+if (part == "aperture_coupon_brass") difference() { aperture_coupon_full(); plate_floor_cyl(); }
+if (part == "back_plate_black") intersection() { back_plate(); plate_floor_cyl(); }
+if (part == "back_plate_brass") difference() { back_plate(); plate_floor_cyl(); }
+// the exact cross-section through the floor at mid-height, for measuring the holes from the real geometry
+if (part == "aperture_cut") projection(cut = true) translate([0, 0, -plate_floor_t/2]) back_plate();
+// plate vs base: no overlap with the integral plate (EMPTY); floor stays inside the well (EMPTY, see below)
+if (part == "chk_floor_in_base") intersection() { translate([0, 0, 0]) plate_floor_cyl(); difference() { base(); translate([0, 0, -1]) cylinder(r = well_r - 0.01, h = 50, $fn = fn_big); } }

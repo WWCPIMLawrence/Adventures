@@ -1,0 +1,133 @@
+{
+  "version": "asym_v1",
+  "status": "PROPOSAL / COUPON ONLY - not production-approved. The approved baseline is still the symmetric cross.",
+  "source": "cad/chronometer.scad  (aperture_pattern=\"asym_v1\", aperture_integral=true)",
+  "convention": {
+    "view": "Looking DOWN onto the instrument from above (the player's view with the cover removed). A sheet lying face-up under the instrument is drawn in this SAME view.",
+    "mirror": "NO mirror for a face-up sheet. If anything is drawn from the underside of the plate, x must be negated.",
+    "origin": "centre of the plate / well",
+    "+X": "to the right (3 o'clock)",
+    "+Y": "toward the DOUBLE notch (12 o'clock, 'top')",
+    "units": "mm",
+    "bearing": "clockwise from +Y (12 o'clock). x = r*sin(bearing), y = r*cos(bearing)"
+  },
+  "reading_order": "Start at the double notch (12 o'clock) and sweep CLOCKWISE; the first hole met reads R, then I, F, T.",
+  "holes": [
+    {
+      "order": 1,
+      "letter": "R",
+      "bearing_deg_clockwise_from_12_oclock": 36,
+      "radius_mm": 12.0,
+      "x_mm": 7.053,
+      "y_mm": 9.708,
+      "diameter_mm": 10.5,
+      "hole_edge_max_radius_mm": 17.25
+    },
+    {
+      "order": 2,
+      "letter": "I",
+      "bearing_deg_clockwise_from_12_oclock": 110,
+      "radius_mm": 15.0,
+      "x_mm": 14.095,
+      "y_mm": -5.13,
+      "diameter_mm": 10.5,
+      "hole_edge_max_radius_mm": 20.25
+    },
+    {
+      "order": 3,
+      "letter": "F",
+      "bearing_deg_clockwise_from_12_oclock": 206,
+      "radius_mm": 10.5,
+      "x_mm": -4.603,
+      "y_mm": -9.437,
+      "diameter_mm": 10.5,
+      "hole_edge_max_radius_mm": 15.75
+    },
+    {
+      "order": 4,
+      "letter": "T",
+      "bearing_deg_clockwise_from_12_oclock": 286,
+      "radius_mm": 13.5,
+      "x_mm": -12.977,
+      "y_mm": 3.721,
+      "diameter_mm": 10.5,
+      "hole_edge_max_radius_mm": 18.75
+    }
+  ],
+  "sighting_hole": {
+    "x_mm": 0,
+    "y_mm": 0,
+    "diameter_mm": 2.5,
+    "note": "sits over the sheet's centre mark; no solution letter may be placed under it"
+  },
+  "aperture_floor": {
+    "thickness_mm": 1.2,
+    "face_to_sheet": "flush (0 mm gap): the back face of the plate and the floor are the same plane",
+    "material": "black (AMS) in the floor, brass elsewhere; brass-only is acceptable for a contrast comparison",
+    "print": "back face down on the bed; outer brim only, no brim inside the holes; separate bodies, not the paint tool"
+  },
+  "registration": {
+    "notches_on_rim": {
+      "radius_mm": 62.5,
+      "shape": "1.8 x 1.8 mm square turned 45 deg (a V about 1.27 deep, 2.55 wide)",
+      "singles_at_clock_positions": [
+        "3 o'clock (CAD +X)",
+        "6 o'clock (CAD -Y)",
+        "9 o'clock (CAD -X)"
+      ],
+      "double": "two notches either side of 12 o'clock, 6 deg apart centred on +Y (CAD angles 87 and 93 deg)"
+    },
+    "plate_locating_pin": {
+      "cad_angle_deg": 0,
+      "radius_mm": 54,
+      "note": "at 3 o'clock; the plate fits one way"
+    },
+    "plate_screws": {
+      "count": 4,
+      "radius_mm": 54,
+      "cad_angles_deg": [
+        45,
+        135,
+        225,
+        315
+      ],
+      "type": "M3 x 8 socket head, 2.5 mm hex key"
+    }
+  },
+  "baseline_for_comparison": {
+    "pattern": "cross",
+    "centres_mm": [
+      [
+        0,
+        15
+      ],
+      [
+        15,
+        0
+      ],
+      [
+        0,
+        -15
+      ],
+      [
+        -15,
+        0
+      ]
+    ],
+    "max_edge_radius_mm": 20.25
+  },
+  "geometry_checks": {
+    "max_hole_edge_radius_mm": 20.25,
+    "min_hole_to_hole_web_mm": 5.1,
+    "min_hole_to_sighting_hole_web_mm": 4.0,
+    "min_bearing_distance_to_any_notch_axis_deg": 16,
+    "bearing_gaps_deg": [
+      74,
+      80,
+      96,
+      110
+    ],
+    "rotational_or_mirror_symmetry": "none (0.5 mm tolerance)"
+  },
+  "warning_to_Work": "Do NOT approximate, mirror, scale, rotate or reorder these coordinates without explicit engineering approval. The sheet's letters must sit at these centres; the sheet is printed at 100 %."
+}

@@ -115,6 +115,8 @@ bow_w         = 1.4;    // radial width
 bow_lift      = 1.2;    // free height of the bow's top above the hub top
 bow_pocket    = 0.8;    // depth of the pocket under it: takes a 0.7 (soft) or a 0.8 (firm) strip
 bow_foot      = 0.9;    // end rib that keeps the bow in its slot
+bow_foot_h    = 1.6;    // how deep the feet go (was 1.0: the strips fell out of the seat)
+bow_fit       = 0.07;   // clearance per side between a foot and its slot: a light press fit (was 0.15)
 bow_rm        = 26.25;  // radius of the pocket's mid-point
 bow_angles    = [61.7, 96.5, 178.8, 213.6, 301.4, 336.2];   // two in each gap between the cover's tracks
 uv_ring_h     = 2.4;    // height of the retaining ring / latch spring
@@ -603,9 +605,10 @@ module deck() {
 module gate_bow_pocket() {
   fl = deck_t + rib_h - bow_pocket;
   pw = bow_w + 0.3;
+  fw = bow_w + 2*bow_fit;                      // slot width across the foot
   translate([-(bow_c/2 + 0.6), -pw/2, fl]) cube([bow_c + 1.2, pw, bow_pocket + 2]);
-  translate([-bow_c/2 - 0.15, -pw/2, fl - 1.1]) cube([bow_foot + 0.3, pw, 1.2]);
-  translate([bow_c/2 - bow_foot - 0.15, -pw/2, fl - 1.1]) cube([bow_foot + 0.15 + 0.6, pw, 1.2]);
+  translate([-bow_c/2 - bow_fit, -fw/2, fl - bow_foot_h - 0.1]) cube([bow_foot + 2*bow_fit, fw, bow_foot_h + 0.2]);
+  translate([bow_c/2 - bow_foot - bow_fit, -fw/2, fl - bow_foot_h - 0.1]) cube([bow_foot + bow_fit + 0.6, fw, bow_foot_h + 0.2]);
 }
 // lug chamfer line is r + z = well_r - cover_clear + bay_lug_r + 1.5 (deck coords)
 bay_line = well_r - cover_clear + bay_lug_r + 1.5;
@@ -944,7 +947,7 @@ module gate_bow_profile() {
   hi = [for (i = [n:-1:0]) let(x = -bow_c/2 + bow_c*i/n) [x, bow_sag*(1 - pow(2*x/bow_c, 2)) + bow_t]];
   union() {
     polygon(concat(lo, hi));
-    for (s = [-1, 1]) translate([s*(bow_c/2 - bow_foot/2) - bow_foot/2, -1.0]) square([bow_foot, 1.0 + bow_t*0.5]);
+    for (s = [-1, 1]) translate([s*(bow_c/2 - bow_foot/2) - bow_foot/2, -bow_foot_h]) square([bow_foot, bow_foot_h + bow_t*0.5]);
   }
 }
 // installed orientation: x along the chord, y across (radial), z up; base of the arch at z = 0

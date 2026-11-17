@@ -24,9 +24,9 @@ base's retaining lip are gone.
 | Black floor bond (pry test) | No issues |
 | Fit on the existing base, repeated refits | No issues (plate fits the base printed before the lip) |
 | Arrow at 12 o'clock | Coloured bone-white **by hand** (top two layers of the 0.4 mm pocket); matches the other indicators. Manual colour change accepted; no extra export body needed |
-| Letters on the 1:1 template | **Not yet tested** |
+| Letters on the 1:1 template | **Passed.** Template printed on 8.5 x 11 at 100 %; the R, I, F, T lettering and the circles match the plate's holes (owner, 17 Nov). This confirms the coordinates, reading order and orientation on paper at 1:1; it is the engineering template, not the journal proof |
 | Real journal proof, both play orders, blind-pair and recoverability tests | **Not yet tested** |
 
-**Still to validate:** glare and opacity outdoors, the letters through the 1:1 template, the real journal proof in both play orders, and the blind-pair and recoverability tests. Nothing here may be called production-approved until the template and journal-proof tests pass.
+**Still to validate:** glare and opacity outdoors, the real journal proof in both play orders, and the blind-pair and recoverability tests. Nothing here may be called production-approved until the template and journal-proof tests pass.
 
 **Not changed:** the gate, latch and ring variants remain OFF by default; the pin hole stays 4.6 mm; the flashlight bay, screws (M3 x 8) and rings are untouched.

@@ -12,7 +12,7 @@ Bone White PLA, dark PETG), not the concept image. The concept image is style re
 | Inner ring | Matte black | **Ivory symbols and ivory finger ribs** | change to ivory at **layer 29** (5.80 mm), one change only |
 | Centre knob | Brass | — | single colour |
 | Fragments (281 / 361 / 924 / 507) | Bone white | Black digits | black for layers 3–4, as already printed |
-| Aperture mask | Matte black | — | single colour |
+| Aperture floor (integral to the back plate; was the separate mask) | Matte black | — | separate body, brass elsewhere; brass-only acceptable for a contrast test |
 | Detent springs, latch ring | Dark PETG | — | single colour, wall loops 4 |
 
 Cover colour was not specified: brass is assumed (structure). It only shows as the thin lines

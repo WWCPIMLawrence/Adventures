@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Generates the printable paper parts for the Chronometer prototype.
 
+  *** RETIRED FOR THE APERTURE SHEET (16 Nov 2026). The aperture sheet below is for the old symmetric cross and the separate
+  *** mask. The chosen design is asym_v1 (reference/aperture_geometry.json); that page is made outside this script, from the
+  *** frozen coordinates. The labels/templates PDF is still valid.
+
   sheets/aperture_test_sheet.pdf   clue sheet that must read T-I-M-E through the mask
   sheets/labels_and_templates.pdf  inner-ring symbol labels, UV insert discs,
                                    fragment template and the final-synchronization card

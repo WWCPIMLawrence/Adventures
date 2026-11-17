@@ -1,5 +1,8 @@
 # Materials, filament and shopping list
 
+> **16 Nov 2026:** the separate mask is retired. The aperture is a 1.2 mm floor printed with the back plate (`aperture_integral = true`, asym_v1). Lines below that mention the mask describe the retired design; see `docs/APERTURE_DESIGN.md`.
+
+
 > **Colours:** the approved plan in [`COLOR_PLAN.md`](COLOR_PLAN.md) supersedes the colour
 > assignments below (inner ring is now black, centre knob brass, index-cap arrow ivory).
 
@@ -32,7 +35,7 @@ Weights are per part, slicer-measured. "4×" is the quantity for four instrument
 | `door` | 1 | 4 | PLA, same spool as base (it must disappear into the back) | Antique brass | 4.2 | **High** — dovetail, side spring | Acceptable. Spring strain ~0.6 %, used rarely. **Prototype test.** |
 | `outer_ring` | 1 | 4 | Matte PLA | Charcoal | 18.6 | **High** — journal, detent scallops | Yes. Matte is slightly rougher on the journal — **prototype test** for drag. |
 | `keystone` | 1 | 4 | Matte PLA | Charcoal | 1.4 | Medium — screw-head press fit | Yes |
-| `mask` | 1 | 4 | Matte PLA | Black or charcoal | 2.3 | Medium — spring arms | Yes. Matte is the right finish (no glare in the well). |
+| `back_plate` (floor body) | 1 | 4 | Matte PLA | Black (the 1.2 mm aperture floor only, as a separate body) | 2.4 | Medium — flat on the bed, outer brim only | Yes. Replaces the retired `mask`; the rest of the plate is brass. |
 | `inner_ring` | 1 | 4 | Matte PLA | Aged ivory / bone | 11.0 | **High** — journal, detent scallops | Yes |
 | `fragment_1…4` | 4 | 16 | Matte PLA | Aged ivory / bone | 1.3 | Medium — keying pegs, bevel | Yes |
 | `pawl_outer` | 2 | 8 | **PETG** | Any (hidden) | 0.16 | **High** — springs | Yes, preferred — see below |
@@ -128,7 +131,7 @@ Slicer-measured weights, summed.
 | Colour / material | One instrument | Four instruments | Spares | ×1.25 failure allowance | Prototype round | **Total to have** |
 |---|---|---|---|---|---|---|
 | Antique brass PLA (base, deck, index cap, cover, door) | 101 g | 406 g | 19 g (1 cover, 2 doors) | 531 g | ~160 g | **~700 g** |
-| Charcoal matte PLA (outer ring, keystone, mask) | 22 g | 89 g | 11 g (4 masks, 1 keystone) | 125 g | ~25 g | **~150 g** |
+| Charcoal matte PLA (outer ring, keystone; the black aperture floor adds ~2 g per plate) | 22 g | 89 g | 11 g (1 keystone) | 125 g | ~25 g | **~150 g** |
 | Ivory matte PLA (inner ring, 4 fragments) | 16 g | 65 g | 5 g (1 fragment set) | 88 g | ~20 g | **~110 g** |
 | PETG (4 pawls, latch ring) | 1.2 g | 5 g | 8 g (2 extra pawl sets and 1 ring per unit) | 16 g | ~4 g | **~20 g** |
 | **All** | **141 g** | **565 g** | **43 g** | **760 g** | **~210 g** | **~980 g** |
@@ -152,7 +155,7 @@ One material per plate; no supports anywhere. Single-colour plates need no AMS s
 | 1 | Brass PLA | `base` | Back face down. |
 | 2 | Brass PLA | `deck` | Outer wall first for accurate journals. |
 | 3 | Brass PLA | `index_cap`, `cover`, `door` | Cover prints face down: the build plate sets its finish — textured PEI gives a more antique face than a smooth plate. |
-| 4 | Charcoal matte PLA | `outer_ring`, `keystone`, `mask` | |
+| 4 | Charcoal matte PLA | `outer_ring`, `keystone`, `back_plate` floor body | |
 | 5 | Ivory matte PLA | `inner_ring`, `plate_fragments` | Fragments print text down, so the plate texture shows on their faces too. |
 | 6 | PETG | `pawl_outer` ×2, `pawl_inner` ×2, `uv_ring` | Separate plate: PETG temperatures and plate prep differ from PLA. |
 

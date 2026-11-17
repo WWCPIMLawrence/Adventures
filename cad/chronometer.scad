@@ -160,17 +160,18 @@ aperture_d    = 10.5;
 // aperture centres [x, y]; demo = T-I-M-E clockwise from the top
 apertures     = [[0, 15], [15, 0], [0, -15], [-15, 0]];
 sight_d       = 2.5;    // centre sighting hole (0 = none)
-// ---- asymmetric aperture proposal (NOT production-approved; default is the symmetric cross above) ----
+// ---- aperture pattern. DEFAULT = asym_v1 (chosen design, 16 Nov 2026; physical validation pending: coupon, whole plate, journal proof).
+//      The symmetric cross in `apertures` above is the retired baseline (git commit 09dfe49; exports in stl/legacy/). ----
 // View convention for every coordinate in this file: looking DOWN onto the instrument from above (the player's view, cover
 // off), +X to the right (3 o'clock), +Y up the page toward the DOUBLE notch (12 o'clock). A sheet lying face-up under the
 // instrument is drawn in this same view: NO mirror is needed. Reading order: clockwise from the double notch, R, I, F, T.
-aperture_pattern = "cross";   // [cross: approved baseline, asym_v1: proposal]
+aperture_pattern = "asym_v1";   // [asym_v1: chosen design, cross: retired symmetric baseline (uses `apertures`)]
 asym_v1 = [[7.053, 9.708], [14.095, -5.130], [-4.603, -9.437], [-12.977, 3.721]];   // R, I, F, T; = bearing 36/110/206/286 deg at r 12.0/15.0/10.5/13.5
 ap_pts = aperture_pattern == "asym_v1" ? asym_v1 : apertures;
 // One-piece back plate: the aperture floor is printed with the plate, back face on the bed, flush with the sheet.
-aperture_integral = false;    // true: floor of plate_floor_t carries the holes; no separate mask, ledge, groove, key slot or base lip
+aperture_integral = true;     // true (default): the plate carries a floor of plate_floor_t with the holes: no separate mask, ledge, groove, key slot or base lip. false: retired separate-mask design
 plate_floor_t = 1.2;          // thickness of the integral floor (same as the mask it replaces)
-back_pin_hole_d = 4.6;        // base: locating-pin hole. 4.2 is PROPOSED separately and untested; 4.6 is the approved value
+back_pin_hole_d = 4.6;        // base: locating-pin hole. 4.2 is PROPOSED separately and untested (only if plate refit repeatability fails); 4.6 stays
 mask_style    = "spring"; // [spring: three spring arms grip the well, dropin: loose keyed disc with a finger notch]
 mask_key_angle = 270;   // must equal one of bay_entry_angles
 mask_nub      = 0.65;   // spring-nub interference with the well wall. At 0.35 the nubs sat in the click
@@ -922,6 +923,12 @@ module assembly(e = 0, fragments = true, cover_on = true, door_out = 0, light = 
   if (uv_enabled && uv_access == "door") translate([door_out, 0, -1.2*e]) color(C_DARK) door();
   if (uv_enabled && uv_access == "plate") translate([0, 0, -1.5*e - (door_out > 0 ? 22 : 0)]) {
     color(C_BRASS) back_plate();
+    if (aperture_integral)              // preview only: a 0.05 mm black skin on the floor (the real floor is a separate black body)
+      color(C_DARK) translate([0, 0, plate_floor_t]) linear_extrude(0.05) difference() {
+        circle(r = well_r - 0.01, $fn = fn_big);
+        for (p = ap_pts) translate(p) circle(d = aperture_d, $fn = 64);
+        if (sight_d > 0) circle(d = sight_d, $fn = 24);
+      }
     for (a = back_screw_angles) rotate([0, 0, a]) translate([back_screw_r, 0, back_cb_depth - 3 - 0.6*e])
       rotate([180, 0, 0]) translate([0, 0, -3]) screw(back_screw_len);
   }
@@ -1143,7 +1150,7 @@ if (part == "gate_view") {
 }
 
 // ============================================ INTEGRAL APERTURE: COUPON AND EXPORTS ====
-// (variant, not production-approved; use -D aperture_integral=true -D aperture_pattern="asym_v1")
+// (these are now the defaults; the coupon and the two-colour bodies are exports of the chosen design)
 // Coupon: the centre of the integral back plate, same orientation, thickness and floor as the real plate (back face on the
 // bed), r 34 mm. The edge carries the same notch pattern as the rim (3 singles + 1 double) so it can be registered to the
 // 1:1 paper template. It is NOT a seat: use a whole plate on a base to test repeatability.

@@ -1,5 +1,8 @@
 # Print plan: first test prints, then production
 
+> **16 Nov 2026:** the separate mask is retired. The aperture is a 1.2 mm floor printed with the back plate (`aperture_integral = true`, asym_v1). Lines below that mention the mask describe the retired design; see `docs/APERTURE_DESIGN.md`.
+
+
 All times and weights below are from PrusaSlicer with a generic machine profile (0.20 mm,
 3 walls, 15 % gyroid). They are **not** Bambu Studio estimates: a P1S normally finishes
 sooner, and Bambu Studio's own figure for each plate is the one to plan around.
@@ -20,7 +23,7 @@ there.
 
 | # | STL files (import together, auto-arrange) | Filament | Weight | Time | What it tests |
 |---|---|---|---|---|---|
-| 1 | `test_seat`, `cover`, `mask` | PLA | 22 g | ~2 h 20 | Cover bayonet through its full 28° turn, latch grooves, mask retention |
+| 1 | `test_seat`, `cover` | PLA | 22 g | ~2 h 20 | Cover bayonet through its full 28° turn, latch grooves (the mask is retired: see the aperture coupon) |
 | 2 | `plate_springs` | **PETG** | 3 g | ~25 min | Detent springs in three stiffnesses + two latch rings |
 | 3 | `deck`, `index_cap`, `test_screw_ring` | PLA | 60 g | ~6 h 30 | Ring journals, pawl pockets, cap retention |
 | 4 | `outer_ring`, `inner_ring` | PLA | 30 g | ~3 h 10 | Ring fit, detent scallops |
@@ -75,7 +78,7 @@ order the prints finish:
 1. **Cover in `test_seat`** — drops in, turns to the stop without binding, lifts out. With
    a latch ring fitted: clicks at both ends, stays in when inverted and shaken.
 2. **Nut** — drawn into the cover with a long M3 screw; stays put with the latch ring out.
-3. **Mask** — slides down the well, clicks, survives inversion, pushes out from the back.
+3. **Aperture** — `aperture_coupon` (brass, then two-colour), then one whole `back_plate` on the base: holes 10.5 +/- 0.15 mm, flat on a table, 20 refits move the holes 0.5 mm or less.
 4. **Rings without pawls, cap screws fully tight** — spin freely, no rocking or rubbing.
 5. **Detents** — try PETG II, then PETG III, then PLA II. Each of the 12 positions should
    settle by itself; one finger turns the ring; nothing moves when shaken.
@@ -135,7 +138,7 @@ anywhere on the face switches the light on or only at one spot.
 `inner_ring` and `plate_springs` once in the final filaments and repeat the round-1 checks.
 If they pass, these parts become instrument no. 1.
 
-**Step 1 — complete instrument no. 1** (add `base`, `index_cap`, `door`, `mask`,
+**Step 1 — complete instrument no. 1** (add `base`, `index_cap`, `door`, `back_plate` (floor in black),
 `keystone`, fragments, labels) and test it as a player would. Freeze the design.
 
 **Step 2 — batch the other three plus spares.** One filament per plate. Two 125 mm parts
@@ -148,7 +151,7 @@ fit a plate comfortably; four would crowd the bed edge.
 | 3 | `inner_ring` × 3 (+ 1 spare) | Ivory matte | ~4 h 40 | |
 | 4 | Pawls: 3 sets per instrument, and 8 latch rings | PETG | ~2 h | Spares are cheap; print them all at once |
 | 5 | `deck` × 1, `index_cap` × 3 | Brass PLA | ~6 h | |
-| 6 | `outer_ring` × 1, `keystone` × 4, `mask` × 7 | Charcoal matte | ~5 h | Includes 4 spare masks, 1 spare keystone |
+| 6 | `outer_ring` × 1, `keystone` × 4 | Charcoal matte | ~4 h | Includes 1 spare keystone. The black aperture floor is printed with each `back_plate` (two bodies, AMS), so there are no separate masks |
 | 7 | `base` × 2 | Brass PLA | ~9 h | Overnight |
 | 8 | `base` × 1, `cover` × 4, `door` × 5 | Brass PLA | ~11 h 30 | Overnight. Includes 1 spare cover, 2 spare doors |
 | 9 | `plate_fragments` × 4 | Ivory matte | ~2 h 30 | Includes 1 spare set |
@@ -157,7 +160,7 @@ About 52 hours of printing for three instruments and all spares, by the generic 
 about 67 hours if instrument no. 1 also has to be reprinted. Plates 1–6 are daytime prints,
 7 and 8 run overnight.
 
-**Spares produced:** 2 extra pawl sets per instrument, 4 latch rings, 4 masks, 2 doors,
+**Spares produced:** 2 extra pawl sets per instrument, 4 latch rings, 2 spare back plates, 2 doors,
 1 cover, 1 keystone, 1 inner ring, 1 fragment set.
 
 **Step 3 — assembly and finishing,** one instrument at a time: mechanism (deck, pawls,

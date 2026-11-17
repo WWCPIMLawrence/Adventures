@@ -23,9 +23,12 @@ The reasoning behind the layout (and what was changed from the original brief) i
 |------|----------|
 | `cad/chronometer.scad` | The whole model. Set `part` (or use the Customizer) to view/export any part. |
 | `stl/` | One STL per part, already in print orientation, plus two convenience plates. |
-| `sheets/aperture_test_sheet.pdf` | Clue sheet that reads **RIFT** through the mask (page 1 test, page 2 game copy). |
+| `sheets/aperture_test_sheet.pdf` | **Retired.** Clue sheet for the old symmetric cross and separate mask (TIME / RIFT). The asym_v1 journal page is made from `reference/aperture_geometry.json`. |
 | `sheets/labels_and_templates.pdf` | Inner-dial symbol labels, UV insert discs, fragment template, demo decoding card. |
-| `sheets/aperture_proof.png` | Simulated view through the mask, registered and 1 mm off. |
+| `sheets/aperture_proof.png` | **Retired** (old cross). |
+| `reference/` | Frozen asym_v1 coordinates (`aperture_geometry.json`) and the 1:1 engineering template. |
+| `stl/legacy/` | The retired separate-mask design: mask, base with lip, back plate with ledge. Baseline commit `09dfe49`. |
+| `downloads/` | Latest zips and handoff documents in one folder. |
 | `images/` | Assembled, back, section and exploded views. |
 | `build.sh` | Re-exports STLs, renders images, runs the interference checks. |
 | `scripts/make_sheets.py` | Regenerates the PDFs from the CAD parameters. |
@@ -61,7 +64,7 @@ PLA. STLs are already oriented; do not rotate them. Suggested colours are only t
 | `cover` | 1 | face down | Smooth plate gives the best face. |
 | `keystone` | 1 | top down | Brass. |
 | `uv_ring` | 1 | flat | Holds the UV disc and is the cover's latch spring. Print spares. |
-| `mask` | 1 | flat, marker up | Matte black. |
+| `back_plate` | 1 | back face down | **Carries the aperture floor** (1.2 mm, four holes and a sighting hole). For two colours import `back_plate_black` (the floor) and `back_plate_brass` into one object, one filament each, as separate bodies (not the paint tool). Outer brim only; no brim inside the holes. |
 | `door` | 1 | back face down | |
 | `fragment_1…4` | 4 | text down | Or print `plate_fragments`. With the AMS, paint the first 2 layers of the characters in a contrast colour. |
 
@@ -107,9 +110,8 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
 6. **Index cap:** arrow at XII, which is directly above the flashlight pocket and next to the
    one-dot fragment when the cover is locked. The three screw holes are unevenly spaced so it
    only fits this way. Snug only — over-tightening strips PLA and can pinch the rings.
-7. **Mask:** fitted into the back plate *before* the base goes on: lay the plate face down,
-   drop the mask into its pocket (arrow up, key tab toward the keyway) and press until it clicks.
-   The base's retaining lip then holds it in; it cannot be pushed up into the instrument.
+7. **Back plate:** the aperture is part of the plate (a 1.2 mm floor, flush with the sheet), so there is no separate mask to fit or lose.
+   The plate fits one way (locating pin at 3 o'clock) on four M3 x 8 socket-head screws, 2.5 mm hex key.
 8. **Cover:** lower with its mark ~1 hour anticlockwise of XII, twist clockwise to the stop.
 
 ## Using the four functions
@@ -117,10 +119,10 @@ Screws self-tap into 2.8 mm printed pilots. For four instruments: 12 × M3×16, 
 - **Temporal Alignment** — turn the outer ring by its edge and the inner ring by its ribs;
   read both against the double arrow on the brass index ring.
 - **Temporal Aperture** — twist the cover anticlockwise and lift. Set the instrument on the
-  sheet, rim notches on the printed ticks (double notch = top), centre target visible in the
-  sighting hole. Read clockwise from the mask's arrow.
-- **Hidden UV Discovery** — on the back, push the grooved end of the panel toward the rim;
-  the door slides out and the flashlight tips out. The UV message is inside the centre cover.
+  sheet, centre cross visible in the sighting hole and the page's direction mark lined up with the
+  double notch (12 o'clock). Read the four holes clockwise from the double notch: R, I, F, T (asym_v1).
+- **Hidden UV Discovery** — with the 2.5 mm hex key, remove the four screws in the back plate
+  and lift it off; the flashlight is behind it. Refit the plate afterwards (it fits one way). The UV message is inside the centre cover.
 - **Final Synchronization** — unscrew the keystone, seat the four fragments (pegs fit one
   socket each), screw the keystone back. Home the inner ring as the final clue instructs and
   read the fragment character beside each named symbol: sun at the arrow, then moon,
@@ -155,7 +157,8 @@ settings are in [`docs/PRINT_PLAN.md`](docs/PRINT_PLAN.md), with the production 
 
 | Print | Tests |
 |---|---|
-| `test_seat` (Ø66 × 9 mm) + `cover` + `mask` | cover bayonet, latch grooves, mask retention |
+| `test_seat` (Ø66 × 9 mm) + `cover` | cover bayonet and latch grooves |
+| `aperture_coupon` (brass, then two-colour) | hole diameters, flatness, opacity and glare, black-to-brass bond; letters on the 1:1 template |
 | `plate_springs` in PETG | detent springs in three stiffnesses, two latch rings |
 | `deck`, `index_cap`, `test_screw_ring`, then `outer_ring`, `inner_ring` | rings, detents, cap |
 | `plate_small_parts` + `plate_fragments` | PLA springs for comparison, keystone clamp, fragment keying |
@@ -170,7 +173,7 @@ settings are in [`docs/PRINT_PLAN.md`](docs/PRINT_PLAN.md), with the production 
 | UV disc change | ring pulls out by its free end and presses back; **nut stays in the cover** | `nut_retain` (0.35: larger = tighter mouth) |
 | Rings, pawls out, cap screws fully tightened | turn freely through all 12 positions; no rocking, rubbing or visible tilt | `ring_axial` (0.35), `ring_clear` (0.30) |
 | Detents, each pawl thickness in turn | every position settles by itself; one finger turns the ring; nothing moves when shaken; repeat after ~200 clicks | pawl stiffness, then `notch_depth`, `pawl_preload` |
-| Mask (real part, in the printed well) | slides down, clicks onto the ledge, stays when inverted, pushes out from the back, arms intact after 10 cycles | `mask_clear`; or `mask_style = "dropin"` |
+| Back plate with the integral aperture (whole plate on the base) | holes within 10.5 +/- 0.15 mm, plate flat on a table, 20 removals and refits move the holes 0.5 mm or less, letters read through the journal proof in both play orders | `aperture_d`; `back_pin_hole_d` (4.6 -> 4.2 only if repeatability fails) |
 | Fragments | each fits only its own socket; with the keystone tight all four are immovable when the cover is shaken and handled | `knob_clamp_gap` (0.3), `frag_clear` (0.20) |
 | Flashlight bay and door | light drops in with the ring removed and does not switch on when the part is pressed or knocked; door slides, clicks, does not rub the bridge; spring survives 20 cycles | `uv_*` sizes, `door_clear`; or `uv_enabled = false` |
 
@@ -184,12 +187,12 @@ as a player would, in ordinary indoor light:
   mark; four symbols give four characters: **1147**. Can a first-time reader tell which
   character each symbol points at, and read the 6.5 mm characters?
 
-**Round 3 — freeze, then print the other three** plus spares: pawls, masks, UV rings, and a
+**Round 3 — freeze, then print the other three** plus spares: back plates, pawls, UV rings, and a
 door if the compartment is kept.
 
 **Fallbacks already in the model**
 
-- `mask_style = "dropin"` — loose keyed disc with a finger notch, no spring arms.
+- `aperture_integral = false`, `aperture_pattern = "cross"` — the retired separate-mask design (exports in `stl/legacy/`).
 - `uv_enabled = false` — no bay and no door; the base becomes a plain 11 mm plate and the
   light is issued separately as a story prop. The UV puzzle (the disc inside the cover) is
   unaffected.
@@ -228,10 +231,12 @@ All in the top block of `cad/chronometer.scad`, grouped for the Customizer.
 | `ring_clear`, `ring_axial`, `cover_clear`, `mask_clear`, `door_clear`, `frag_clear` | — | Fits. |
 | `bay_play_free`, `bay_play_end` | 0.75, 0.50 | Cover bayonet axial play at entry / when locked. Confirmed on a printed seat piece. |
 | `latch_n`, `latch_arm_w`, `latch_arm_deg`, `latch_depth` | 3, 1.4, 32, 1.1 | Cover latch: three sprung arms on the PETG ring (1.2 soft, 1.6 firm), each dropping into a groove in the deck's well wall. Replaces the single-nub ring. |
-| `mask_lip_t`, `ledge_t` | 1.4, 0.6 | Retaining lip over the mask's rim and the height of the ledge under it. |
+| `aperture_pattern`, `aperture_integral`, `plate_floor_t` | "asym_v1", true, 1.2 | **Chosen aperture design (16 Nov 2026; physical validation pending).** Four holes at the asym_v1 coordinates, 2.5 mm sighting hole, 1.2 mm floor printed with the back plate. |
+| `back_pin_hole_d` | 4.6 | Plate locating-pin hole. 4.2 is proposed and untested. |
+| `mask_lip_t`, `ledge_t` | 1.4, 0.6 | Legacy separate-mask design only (ignored when `aperture_integral = true`). |
 | `knob_clamp_gap` | 0.3 | Gap left under the keystone when its cone is seated on the fragments. |
 | `nut_retain` | 0.35 | How much the nut-pocket mouth is under size. |
-| `mask_style`, `uv_enabled` | `"spring"`, true | Fallbacks: drop-in mask; no integrated flashlight bay. |
+| `mask_style`, `uv_enabled` | `"spring"`, true | Legacy mask style; no integrated flashlight bay. |
 | `uv_access` | `"plate"` | How the flashlight is reached. `"plate"`: the whole back is a plain plate on four sunk M3×8 socket-head screws, with nothing to suggest a compartment. `"door"`: the sliding door (tested, but visibly a hatch). |
 | `decoy_doors` | true | Engraves three false copies of the door's seams, slit, grooves and rim tab at 90° intervals, so the back reads as four identical panels and only one opens. |
 | `cap_screw_style` | `"cap"` | `"csk"` for flush countersunk screws. |

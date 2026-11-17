@@ -13,6 +13,7 @@ Bone White PLA, dark PETG), not the concept image. The concept image is style re
 | Centre knob | Brass | — | single colour |
 | Fragments (281 / 361 / 924 / 507) | Bone white | Black digits | black for layers 3–4, as already printed |
 | Aperture floor (integral to the back plate; was the separate mask) | Matte black | — | separate body, brass elsewhere; brass-only acceptable for a contrast test |
+| Arrow on the aperture floor (12 o'clock marker, 0.4 mm pocket) | Bone white (same as the other indicators) | Top two layers of the pocket | Colour change done by hand at the printer; accepted 17 Nov 2026 |
 | Detent springs, latch ring | Dark PETG | — | single colour, wall loops 4 |
 
 Cover colour was not specified: brass is assumed (structure). It only shows as the thin lines

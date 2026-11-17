@@ -19,7 +19,7 @@ base's retaining lip are gone.
 | Test | Result |
 |---|---|
 | Print quality | No print problems. Black floor and brass plate bonded cleanly. |
-| Hole diameters (calipers) | "Measures correctly" (numbers not recorded: **please send the five values for the Copy to Work block**) |
+| Hole diameters (calipers) | **Four main holes 10.5 mm each; sighting hole 2.5 mm** (owner readings, 17 Nov; to caliper resolution, not individually recorded) |
 | Flatness | Lies flat on a table |
 | Black floor bond (pry test) | No issues |
 | Fit on the existing base, repeated refits | No issues (plate fits the base printed before the lip) |
@@ -27,6 +27,6 @@ base's retaining lip are gone.
 | Letters on the 1:1 template | **Not yet tested** |
 | Real journal proof, both play orders, blind-pair and recoverability tests | **Not yet tested** |
 
-**Still to validate:** the recorded hole diameters (numbers), glare and opacity outdoors, the letters through the 1:1 template, the real journal proof in both play orders, and the blind-pair and recoverability tests. Nothing here may be called production-approved until the template and journal-proof tests pass.
+**Still to validate:** glare and opacity outdoors, the letters through the 1:1 template, the real journal proof in both play orders, and the blind-pair and recoverability tests. Nothing here may be called production-approved until the template and journal-proof tests pass.
 
 **Not changed:** the gate, latch and ring variants remain OFF by default; the pin hole stays 4.6 mm; the flashlight bay, screws (M3 x 8) and rings are untouched.

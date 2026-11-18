@@ -15,6 +15,7 @@ On GitHub, click a file, then use the **Download raw file** button (arrow icon, 
 ## To read or pass to ChatGPT
 | File | What |
 |---|---|
+| [M72_Attachment_Feasibility_2026-11-18.md](M72_Attachment_Feasibility_2026-11-18.md) | **M-72 removable calibration attachment: feasibility study (non-production)**; with [paper template](m72_paper_overlay_template_NONPRODUCTION.pdf) and [concept picture](m72_sight_plate_concept.png) |
 | [PRINT_QUEUE_2026-11-18.md](PRINT_QUEUE_2026-11-18.md) | **Cog's print queue: three slots per workday (before work, evening, overnight), job list and calendar** |
 | [Engineering_Report_to_Planning_2026-11-18.md](Engineering_Report_to_Planning_2026-11-18.md) | **Latest: Claude Code's report to Planning (completed, blocked, discrepancies, decisions, schedule)** |
 | [Chronometer_Full_Status_Handoff_2026-11-17.md](Chronometer_Full_Status_Handoff_2026-11-17.md) | **Complete status handoff for the other AI tool (start here)** |

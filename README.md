@@ -1,6 +1,6 @@
 # The Chronometer
 
-A 3D-printed mechanical puzzle instrument for *The Timekeeper's Paradox* (26 Nov 2026).
+A 3D-printed mechanical puzzle instrument for *The Timekeeper's Paradox* (29 Nov 2026).
 Two indexed dials, a removable centre cover over a stencil well, a hidden UV-flashlight
 compartment and four dockable code fragments. Parametric OpenSCAD, support-free, M3 only.
 

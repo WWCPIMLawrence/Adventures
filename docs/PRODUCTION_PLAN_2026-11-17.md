@@ -1,6 +1,6 @@
-# Production plan: four Chronometers for the 27 November 2026 hunt
+# Production plan: four Chronometers for the 29 November 2026 hunt
 
-Prepared 17 Nov 2026 (Tuesday). **Production preparation is due Wed 25 Nov; Thu 26 is Thanksgiving; the hunt is Fri 27 Nov.**
+Prepared 17 Nov 2026 (Tuesday). **The hunt is now Sunday 29 Nov (moved from the 27th on 17 Nov). Production preparation was due Wed 25 Nov; whether that deadline moved too is unconfirmed (see section 6). Thu 26 is Thanksgiving.**
 Printer: one Bambu P1S with AMS. Times are **estimates**: PrusaSlicer's generic profile divided by 3 (the P1S rule of thumb used earlier), not measured.
 **Please send the real time of your last back plate so I can calibrate them.** Nothing here assumes what you already have printed (see section 7).
 
@@ -95,9 +95,13 @@ Inventory is not assumed. **Please tell me what you already have.**
 | Fri 20 to Sun 22 | Batches D, E, G, H, I. Assemble units 2 to 4 as parts finish. Reprint failures |
 | Mon 23 | Test all four: both play orders with the real journal proof, repeated plate refits, gate and knob, shake test |
 | Tue 24 | Reprint anything that failed, pack the host kit (keys, lights, proof pages) |
-| **Wed 25** | **Production preparation complete** (deadline) |
+| **Wed 25** | **Production preparation complete** (the deadline as last stated; confirm whether it moved) |
 | Thu 26 | Buffer (Thanksgiving) |
-| **Fri 27** | Hunt |
+| Fri 27 | Buffer: extra test day, or the new prep deadline if it moved |
+| Sat 28 | Final check and pack the kits |
+| **Sun 29** | **Hunt** |
+
+The two extra days (27th and 28th) are slack, not new work: they cover reprints, a second journal-proof test and the blind-pair tests. The print order above does not change.
 
 Why the pilot unit first: one fully assembled instrument by Thu 19 exposes any assembly problem (stack height, plate and base fit, the gate with real tiles) before three more are built.
 

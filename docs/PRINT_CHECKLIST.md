@@ -3,6 +3,8 @@
 Last updated: Tue 17 Nov 2026, evening. **Hunt: Sunday 29 Nov 2026** (moved from the 27th). Counts are for FOUR instruments. "Done" = printed and reported by the owner. Nothing is assumed.
 Times: owner's calibration, slicer-generic / about 4 (one data point: two plates in 1:45 on one bed).
 
+> **18 Nov:** the machine schedule below is superseded by `PRINT_QUEUE_2026-11-18.md` (three slots per workday: before work, evening, overnight).
+
 ## Machine schedule
 
 | When | Job | Status |

@@ -15,6 +15,7 @@ On GitHub, click a file, then use the **Download raw file** button (arrow icon, 
 ## To read or pass to ChatGPT
 | File | What |
 |---|---|
+| [PRINT_QUEUE_2026-11-18.md](PRINT_QUEUE_2026-11-18.md) | **Cog's print queue: three slots per workday (before work, evening, overnight), job list and calendar** |
 | [Engineering_Report_to_Planning_2026-11-18.md](Engineering_Report_to_Planning_2026-11-18.md) | **Latest: Claude Code's report to Planning (completed, blocked, discrepancies, decisions, schedule)** |
 | [Chronometer_Full_Status_Handoff_2026-11-17.md](Chronometer_Full_Status_Handoff_2026-11-17.md) | **Complete status handoff for the other AI tool (start here)** |
 | [PRODUCTION_PLAN_2026-11-17.md](PRODUCTION_PLAN_2026-11-17.md) | **Production plan for four instruments: parts, times, material, hardware, schedule to the 27th** |

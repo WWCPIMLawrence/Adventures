@@ -4,6 +4,15 @@ Prepared 17 Nov 2026 (Tuesday). **Production preparation is due Wed 25 Nov; Thu 
 Printer: one Bambu P1S with AMS. Times are **estimates**: PrusaSlicer's generic profile divided by 3 (the P1S rule of thumb used earlier), not measured.
 **Please send the real time of your last back plate so I can calibrate them.** Nothing here assumes what you already have printed (see section 7).
 
+## 0. Calibration update (18 Nov, 7:28 PM)
+
+The owner is printing **two two-colour back plates on one bed, Bambu estimate 1:45** (about 53 min per plate, including colour changes). My estimate was about 1 h 25 per plate. So:
+
+- The slicer-generic / 3 rule is too slow for the plate (ratio about 3.9 from this one data point). **Use generic / 4 as a working figure, and treat it as one data point, not a rule.**
+- **Two 125 mm parts fit on one bed.** Plan two bases, two decks and two plates per run (halves the run count for batches A, B and C).
+- Revised totals: about 4.5 to 5 h per instrument and about 19 h for four (about 24 h with spares), down from 26 and 32.
+- All four plates take two runs (about 3.5 h); a third run adds spares.
+
 ## 1. What is settled and what is not
 
 | Item | State | Needed before printing |

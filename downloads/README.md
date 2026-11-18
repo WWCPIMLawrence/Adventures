@@ -15,6 +15,7 @@ On GitHub, click a file, then use the **Download raw file** button (arrow icon, 
 ## To read or pass to ChatGPT
 | File | What |
 |---|---|
+| [Chronometer_Full_Status_Handoff_2026-11-17.md](Chronometer_Full_Status_Handoff_2026-11-17.md) | **Complete status handoff for the other AI tool (start here)** |
 | [PRODUCTION_PLAN_2026-11-17.md](PRODUCTION_PLAN_2026-11-17.md) | **Production plan for four instruments: parts, times, material, hardware, schedule to the 27th** |
 | [PHASE1_FINDINGS_2026-11-17.md](PHASE1_FINDINGS_2026-11-17.md) | CAD state vs the 16 Nov decisions (written before Phase 2) |
 | [APERTURE_DESIGN.md](APERTURE_DESIGN.md) | **Current aperture design record and what is not yet validated** |

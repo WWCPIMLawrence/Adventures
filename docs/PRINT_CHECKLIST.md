@@ -9,8 +9,9 @@ Times: owner's calibration, slicer-generic / about 4 (one data point: two plates
 |---|---|---|
 | Tue 17, 7:28 PM | 2 x `back_plate` (two colours), one bed, 1:45 | **Done 9:00 PM** |
 | Tue 17 night | 3 x `base` on one bed | **Printing tonight** |
-| Wed 18 morning (one job, runs until evening) | recommended: 2 x `back_plate` (see below) | planned |
-| Wed 18 evening | `gate_fix_v2`: PETG strips (3 min), then the gate seat (20 min); **knob test** | planned |
+| Wed 18 morning (one job, runs until evening) | **revised: gate seat v2 + base no. 4** (so the evening needs only the strips) | planned |
+| Wed 18 evening | PETG strips v2 (10 min), then **knob test** | planned |
+| Wed 18 overnight | 2 x `back_plate` | planned |
 | Wed 18 night | decks (2 per bed), after the knob test chooses G or L | planned |
 
 ## Parts

@@ -85,6 +85,8 @@ Inventory is not assumed. **Please tell me what you already have.**
 | H | PETG: 16 pawls, 4 plain rings, 24 + 12 strips | 1 to 2 | about 30 min |
 | I | `keystone` x 4 (after Gate G2) | 1 | about 15 min |
 
+> **Superseded 18 Nov 2026:** the schedule table below assumed more owner time than is available (workdays limited to one morning job and one evening or overnight job; unavailable Sat 21 and Thu 26). The current schedule is in section 5 of `Engineering_Report_to_Planning_2026-11-18.md`. Hunt: Sun 29 Nov; everything packed by Sat 28 evening.
+
 ## 6. Schedule
 
 | Date | Plan |

@@ -6,6 +6,7 @@ On GitHub, click a file, then use the **Download raw file** button (arrow icon, 
 ## To print (in this order)
 | File | What |
 |---|---|
+| [chronometer_production_candidates_v1.zip](chronometer_production_candidates_v1.zip) | **All parts for the four-instrument production plan, one folder per batch (A to I).** Start with A, the back plates |
 | [chronometer_aperture_coupon_v1.zip](chronometer_aperture_coupon_v1.zip) | **Print the coupon first.** Asymmetric aperture coupon, 1:1 template, coordinates, "Copy to Work" block |
 | [chronometer_integral_plate_v1.zip](chronometer_integral_plate_v1.zip) | Integrated back plate (single body and black/brass bodies) and the new base. **Not approved for production until the coupon passes** |
 | [chronometer_gate_test_v1.zip](chronometer_gate_test_v1.zip) | Push-and-turn gate test set (covers, plain ring) and the print guide |

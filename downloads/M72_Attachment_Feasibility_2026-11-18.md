@@ -1,5 +1,7 @@
 # M-72 removable calibration attachment: feasibility study (Cog to Keeper, 18 Nov 2026)
 
+> **Update 18 Nov (evening):** the window sizes in this study were too small for the widest numeral (VIII); they are corrected, with test results to collect, in `M72_Sight_Plate_Evaluation_and_Paper_Test_2026-11-18.md`. The paper template was regenerated.
+
 **Status: assessment and a non-production concept only.** No approved CAD, aperture coordinate, ring, fragment, cover or backplate geometry was changed. Everything new is under `concepts/m72_attachment/`. Not approved for production; not printed; not physically tested.
 
 ## Recommendation (ranked)

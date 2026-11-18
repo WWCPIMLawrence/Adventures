@@ -16,6 +16,7 @@ On GitHub, click a file, then use the **Download raw file** button (arrow icon, 
 | File | What |
 |---|---|
 | [MusicHouse_Keyed_Shutter_Feasibility_2026-11-18.md](MusicHouse_Keyed_Shutter_Feasibility_2026-11-18.md) | **Music House keyed shutter: feasibility study (non-production); recommendation: simplify, conditional prototype** with [picture](kl_unlocked.png) |
+| [M72_Sight_Plate_Evaluation_and_Paper_Test_2026-11-18.md](M72_Sight_Plate_Evaluation_and_Paper_Test_2026-11-18.md) | **M-72 sight plate: answers to Keeper's eight questions, defect fix, and the paper proof test sheet**; with [corrected paper template](m72_paper_overlay_template_NONPRODUCTION.pdf), [all-144-states signature table](m72_signature_table_all144.csv) and [picture](m72_states_top_view.png) |
 | [M72_Attachment_Feasibility_2026-11-18.md](M72_Attachment_Feasibility_2026-11-18.md) | **M-72 removable calibration attachment: feasibility study (non-production)**; with [paper template](m72_paper_overlay_template_NONPRODUCTION.pdf) and [concept picture](m72_sight_plate_concept.png) |
 | [PRINT_QUEUE_2026-11-18.md](PRINT_QUEUE_2026-11-18.md) | **Cog's print queue: three slots per workday (before work, evening, overnight), job list and calendar** |
 | [Engineering_Report_to_Planning_2026-11-18.md](Engineering_Report_to_Planning_2026-11-18.md) | **Latest: Claude Code's report to Planning (completed, blocked, discrepancies, decisions, schedule)** |

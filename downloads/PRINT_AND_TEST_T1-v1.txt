@@ -1,0 +1,32 @@
+GATE TEST KIT T1-v1 (captured strips). Keeper-approved test only. Hard stop: Sun 22 Nov.
+Push-and-turn gate with strips that can NOT fall out of the hub (each strip has a hook that slides under a ledge).
+
+PRINT (one job, one bed if it fits):
+  1. cover_T1-v1.stl           centre cover (gate version, smooth rim)   same filament as your earlier covers
+  2. seat_T1-v1.stl            test seat (hub with the strip slots)      same filament as your earlier seats
+  3. strips_T1-v1_soft07.stl   six PETG strips, THIN (0.7 mm)            PETG. This is the soft strip you used before.
+  4. keeper_ring_T1-v1.stl     small loose ring, stands in for the inner ring   any filament, about 3 mm tall
+  OPTIONAL: strips_T1-v1_firm08.stl  (0.8 mm, firmer). Print only if the soft ones feel too weak.
+REUSE (do not reprint): the PETG retaining ring ring_O2-v1 (same part).
+Write T1-v1 with a marker on the underside of the cover, seat and keeper ring. Put EVERY older centre part in the OLD box.
+
+BUILD
+  a. Press the PETG ring into the cover from underneath (as before).
+  b. Strips: hold a strip with the ARCH UP and the two small feet DOWN. Slide it in from the OUTSIDE edge of the seat's
+     centre ring, straight toward the middle, into one of the six slots, until it stops. Do all six. (Each has two hooks
+     that go under a ledge. They only go in sideways.)
+  c. Lay the keeper ring around the outside of the centre ring so it closes the open ends of the slots.
+  d. Fit the knob with its M3 x 10 screw (zero fragments first).
+  e. Drop the cover in, turn it clockwise about 28 degrees until it stops. It should sit slightly proud (about 1 mm).
+
+TEST (hands only; tick each, write what happened on any fail)
+  F. Strips stay in: remove the cover 10 times, turn the seat upside down and shake gently.   [ ] strips never moved or fell out
+  A. ZERO fragments: unscrew the knob completely and screw it back, 10 times.   [ ] cover never turned  [ ] never lifted  [ ] never came off
+  B. FOUR fragments: repeat 10 times.                                           [ ] cover never turned  [ ] never lifted  [ ] never came off
+  P. Pressing on the knob while unscrewing it, 5 times, with zero fragments and then four.   [ ] cover never opened
+  N. Normal use: pick it up, tilt and shake lightly, 5 minutes of handling.      [ ] cover stayed attached
+  O. Deliberate opening: PRESS the cover down about 1 mm and turn anticlockwise 28 degrees, then lift. 10 times.   [ ] opened every time
+
+STOP RULES: if ANY item fails, STOP. Do not print or change anything. Tell Cog the item letter, the cycle number, and what moved
+(a short video helps). If a strip is stiff to slide in or will not go in, say so; do not file or force it.
+If everything passes, tell Cog "T1-v1 passed".

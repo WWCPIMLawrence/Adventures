@@ -117,6 +117,12 @@ bow_pocket    = 0.8;    // depth of the pocket under it: takes a 0.7 (soft) or a
 bow_foot      = 0.9;    // end rib that keeps the bow in its slot
 bow_foot_h    = 1.6;    // how deep the feet go (was 1.0: the strips fell out of the seat)
 bow_fit       = 0.07;   // clearance per side between a foot and its slot: a light press fit (was 0.15)
+bow_tslot     = false;  // VARIANT (off by default): captured feet. Each foot gets an inward hook that slides in radially from
+                        // the hub's outer face under a ledge in the deck; the inner ring, fitted afterwards, closes the open end.
+bow_hook_ov   = 0.8;    // how far each hook reaches inward under the ledge
+bow_hook_h    = 0.5;    // hook height (the catch face is its top)
+bow_hclr      = 0.12;   // clearance around the hook in its cavity
+bow_out_ext   = 0.7;    // the channel runs this far past the hub's outer face
 bow_rm        = 26.25;  // radius of the pocket's mid-point
 bow_angles    = [61.7, 96.5, 178.8, 213.6, 301.4, 336.2];   // two in each gap between the cover's tracks
 uv_ring_h     = 2.4;    // height of the retaining ring / latch spring
@@ -630,9 +636,15 @@ module gate_bow_pocket() {
   fl = deck_t + rib_h - bow_pocket;
   pw = bow_w + 0.3;
   fw = bow_w + 2*bow_fit;                      // slot width across the foot
-  translate([-(bow_c/2 + 0.6), -pw/2, fl]) cube([bow_c + 1.2, pw, bow_pocket + 2]);
-  translate([-bow_c/2 - bow_fit, -fw/2, fl - bow_foot_h - 0.1]) cube([bow_foot + 2*bow_fit, fw, bow_foot_h + 0.2]);
-  translate([bow_c/2 - bow_foot - bow_fit, -fw/2, fl - bow_foot_h - 0.1]) cube([bow_foot + bow_fit + 0.6, fw, bow_foot_h + 0.2]);
+  // module +y points radially INWARD, so outward is -y; the captured variant opens the channel to the hub's outer face
+  ext = bow_tslot ? (hub_r - bow_rm) + bow_out_ext : 0;
+  translate([-(bow_c/2 + 0.6), -pw/2 - ext, fl]) cube([bow_c + 1.2, pw + ext, bow_pocket + 2]);
+  translate([-bow_c/2 - bow_fit, -fw/2 - ext, fl - bow_foot_h - 0.1]) cube([bow_foot + 2*bow_fit, fw + ext, bow_foot_h + 0.2]);
+  translate([bow_c/2 - bow_foot - bow_fit, -fw/2 - ext, fl - bow_foot_h - 0.1]) cube([bow_foot + bow_fit + 0.6, fw + ext, bow_foot_h + 0.2]);
+  if (bow_tslot) for (s = [-1, 1]) {            // hook cavities under the floor ledge, reaching inward from each foot
+    x0 = s < 0 ? -bow_c/2 + bow_foot - bow_hclr : bow_c/2 - bow_foot - bow_hook_ov - bow_hclr;
+    translate([x0, -fw/2 - ext, fl - bow_foot_h - 0.1]) cube([bow_hook_ov + 2*bow_hclr, fw + ext, bow_hook_h + 0.1 + bow_hclr]);
+  }
 }
 // lug chamfer line is r + z = well_r - cover_clear + bay_lug_r + 1.5 (deck coords)
 bay_line = well_r - cover_clear + bay_lug_r + 1.5;
@@ -978,6 +990,8 @@ module gate_bow_profile() {
   union() {
     polygon(concat(lo, hi));
     for (s = [-1, 1]) translate([s*(bow_c/2 - bow_foot/2) - bow_foot/2, -bow_foot_h]) square([bow_foot, bow_foot_h + bow_t*0.5]);
+    if (bow_tslot) for (s = [-1, 1])             // inward hook at the bottom of each foot (a flat catch face on top)
+      translate([s < 0 ? -bow_c/2 + bow_foot - 0.01 : bow_c/2 - bow_foot - bow_hook_ov + 0.01, -bow_foot_h]) square([bow_hook_ov, bow_hook_h]);
   }
 }
 // installed orientation: x along the chord, y across (radial), z up; base of the arch at z = 0
@@ -1139,6 +1153,23 @@ if (part == "chk_bow_proud") intersection() { bows_in_deck(); cover_at(0); }
 if (part == "chk_ring_ledge") intersection() { ring_ledge(); translate([0, 0, -uv_ring_h - 0.3]) uv_ring(); }
 if (part == "chk_ring_ledge_hold") intersection() { ring_ledge(); translate([0, 0, -uv_ring_h - 0.9]) uv_ring(); }
 if (part == "chk_probe") intersection() { translate([0, 0, z_deck]) deck(); cover_at(probe_lift, probe_rot); }
+
+// ---- captured-strip (T-slot / hook) variant checks (run with scripts/tslot_check.sh; bow_tslot=true) ----
+module bow_at(d = 0, lift = 0) for (a = bow_angles) translate([0, 0, z_deck]) rotate([0, 0, a]) translate([bow_rm, 0, deck_t + rib_h - bow_pocket + lift]) rotate([0, 0, 90]) translate([0, d, 0]) gate_bow();
+// d > 0 moves the strip radially OUTWARD (module +y is inward, so the translate is negative d)
+module bow_out(d, lift = 0) for (a = bow_angles) translate([0, 0, z_deck]) rotate([0, 0, a]) translate([bow_rm + d, 0, deck_t + rib_h - bow_pocket + lift]) rotate([0, 0, 90]) gate_bow();
+// strip slides in from outside the hub to its seat: free path through the deck (EMPTY)
+if (part == "chk_tslot_slide") intersection() { translate([0, 0, z_deck]) deck(); union() for (d = [0:0.15:(hub_r - bow_rm) + bow_out_ext + 1.5]) bow_out(d); }
+// seated strip lifted straight up 0.3 mm: the hook catches the ledge (NON-EMPTY)
+if (part == "chk_tslot_lift") intersection() { translate([0, 0, z_deck]) deck(); bow_out(0, 0.3); }
+// seated strip, any radial position up to the inner ring's face, clears the ring (EMPTY)
+if (part == "chk_tslot_ring_clear") intersection() { at_floor() inner_ring(); union() for (d = [0:0.05:0.45]) bow_out(d); }   // the straight strip's corners reach r 27.85 seated: it can drift 0.47 mm outward before they touch the ring
+// strip pushed outward 0.6 mm is stopped by the ring (NON-EMPTY: it cannot leave; the feet stay in their slots)
+if (part == "chk_tslot_ring_stop") intersection() { at_floor() inner_ring(); bow_out(0.6); }
+// the hook region of a seated strip clears its cavity in the deck (EMPTY) - same as chk_bow_deck, repeated here for the variant
+if (part == "chk_tslot_seated") intersection() { translate([0, 0, z_deck]) deck(); bow_out(0); }
+// the keeper ring stand-in for the test seat (prints loose; stands in for the inner ring)
+if (part == "tslot_keeper") translate([0, 0, 0]) linear_extrude(3.0) ring2d(inner_ring_ri + 2.0, inner_ring_ri);
 probe_lift = 0; probe_rot = 0;
 
 // exploded view of the gate variant: seat, the six bow springs, and the cover floating above (locked orientation)

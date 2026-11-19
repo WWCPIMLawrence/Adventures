@@ -23,8 +23,10 @@ module spindle() {   // axis along +Z, faces start at angle 0 (face 1 is the +X 
     }
     // strip anchor: radial slit into face 1 (the +X flat), clear of the lips
     translate([sp_af/2 - sp_slit_d, -sp_slit_w/2, sp_lip_t + 1]) cube([sp_slit_d + 1, sp_slit_w, sp_len - 2*sp_lip_t - 2]);
-    // starting orientation: a V notch in the lip at face 1 (both ends) so face 1 is found by touch and sight
-    for (z = [-0.01, sp_len - sp_lip_t - 0.01]) translate([sp_af/2 + sp_lip, 0, z]) rotate([0, 0, 0]) linear_extrude(sp_lip_t + 0.02) polygon([[0.01, -1.1], [-1.4, 0], [0.01, 1.1]]);
+    // starting orientation: face 1 (the +X flat) carries a V notch in the lip at each end. The TOP end (z = sp_len, printed last)
+    // has a DOUBLE notch like the Chronometer's 12 o'clock; the bottom end (z = 0) has a single notch.
+    translate([sp_af/2 + sp_lip, 0, -0.01]) linear_extrude(sp_lip_t + 0.02) polygon([[0.01, -1.1], [-1.4, 0], [0.01, 1.1]]);
+    for (y = [-2.4, 2.4]) translate([sp_af/2 + sp_lip, y, sp_len - sp_lip_t - 0.01]) linear_extrude(sp_lip_t + 0.02) polygon([[0.01, -1.0], [-1.3, 0], [0.01, 1.0]]);
   }
 }
 // lying on its face on the plate floor (floor top 1.2), axis along X

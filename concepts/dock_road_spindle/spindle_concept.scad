@@ -21,8 +21,9 @@ module spindle() {   // axis along +Z, faces start at angle 0 (face 1 is the +X 
       translate([0, 0, -1]) cylinder(r = 50, h = 1.6, $fn = 8);
       translate([0, 0, 0]) rotate(30) cylinder(r1 = (sp_af + 2*sp_lip)/2/cos(30) - 0.6, r2 = (sp_af + 2*sp_lip)/2/cos(30) + 1.2, h = 0.6, $fn = 6);
     }
-    // strip anchor: radial slit into face 1 (the +X flat), clear of the lips
-    translate([sp_af/2 - sp_slit_d, -sp_slit_w/2, sp_lip_t + 1]) cube([sp_slit_d + 1, sp_slit_w, sp_len - 2*sp_lip_t - 2]);
+    // strip anchor: one slit, 0.7 mm wide and sp_slit_d deep, in the CORNER between Face VI and Face I (bisector at +30 degrees),
+    // running the full space between the end lips. Both the start tab and the end tab of the belt tuck into it.
+    rotate([0, 0, 30]) translate([sp_af/2/cos(30) - (sp_edge/sin(60) - sp_edge) - sp_slit_d, -sp_slit_w/2, sp_lip_t]) cube([sp_slit_d + 1, sp_slit_w, sp_len - 2*sp_lip_t]);
     // starting orientation: face 1 (the +X flat) carries a V notch in the lip at each end. The TOP end (z = sp_len, printed last)
     // has a DOUBLE notch like the Chronometer's 12 o'clock; the bottom end (z = 0) has a single notch.
     translate([sp_af/2 + sp_lip, 0, -0.01]) linear_extrude(sp_lip_t + 0.02) polygon([[0.01, -1.1], [-1.4, 0], [0.01, 1.1]]);

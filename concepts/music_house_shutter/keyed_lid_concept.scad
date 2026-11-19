@@ -6,14 +6,14 @@ include <../../cad/chronometer.scad>
 lid_r = 22.4;            // covers every hole (the furthest hole edge is 20.25 from the centre)
 lid_z0 = plate_floor_t + 0.2; lid_t = 1.0;        // rests 0.2 above the floor top (1.2), 1.0 thick
 lug_r = 23.9; lug_w = 26; lug_t = 0.6;            // three bayonet lugs, 26 deg wide
-hub_d = 10; hub_h = 3.2; sock = 4.2; sock_d = 2.6;  // centre hub with a RECESSED square socket: nothing to grip with a fingernail
+hub_d = 10; hub_h = 6.0; sock = 4.2; sock_d = 4.0; sock_ch = 0.6;  // centre hub with a RECESSED square socket: nothing to grip with a fingernail
 // ---- the receiver: three hooks standing inside the plate's well (the well is r 25; nothing of the base is inside it) ----
 hook_r0 = 24.2; hook_r1 = 24.75;                  // post: 0.55 mm thick, 0.25 mm clear of the well wall
 hook_z1 = 3.1; over_r0 = 22.8; over_z0 = 2.5;     // overhang arm: 0.6 thick, reaches in to r 22.8
 hook_w = 44; hook_a0 = 30;                        // 44 deg arcs starting at 30, 150, 270 deg (CAD angles)
 lock_c = 30;                                      // lug centre inside the hook when locked (deg after the hook start)
 // ---- the key: a clock-winding key with a square tongue and a T handle ----
-key_tongue = 4.0; key_tongue_len = 5.0; key_od = 12;
+key_tongue = 4.0; key_tongue_len = 16.0; key_od = 12;
 
 module arc3(r0, r1, a0, w, h) rotate([0, 0, a0]) rotate_extrude(angle = w, $fn = 120) translate([r0, 0]) square([r1 - r0, h]);
 module hooks() for (k = [0:2]) rotate([0, 0, 120*k]) {
@@ -27,6 +27,7 @@ module lid(a = 0) rotate([0, 0, a]) {   // disc + lugs (the hub and socket are a
 module lid_full(a = 0) rotate([0, 0, a]) difference() {
   union() { lid(0); translate([0, 0, lid_z0]) cylinder(d = hub_d, h = hub_h, $fn = 48); }
   translate([-sock/2, -sock/2, lid_z0 + hub_h - sock_d]) cube([sock, sock, sock_d + 0.01]);
+  translate([0, 0, lid_z0 + hub_h - sock_ch]) hull() { translate([-sock/2, -sock/2, 0]) cube([sock, sock, 0.01]); translate([-sock/2 - sock_ch, -sock/2 - sock_ch, sock_ch]) cube([sock + 2*sock_ch, sock + 2*sock_ch, 0.01]); }   // lead-in chamfer
 }
 module key() union() {
   translate([0, 0, key_tongue_len]) { cylinder(d = key_od, h = 6, $fn = 48); translate([-18, -2.5, 0]) cube([36, 5, 6]); }   // T handle above the tongue
@@ -37,6 +38,7 @@ module plate_with_hooks() { back_plate(); hooks(); }
 unlock_a = 30 + 32 + 4;      // turn needed to bring each lug into the gap between hooks (about 32 deg beyond the hook end), plus margin
 if (part == "kl_plate") plate_with_hooks();
 if (part == "kl_lid") lid_full();
+if (part == "kl_coupon") intersection() { plate_with_hooks(); cylinder(r = 34, h = 10, $fn = 120); }   // plate centre r 34 with floor, holes and hooks, for the hook-strength and operation tests
 if (part == "kl_key") key();
 // ---- fit and function checks ----
 if (part == "chk_kl_added_in_holes") intersection() { hooks(); translate([0, 0, -1]) linear_extrude(plate_floor_t + 5) { for (p = ap_pts) translate(p) circle(d = aperture_d, $fn = 64); circle(d = sight_d, $fn = 24); } }   // EMPTY: the apertures are untouched
@@ -49,3 +51,5 @@ if (part == "chk_kl_key_arbor") intersection() { translate([0, 0, lid_z0 + hub_h
 if (part == "chk_kl_arbor_under_cover") intersection() { lid_full(); translate([0, 0, z_cap]) cover(); }                                                          // EMPTY: the arbor stays clear of the cover
 if (part == "kl_view") { color("#c9a24a") plate_with_hooks(); color("#2b2d33") lid_full(0); }
 if (part == "kl_view_open") { color("#c9a24a") plate_with_hooks(); color("#2b2d33") translate([0, 0, 14]) lid_full(unlock_a); color("#b03a2e") translate([0, 0, 22]) key(); }
+
+if (part == "chk_kl_key_reach") intersection() { translate([0, 0, z_cap - key_tongue_len]) key(); translate([0, 0, 0]) lid_full(); }   // key hung from the deck-top plane: tongue must reach INTO the socket (NON-EMPTY only inside the socket volume: checked by chk_kl_key_arbor being EMPTY)

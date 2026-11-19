@@ -1,0 +1,27 @@
+OPTION 2 TEST KIT, version O2-v1 (Keeper decision 19 Nov 2026)
+Plain retaining ring with a flat ledge. NO bows, NO gate, NO sprung nubs.
+
+PRINT THESE THREE PARTS (one of each, nothing else):
+  1. cover_O2-v1.stl   centre cover       same filament and settings as your earlier covers
+  2. ring_O2-v1.stl    retaining ring     PETG (thin, flexible part)
+  3. seat_O2-v1.stl    test seat          same filament as your earlier seats
+Print time is not measured; the slicer will tell you. All three fit on one bed.
+
+BEFORE YOU ASSEMBLE: write  O2-v1  with a marker on the underside of all three parts.
+Put every older centre part (bows, old covers, old rings, old seats) in a box marked OLD. Do not use them.
+You also need: the knob, the M3 knob screw and nut you already use, and the fragment tiles (4 fragments).
+Fit the cover, ring and knob as you did before, on the O2-v1 seat.
+
+TEST (hands only). Tick each box; write what happened if it fails.
+A. ZERO fragments: unscrew the knob completely and screw it back, 10 times.
+   [ ]  cover never turned on its own      [ ]  cover never lifted      [ ]  cover never came off
+B. FOUR fragments: repeat the 10 unscrew/reinstall cycles.
+   [ ]  cover never turned on its own      [ ]  cover never lifted      [ ]  cover never came off
+C. Deliberate opening: turn the cover anticlockwise to open it, 5 times.
+   [ ]  opens every time
+D. Retaining ring:
+   [ ]  never snagged      [ ]  never fell out (also try turning the assembly upside down gently)
+
+If ANY box fails: stop. Do not print or change anything. Tell Cog exactly which test (A, B, C or D),
+which cycle number it happened on, and what moved. A photo or short video helps.
+If all boxes pass: tell Cog "O2-v1 passed", and Cog will report it to Keeper for production approval.

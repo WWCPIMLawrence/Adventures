@@ -1,47 +1,37 @@
-# Print checklist: four Chronometers (running; updated from the owner's reports)
+# Four-instrument production checklist (Keeper's format: confirmed vs unknown)
+Updated Fri 20 Nov 2026 (morning). **Hunt Sun 29 Nov; four assembled, tested, packed instruments by Sat 28 Nov evening; accepted configuration and substantially completed printing targeted Wed 25 Nov.** The owner controls printing and the queue; Cog prepares and prioritises files.
+**Rule: an item is "UNKNOWN" until the owner states a quantity. Unknown items are never counted as available.** "Confirmed" = owner-reported, not counting the assembled prototype. Old centre parts are boxed OLD.
 
-Last updated: Wed 18 Nov 2026, night. **Hunt: Sunday 29 Nov 2026; everything packed by Sat 28 evening.** Counts are for FOUR instruments. "Done" = printed and reported by the owner, **not counting the fully assembled prototype** (which I am not crediting, because I don't know its contents or whether it matches the final design). Nothing is assumed.
-Machine schedule and slots: see `PRINT_QUEUE_2026-11-18.md`.
+| # | Part (per instrument x 4) | Need | Owner-confirmed have | Short | Status / notes |
+|---|---|---|---|---|---|
+| 1 | Base (no lip) | 4 | 4 | 0 | done |
+| 2 | Back plate, integral aperture | 4 | 3 | 1 (+1 spare if capacity) | validated by the owner on a printed plate; **independent of the gate: print** |
+| 3 | Outer ring, bone | 4 | 3 | 1 | two good rings printed overnight plus one earlier; the white prototype ring does not match |
+| 4 | Inner ring | 4 | 3 | 1 | independent: print (never on a bed with other parts) |
+| 5 | Index cap | 4 | 3 | 1 | independent: print |
+| 6 | Tiles with digit inlay, sets of 4 | 4 sets | 1 (in the prototype) | 3 | independent: print |
+| 7 | Deck | 4 | 3 latch decks | **4 gate decks if T1-v1 passes** | the existing latch decks are NOT counted as gate decks until validated; do not print gate decks before the full-assembly test |
+| 8 | Centre cover (gate, smooth rim) | 4 | 0 | 4 | only test variants; waits for T1-v1 and the full-assembly test |
+| 9 | Retaining ring, PETG | 4 | 1 (O2-v1, usable for tests) | 3 | same part for the gate |
+| 10 | Gate strips (PETG, 6 per unit, T-slot hook version) | 24 (+spares) | 0 usable | 24 | old strips fell out; T1-v1 strips print this evening (test only) |
+| 11 | Pawls (PETG; 2 outer + 2 inner) | 16 | **UNKNOWN** | ? | owner to count |
+| 12 | Keystone knob | 4 | **UNKNOWN** | ? | held for the knob screw-head measurements (Phillips size, diameter, height) |
+| 13 | M3 x 8 black socket screws (back plate) | 16 | **UNKNOWN** | ? | owner to count |
+| 14 | M3 x 16 black socket screws (cap) | 12 | **UNKNOWN** | ? | owner to count |
+| 15 | M3 x 10 knob screws and M3 nuts | 4 and 4 | **UNKNOWN** | ? | owner to count |
+| 16 | 2.5 mm hex keys (clue-envelope reward) | 4 | **UNKNOWN** | ? | owner to count |
+| 17 | UV flashlights and discs | 4 | **UNKNOWN** | ? | owner to count; flashlight stays a hidden surprise |
+| 18 | Filament: brass, black, bone/ivory, white, PETG | see PRODUCTION_PLAN | **UNKNOWN** | ? | owner to inventory |
+| 19 | Test centre kit T1-v1 (cover, seat, keeper ring, strips) | 1 | printing 20 Nov | | critical path; stand-in result is preliminary |
+| 20 | Fully assembled prototype (older centre, white outer ring) | | 1 | | emergency spare only if it passes the same functional tests |
 
-## Inventory reported 18 Nov (not counting the assembled prototype)
-**3 back plates (integral aperture), 4 bases, 3 decks (confirmed: latch decks), 3 inner rings, 3 index caps.** Tiles: one set, inside the prototype. The prototype is a nearly complete test unit (white, not bone, outer ring; old centre cover): not credited as one of the four.
+## Print queue (owner decides; Cog prepared the files)
+Independent now: back plate (1 + spare), outer ring (1), inner ring (1, alone), index cap (1), tiles (3 sets), pawls and keystones after counts and measurements.
+Gate-dependent, **do not print before T1-v1 and the full-assembly test pass:** four gate decks, four covers, three PETG rings, 24 strips.
+Today: PLA test parts (cover, seat, keeper ring) before work; PETG strips this evening; then the T1-v1 test.
 
-## Parts
-| Part | Needed | Done | Left | State |
-|---|---|---|---|---|
-| Back plate (integral aperture) | 4 (+1 spare) | 3 | 1 (+1) | validated; **hold the last ones until the keyed-lid decision (Fri 20)** |
-| Base (no lip) | 4 (+1 spare) | 4 | 0 (+1 optional spare) | **done** |
-| Deck | 4 | 3 | 1, **or 4 if the gate is adopted** | **the 3 printed decks are the latch decks (no spring pockets); they cannot take the gate strips. Fine if we fall back to the latch.** |
-| Inner ring | 4 | 3 | 1 | ready |
-| Index cap | 4 | 3 | 1 | ready |
-| Outer ring | 4 | 0 | 4 | ready; **start tonight** |
-| Cover | 4 | 0 | 4 | waits for the knob test |
-| Plain ring (gate) or three-arm ring (latch) | 4 | 0 | 4 | waits for the knob test |
-| Gate strips (PETG, 6 per unit) | 24+ (36 with spares) | 0 | 24+ | gate only |
-| Pawls (PETG): 2 outer + 2 inner per unit | 16 | 0 | 16 | ready; **tonight, PETG bed** |
-| Tiles + digit inlay | 4 sets | 1 (inside the prototype, not credited) | 4 | ready |
-| Keystone | 4 | 0 | 4 | held for the Phillips screw measurements |
-| Gate seat v2 + strips v2 (knob test) | 1 + 6 | ? | ? | needed for the knob test |
-
-## Beds still to print (two 125 mm parts fit per bed)
-About 8 beds, about 10 h of machine time (down from 13 beds and 19 h):
-| Bed | Contents | Status |
-|---|---|---|
-| 1 | PETG: strips (6 soft, 6 firm), 16 pawls, 4 plain rings | **tonight (E slot)** |
-| 2 | 2 outer rings | **tonight (overnight)** |
-| 3 | 2 outer rings | next free slot |
-| 4 | (bases done) | removed |
-| 5 | 1 inner ring + 1 index cap (+ spares, if room) | next free slot |
-| 6, 7 | 2 decks per bed (gate version) | **after the knob test** (or 1 latch deck if the latch is kept) |
-| 8 | 4 covers + 4 keystones | after the knob test and the screw measurements |
-| 9 | 1 back plate (+1 spare) | **after the keyed-lid decision** |
-| 10 | tiles: 4 sets (AMS, ivory + black; 2 sets per bed is likely) | next free slots |
-
-## Open decisions
-1. **Gate or latch:** the knob test (needs the seat v2 + soft strips + your gate cover + keystone + M3x10 screw).
-2. Knob screw head size (Phillips): else keep the socket-head pocket.
-3. Keyed Music House lid (prototype Fri 20), M-72 sight plate (paper test first).
-4. Journal proof from Work.
-
-## Knob test
-Keystone knob with 0 fragments, then 4. Loosen and tighten by hand, holding nothing else, 10 times each way: the cover must never turn. Then repeat while pressing down on the knob. Tell me if it ever releases, and roughly how hard you were pressing.
+## Open decisions and open checks
+1. T1-v1 result (hard stop Sun 22 Nov); then the full-assembly test (actual inner ring, knob, base) before any production decks or covers.
+2. Real journal leaf test with the integrated aperture (files from Scribe via the owner): RIFT, register marks, notch visibility, both visit orders, backplate removal and refit.
+3. M-72: engineering templates only; no production plates until the centre and the four instruments are secure.
+4. Counts for items 11 to 18 above.

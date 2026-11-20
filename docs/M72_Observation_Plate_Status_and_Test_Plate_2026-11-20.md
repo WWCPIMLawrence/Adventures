@@ -42,3 +42,15 @@ Not started. They wait for the physical acceptance of the test plate and for the
 - **CAD checks, all as required (predictions only):** clear of the rings, index cap, screw heads (they only touch the cup roofs) and the gate-raised T1-v1 cover for head heights **1.7, 1.9 and 2.1 mm**; sinking the plate 0.1 mm makes the heads hit the cup roofs (the heads hold it up) while it stays clear of rings and cap.
 - **New file:** `m72_TEST_PLATE_p4_p8_p10_measured_heads_NONPRODUCTION.stl` (124 x 124 x 3.3 mm, 17.3 cm3). It replaces the two earlier test-plate files, which are withdrawn (do not print them). **Print TOP FACE DOWN** (the file is already oriented that way: smooth face on the bed, bosses and cups facing up, no supports). Unmarked, existing PLA, matte dark colour preferred, one plate only.
 - Orientation: cups are 5.2 mm across at screw positions spaced unevenly (125, 120, 115 deg), so turning the plate by 120 deg misfits by about 3.9 mm: only one orientation should seat. To confirm physically.
+
+## PHYSICAL RESULT, one test plate (owner, 20 Nov) 
+Owner-reported, hand test; step 7 (one click wrong) not yet reported.
+- **Seating (1):** sits nicely once properly installed. **Finding:** it is hard to tell which way round to place it; it can be misaligned without the owner realising.
+- **Rings (2):** only the outer ring is reachable with the plate on and it spins with no problems; the inner ring is covered by the plate and cannot be turned (set it before fitting the plate). The plate can slip and misalign when the outer ring is twisted by hand.
+- **Centre cover (3):** removes and refits with no issues.
+- **Orientation (4):** connects only in one position with all three screws, but it is easy to be slightly misaligned without noticing.
+- **Slipping (5):** surprisingly stable when tilted; only twisting at the top level disturbs it. The window over the fixed arrow shows the correct alignment and makes aligning easy.
+- **Reading (6): the three pairs read IV/TREE, VIII/SUN, X/KEY, in that order (as predicted), visible from all angles, nothing cut off** (owner: "I see exactly what you described and in that order").
+- **After removal (8):** no damage.
+### Owner's suggestions for a next plate (not yet authorised)
+Matching orientation notches on the plate (like the rest of the device); **magnets in the screw cups** (the owner has magnets; the cap screws are steel); a small centre hole or sight holes to show the screw heads; thematic design features, possibly with a Scribe clue. **Cog's view:** magnets in the cup roofs (self-centring, snap, resist twist), a 12 o'clock orientation mark, and small sight holes over the heads address the finding; the inner ring should be set before the plate is placed (a finger window would expose other symbols). Needs Keeper's and Scribe's approval; magnet size needed.

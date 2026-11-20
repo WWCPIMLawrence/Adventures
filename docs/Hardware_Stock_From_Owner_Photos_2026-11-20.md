@@ -15,8 +15,11 @@
 - **Knob screw (M3 x 10 now; M3 x 12 under trial):** the knob screw must be a **machine-thread M3 screw if it goes into the nut** in the cover. The **self-tapping pan-head screws have a coarser tapping thread and are NOT compatible with an M3 nut**; they only suit plastic. The Baocuz M3 x 10 and x 12 are machine thread and compatible with the nut, but their countersunk head (about 6 mm across) is **bigger than the 5.4 mm recess in the knob**: a recess change would be needed, which is not authorised. The Kernmax socket-head M3 x 10 and x 12 (head about 5.5 mm) fit the recess but are socket heads (the Allen key would remove them), which the owner does not want. **The owner has not said which screw is in the knob now** (see questions).
 - **Nuts for the cover's hex pocket:** M3 nuts are available (Baocuz 150, Kernmax 250 on the labels).
 
-## The owner's stripping worry
-The owner reports the **current sample cover has no nut sunk in** (old design, written on with the UV pen), so the knob screw has been cutting its own thread in the printed plastic; that **would** wear out with repeated use. With the nut fitted, the screw runs in a steel nut and this wear should not occur. Not yet physically tested with a nut.
+## The owner's stripping worry (CORRECTED 20 Nov)
+**Correction:** an earlier version of this note said the old centre piece had no nut. **That was wrong.** The owner's photo of the old centre piece's underside shows an **M3 nut seated in the hex pocket**, with the screw end visible in it. What the owner said is that the **newer-design covers used for the T1-v1 tests and the UV writing do not have a nut sunk in yet**, so those are samples.
+- With a nut present, a **machine-thread M3 screw** runs in a steel nut and should not strip it. A **self-tapping (coarse-thread) screw** does not match an M3 nut's thread pitch and could damage it; the owner has not yet said which screw type is in the knob.
+- In the photo the screw end looks level with or slightly inside the nut face. At M3 x 10 the tip should hang about 1.1 mm below the cover's flange underside; so either the knob is partly unscrewed in the photo or a shorter screw is fitted. Unconfirmed.
+- Not yet physically tested for wear with a nut over many cycles; the owner reports many removals with no problem so far.
 
 ## Open questions for the owner
 1. Which screw is in the knob now (which box, head type, length)? Does its head sit snugly in the knob's recess?

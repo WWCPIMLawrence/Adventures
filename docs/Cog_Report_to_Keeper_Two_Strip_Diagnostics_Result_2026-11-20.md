@@ -8,6 +8,9 @@ Owner-reported (PHYS), by hand, informal counts. No CAD or production geometry c
 4. **Lock and release:** "passes all of the tests exactly how we'd want" (owner), covering the press-and-turn cycles and the knob tests. **Cycle counts, the pressed-knob test and the fragment cases were not itemised in this message.**
 5. **Sideways play and contact:** with the centre piece off, the **inner ring has almost no side-to-side movement**; the **outer ring has about 0.5 mm of play**. No physical evidence of strip-to-ring contact was found (no marks).
 
+## Photos received after the report (owner, 20 Nov)
+Hub close-ups with the inner ring and index cap removed: both strips lie seated in their pockets; **from these photos no strip end stands proud of the hub's outer edge and no scuff or rub marks are visible on the strips or the hub** (resolution limited; Cog cannot rule out fine polish marks). The pawls are in their pockets with noses visible. Two further photos show loose strips from the side: **the arch, the feet and the small inward hooks are present and intact**; one strip shows a rougher, "hammered" print surface than the other. The owner has not yet said whether those two loose strips came out of the deck or are spares, nor which pockets were used.
+
 ## Other physical results from this session
 - Knob (M3 x 10, machine thread, new-design cover with the nut drawn in): **2 turns frees the fragments, 3 turns is comfortable, the screw drops out at about 5.5 turns.** The tip stands about 2 mm beyond the nut. Total centre-piece height measured about 13.9 mm (CAD 12.9; angled caliper reading, uncertain).
 - Strips: one broke on installation and two were damaged earlier (six-strip phase). Pop-out is an assembly-time nuisance only.

@@ -11,6 +11,11 @@ Owner-reported (PHYS), by hand, informal counts. No CAD or production geometry c
 ## Photos received after the report (owner, 20 Nov)
 Hub close-ups with the inner ring and index cap removed: both strips lie seated in their pockets; **from these photos no strip end stands proud of the hub's outer edge and no scuff or rub marks are visible on the strips or the hub** (resolution limited; Cog cannot rule out fine polish marks). The pawls are in their pockets with noses visible. Two further photos show loose strips from the side: **the arch, the feet and the small inward hooks are present and intact**; one strip shows a rougher, "hammered" print surface than the other. The owner has not yet said whether those two loose strips came out of the deck or are spares, nor which pockets were used.
 
+## UV writing photos (owner, 20 Nov)
+- **Normal light:** the writing is **not visible** on the brass underside of the centre piece (photo shows only the owner's white "X" index mark and the nut with the screw end). A faint pale diagonal line is visible across the surface, probably a handling scratch; the owner has not confirmed.
+- **Under UV:** blue handwriting is **clearly legible**. **The text written reads "The Sun is False. Trust the Arrow.", the longer original message, not the "SUN TO ARROW" three-line inscription you approved**; presumably a legibility trial. The lettering fills most of the underside, and the lines sit close to the screw pocket at the centre.
+- Durability over repeated handling is only partly shown (the writing was readable after the test run); not measured.
+
 ## Other physical results from this session
 - Knob (M3 x 10, machine thread, new-design cover with the nut drawn in): **2 turns frees the fragments, 3 turns is comfortable, the screw drops out at about 5.5 turns.** The tip stands about 2 mm beyond the nut. Total centre-piece height measured about 13.9 mm (CAD 12.9; angled caliper reading, uncertain).
 - Strips: one broke on installation and two were damaged earlier (six-strip phase). Pop-out is an assembly-time nuisance only.

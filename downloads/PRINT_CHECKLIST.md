@@ -13,7 +13,7 @@ Updated Fri 20 Nov 2026 (morning). **Hunt Sun 29 Nov; four assembled, tested, pa
 | 7 | Deck | 4 | 3 latch decks | **4 gate decks if T1-v1 passes** | the existing latch decks are NOT counted as gate decks until validated; do not print gate decks before the full-assembly test |
 | 8 | Centre cover (gate, smooth rim) | 4 | 0 | 4 | only test variants; waits for T1-v1 and the full-assembly test |
 | 9 | Retaining ring, PETG | **0: dropped (Keeper, 20 Nov)** (was 4) | 1 (O2-v1, test only) | **do not print more** | its only job was holding the paper UV disc. Keeper approved direct UV-marker writing on the cover underside (20 Nov): no ring or inscription plate is required if the writing test passes normal-light invisibility and handling durability. The cover geometry (including its unused ledge) is unchanged. |
-| 10 | Gate strips (PETG, T-slot hook version) | **12 (three per unit at about 1, 5 and 9 o'clock, Keeper-approved for prototype testing; was 24)** (+spares: 3 broke in one test unit) | spare soft strips printed, count UNKNOWN | ? | old strips fell out; T1-v1 strips print this evening (test only) |
+| 10 | Gate strips (PETG, T-slot hook version) | **8 (two per unit at about 5 and 9 o'clock, Keeper 20 Nov, prototype testing; was 24)** (+spares: 3 broke in one test unit) | spare soft strips printed, count UNKNOWN | ? | old strips fell out; T1-v1 strips print this evening (test only) |
 | 11 | Pawls (PETG; 2 outer + 2 inner) | 16 | **UNKNOWN** | ? | owner to count |
 | 12 | Keystone knob | 4 | **UNKNOWN** | ? | held for the knob screw-head measurements (Phillips size, diameter, height) |
 | 13 | M3 x 8 black socket screws (back plate) | 16 | **UNKNOWN** | ? | owner to count |

@@ -1,3 +1,5 @@
+> **UPDATE 20 Nov (Keeper): two strips supersede three for prototype testing.** Use the pockets at about **5 o'clock (148.6 deg)** and **9 o'clock (271.2 deg)**; leave the rest empty. The table below is kept for reference.
+
 # T1-v1 three-strip standard: exact pocket positions (Keeper-approved for prototype testing, 20 Nov 2026)
 Keeper: three 0.7 mm PETG strips per Chronometer, one per pocket pair, the same side of each pair; the other three pockets stay empty. Preserve the T1-v1 deck and cover geometry (no end stops). No PETG retaining ring. This is prototype testing, not four-unit production.
 

@@ -1,0 +1,39 @@
+T1-v1 TWO-STRIP DIAGNOSTICS (Keeper decision 20 Nov). Prototype testing only. NO CAD changes, no shorter strip, no end stop,
+no stronger pawl, no new deck geometry. Sunday 22 Nov engineering cutoff stands.
+
+STRIP POSITIONS FOR THIS TEST (write down if you use anything else)
+  Look from above with the double notch at 12 o'clock. Fit TWO 0.7 mm PETG strips at about 5 o'clock (148.6 deg clockwise from 12)
+  and about 9 o'clock (271.2 deg). Leave the other four pockets empty (including the 1 o'clock pocket nearest the fixed arrow).
+  (These are 122.6 deg apart, the widest pair of the earlier three.) Diagram: images_strip_positions_T1-v1.png
+
+STEP 0, BEFORE THE RING GOES ON  (answers Keeper item 2)
+  a. Push each strip fully inward toward the centre until it stops. Its outer end should be flush with the hub's outer edge or just inside it.
+     Run a fingernail round the hub: no strip end should catch or stand proud.   [ ] strip 5 o'clock flush   [ ] strip 9 o'clock flush
+  b. Optional: make a fine pencil mark on the hub top beside each strip's outer end, so you can see later if a strip has moved.
+  Then fit the inner ring, pawls, outer ring, index cap and its three screws.
+
+TESTS (hands only; tick, and write what you felt)
+  1. RING ROTATION, cover REMOVED vs cover LOCKED (Keeper item 1). Turn the inner ring and the outer ring through several positions each time.
+        cover removed:  inner ring spin  [ ] free  [ ] a little stiff  [ ] stiff    clicks  [ ] clear  [ ] faint  [ ] almost none
+        cover locked:   inner ring spin  [ ] free  [ ] a little stiff  [ ] stiff    clicks  [ ] clear  [ ] faint  [ ] almost none
+        outer ring (for comparison):  spin [ ] free [ ] stiff    clicks [ ] clear [ ] faint
+        Is the 30-degree detent clear at every one of the 12 positions?   [ ] yes  [ ] no (which ones)
+  2. WOBBLE (item 3). With the cover locked:
+        normal handling (pick up, tilt, carry, turn the rings):  wobble or rattle?   [ ] none  [ ] slight  [ ] noticeable
+        deliberately tapping the cover's edge at 4 points:       wobble?             [ ] none  [ ] slight  [ ] noticeable
+  3. COVER LOCK AND RELEASE (item 4). Press down about 1 mm and turn anticlockwise 28 deg, lift, refit and re-lock. 10 times.
+        [ ] opened 10/10     [ ] re-locked 10/10     [ ] any unintended release (when? ______ )
+        Knob: unscrew and refit with zero fragments, 10 times  [ ] cover never turned/lifted/came off
+              same with four fragments, 10 times               [ ] cover never turned/lifted/came off
+              press hard on the knob while unscrewing, 5 times [ ] cover never opened
+  4. RING SIDEWAYS PLAY (item 5). Cover removed. Gently push the inner ring sideways toward and away from a pawl, then the outer ring the same way.
+        inner ring: play about ____ mm   [ ] similar to outer ring   [ ] more than outer ring   [ ] less than outer ring
+  5. AFTER ALL THE ABOVE: strips seated? (item 2, item 5)  Remove the index cap and inner ring and look.
+        [ ] both strips still flush with the hub edge   [ ] one has moved outward (which?) ______
+        Any scuff, shiny rub marks or burrs on the strip ends, the hub's outer face, or the inside of the inner ring?   [ ] none  [ ] yes (where) ______
+        Photograph: the hub with the two strips, and the inside of the inner ring.
+
+DECISION RULES (Keeper's priorities)
+  Reliable cover retention, clear 30-degree ring detents, smooth practical ring rotation, safe fragment operation, repeatable cover removal and refit.
+  If all pass with two strips: tell Cog "two-strip passed"; Cog recommends a final physical acceptance test to Keeper.
+  If wobble or interference is significant: STOP, tell Cog exactly what failed and what you saw. Do not change anything.

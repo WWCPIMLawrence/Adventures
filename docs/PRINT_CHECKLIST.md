@@ -18,7 +18,7 @@ Updated Fri 20 Nov 2026 (morning). **Hunt Sun 29 Nov; four assembled, tested, pa
 | 12 | Keystone knob | 4 | **UNKNOWN** | ? | held for the knob screw-head measurements (Phillips size, diameter, height) |
 | 13 | M3 x 8 black **socket-head** screws (back plate, 4 per unit, 2.5 mm hex) | 16 | **UNKNOWN** | ? | owner to count; the only socket heads on the instrument |
 | 14 | M3 x 16 black **Phillips-head** screws (index cap, 3 per unit) | 12 | **UNKNOWN** | ? | owner to count. **Phillips by design (owner, 20 Nov): the 2.5 mm Allen key must not remove the index cap.** Head diameter and height NOT yet measured (CAD assumes a socket head 5.5 x 3.0 mm); needed for clearance and the M-72 seating numbers |
-| 15 | M3 x 10 knob screws and M3 nuts | 4 and 4 | **UNKNOWN** | ? | owner to count |
+| 15 | M3 knob screws (**Phillips head, recessed in the knob by design**, so players cannot remove the screw; M3 x 12 under trial, was x 10) and M3 nuts | 4 and 4 | **UNKNOWN** | ? | owner to count; head diameter and height not yet measured; screw stays with the knob; nut sits in the cover's hex pocket |
 | 16 | 2.5 mm hex keys (clue-envelope reward) | 4 | **UNKNOWN** | ? | owner to count |
 | 17 | UV flashlights | 4 | **UNKNOWN** | ? | owner to count; flashlight stays a hidden surprise. **The UV paper disc is dropped:** the hidden message is written directly on the underside of each centre cover in UV marker (SUN TO ARROW, three lines), kept clear of the centre nut/screw (about 5 mm) |
 | 18 | Filament: brass, black, bone/ivory, white, PETG | see PRODUCTION_PLAN | **UNKNOWN** | ? | owner to inventory |

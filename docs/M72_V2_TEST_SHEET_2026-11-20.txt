@@ -1,0 +1,24 @@
+M-72 SURVEYOR'S PLATE V2: ONE TEST PLATE (Keeper-approved 20 Nov). Physical test of ONE V2 plate. NOT production approval. V1 stays as the fallback.
+
+PRINT: the file called  14_M72_PLATE_V2_one_only.stl  (brass PLA, existing profile, one plate, alone on the bed)
+  - Do NOT rotate, flip or auto-orient it. It already prints TOP FACE DOWN: the engraved face is against the plate, the three bosses point up, no supports.
+  - Check in the slicer preview that layers 1 and 2 show the lettering and the circles as GAPS, and that no supports appear.
+  - Brass filament, no brim, watch the first layers (the lettering is made by the first two layers).
+  - Report your actual print time and how it came out.
+
+TEST (hands only; tick and write what happened):
+ 1. LEGIBILITY. Hold it at normal handling distance (about 40 cm), in room light.
+      Upper title WREN & CO.: [ ] clear  [ ] readable with effort  [ ] hard to read      Lower title SURVEYOR'S PLATE: [ ] clear  [ ] readable with effort  [ ] hard to read
+      Concentric grooves and the framing arcs: [ ] clear  [ ] faint  [ ] missing/filled      Any letters filled in or blurred (which): ______
+ 2. NOTCHES. Double notch at 12 o'clock, single at 3, 6 and 9: [ ] all present and crisp  [ ] describe any defect ______   Does the double notch say "top" at a glance?  ____
+ 3. SEATING AND ORIENTATION. Place it on the instrument 5 times (rings and index cap fitted, plate not fastened):
+      [ ] seats level on the three screw heads   [ ] goes on only one way   [ ] fixed-arrow window shows the double arrow   [ ] does not rock
+      Is it easier to place than V1 now that the double notch is on the rim?  ____
+ 4. READING at outer XII and inner STAR: pairs in order, clockwise from the fixed arrow:  ______ / ______ , ______ / ______ , ______ / ______
+      Predicted: IV/TREE, VIII/SUN, X/KEY.   Visible, nothing cut off?  [ ] yes  [ ] no ______
+ 5. STABILITY AND CLEARANCE. Outer ring turns freely with the plate on? ____   Plate stays on when tilted about 30 and 45 degrees? ____
+      Centre cover removes and refits with the plate on? ____   with it off? ____   Any contact with the rings or index cap? ____
+ 6. PRINT QUALITY. Look closely: stringing or rough floors in the engraving (these were printed over the first layers)? ____   Any weakness, cracks or thin spots around the notches or the windows? ____
+      Any warping (does the plate lie flat on a table)? ____   Handling damage? ____
+
+STOP RULES: report exactly what happened. Do not print or change anything. A CAD prediction is not a physical pass.

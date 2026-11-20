@@ -12,7 +12,7 @@ Updated Fri 20 Nov 2026 (morning). **Hunt Sun 29 Nov; four assembled, tested, pa
 | 6 | Tiles with digit inlay, sets of 4 | 4 sets | 1 (in the prototype) | 3 | independent: print |
 | 7 | Deck | 4 | 3 latch decks | **4 gate decks if T1-v1 passes** | the existing latch decks are NOT counted as gate decks until validated; do not print gate decks before the full-assembly test |
 | 8 | Centre cover (gate, smooth rim) | 4 | 0 | 4 | only test variants; waits for T1-v1 and the full-assembly test |
-| 9 | Retaining ring, PETG | 4 | 1 (O2-v1, usable for tests) | 3 | same part for the gate |
+| 9 | Retaining ring, PETG | **0 if direct UV writing is verified** (was 4) | 1 (O2-v1, test only) | **do not print more** | its only job was holding the paper UV disc. Keeper approved direct UV-marker writing on the cover underside (20 Nov): no ring or inscription plate is required if the writing test passes normal-light invisibility and handling durability. The cover geometry (including its unused ledge) is unchanged. |
 | 10 | Gate strips (PETG, 6 per unit, T-slot hook version) | 24 (+spares) | 0 usable | 24 | old strips fell out; T1-v1 strips print this evening (test only) |
 | 11 | Pawls (PETG; 2 outer + 2 inner) | 16 | **UNKNOWN** | ? | owner to count |
 | 12 | Keystone knob | 4 | **UNKNOWN** | ? | held for the knob screw-head measurements (Phillips size, diameter, height) |
@@ -20,7 +20,7 @@ Updated Fri 20 Nov 2026 (morning). **Hunt Sun 29 Nov; four assembled, tested, pa
 | 14 | M3 x 16 black socket screws (cap) | 12 | **UNKNOWN** | ? | owner to count |
 | 15 | M3 x 10 knob screws and M3 nuts | 4 and 4 | **UNKNOWN** | ? | owner to count |
 | 16 | 2.5 mm hex keys (clue-envelope reward) | 4 | **UNKNOWN** | ? | owner to count |
-| 17 | UV flashlights and discs | 4 | **UNKNOWN** | ? | owner to count; flashlight stays a hidden surprise |
+| 17 | UV flashlights | 4 | **UNKNOWN** | ? | owner to count; flashlight stays a hidden surprise. **The UV paper disc is dropped:** the hidden message is written directly on the underside of each centre cover in UV marker (SUN TO ARROW, three lines), kept clear of the centre nut/screw (about 5 mm) |
 | 18 | Filament: brass, black, bone/ivory, white, PETG | see PRODUCTION_PLAN | **UNKNOWN** | ? | owner to inventory |
 | 19 | Test centre kit T1-v1 (cover, seat, keeper ring, strips) | 1 | printing 20 Nov | | critical path; stand-in result is preliminary |
 | 20 | Fully assembled prototype (older centre, white outer ring) | | 1 | | emergency spare only if it passes the same functional tests |

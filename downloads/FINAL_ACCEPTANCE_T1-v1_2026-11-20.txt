@@ -1,0 +1,55 @@
+T1-v1 FINAL DURABILITY AND OPTICAL ACCEPTANCE (Keeper decision 20 Nov). Prototype acceptance only; NOT four-unit production approval.
+CAD stays as it is: no shorter strips, stops, stronger pawls or other changes unless a failure is observed. Sunday 22 Nov engineering cutoff stands.
+
+LOCKED CONFIGURATION (unit A, the unit already built)
+  - TWO 0.7 mm PETG strips: the pocket just left of the double notch (12 o'clock, 354 deg clockwise) and the pocket at about 5 o'clock (149 deg).
+    Diagram: images_two_strip_standard_T1-v1.png. Other four pockets empty.
+  - M3 x 10 centre screw (machine thread) in a nut drawn into the cover's hex pocket. No PETG retaining ring, no paper disc.
+  - UV inscription on the cover underside in UV marker: SUN TO ARROW, three lines (SUN / TO / ARROW), about 5 mm clear of the centre.
+    (The longer wording, "The Sun is False. Trust the Arrow.", passed visibility but is NOT the production wording.)
+  Record anything you change or replace (for example a broken strip) in the log below.
+
+PART 1. DURABILITY (unit A)  Keep a tally; check after every 10 cycles. STOP at the first failure and report.
+  1a. 50 press-and-turn cycles: press the cover down about 1 mm, turn anticlockwise 28 deg, lift off, refit, turn clockwise to lock.
+        cycles done ____ / 50     unintended releases ____     any cycle that did not lock/open cleanly ____  (cycle numbers: ______ )
+  1b. 20 knob cycles with FOUR fragments fitted: unscrew the knob about 3 turns (fragments free), screw it back until snug.
+        cycles done ____ / 20     did the cover ever turn, lift or come off? ____     screw ever fall out? ____
+  1c. After 1a and 1b (every 10 cycles and at the end): is the cover still held firmly?  wobble when you tap the edge: ____ mm
+        any scuff, rub marks or cracks on cover lugs, the deck pockets or the strips?  ____     strip popped or moved?  ____
+  1d. Strips: remove the inner ring and look at the end (do the same as the earlier test). Both still in place?  ____  Note which pops out.
+
+PART 2. ALL TWELVE DETENTS (both rings)
+  Turn the inner ring through all 12 positions, then the outer ring.  Does it click clearly and hold at each position?
+    inner ring  1 ___ 2 ___ 3 ___ 4 ___ 5 ___ 6 ___ 7 ___ 8 ___ 9 ___ 10 ___ 11 ___ 12 ___   (write C = clear, F = faint, N = none)
+    outer ring  1 ___ 2 ___ 3 ___ 4 ___ 5 ___ 6 ___ 7 ___ 8 ___ 9 ___ 10 ___ 11 ___ 12 ___
+  Do this once BEFORE Part 1 and once AFTER. Smooth practical rotation?  before ____  after ____
+
+PART 3. BACK PLATE REMOVAL AND REFIT, WITH THE OPTICAL READING (needs the printed leaf: see below)
+  The back plate must be fitted (4 x M3 x 8 socket screws, 2.5 mm hex). Leave the plate and the knob fitted during the optical reading.
+  Print the files from Scribe's Music House package at 100 percent, Actual Size: the native leaf (82 x 129 mm) and the optical overlay.
+  Confirm the leaf is 82 x 129 mm with calipers before using it.
+  3a. MUSIC HOUSE FIRST (Blue/Yellow order):
+        read RIFT with the cover off -> refit the cover -> remove the back plate (take the UV light) -> refit the plate -> read RIFT again.
+        RIFT read correctly before ____ after ____   letters centred in the holes ____   notch visible ____   >= 3 mm of the REGISTER tail visible ____
+  3b. UV FIRST (Red/Green order), on a fresh setup:
+        remove the plate, take the UV light, handle the loose plate, refit it, THEN read RIFT.   read correctly ____
+  How to read: centre the cross through the small sighting hole; point the single notch opposite the double notch down the REGISTER line;
+  read the four centred letters clockwise from the double notch.
+  Also report: looking from above and at 50 to 70 degrees, can you align the notch and see the REGISTER tail? Any rocking, drift or occlusion? ____
+  Does the instrument seat flat on the leaf?  ____    Does the plate go back on exactly the same way each time (same one way)?  ____
+
+PART 4. UV INSCRIPTION
+  Write SUN TO ARROW (three lines) on the underside of the cover in UV marker.  Check under UV: legible ____; in normal light: invisible ____.
+  Re-check after Part 1: still legible ____ and still invisible ____.
+
+PART 5. REPRODUCIBILITY: a SECOND UNIT (unit B)  (after Parts 1 to 4 pass on unit A)
+  Build a second complete instrument from scratch to the same locked configuration, using the order: deck on base, strips, inner ring, outer ring, pawls,
+  index cap + 3 Phillips M3 x 16 screws, cover with nut and M3 x 10 knob screw, back plate.
+        time to assemble ____ min     strips that popped out or broke during assembly ____     anything that did not fit first time ____
+  Then repeat quickly: 10 press-and-turn cycles, 5 knob cycles with four fragments, all 12 detents on both rings, ring feel, wobble, UV writing.
+        result: ____
+  Unit B needs: a base, a back plate, a T1-v1 deck (print one), outer ring, inner ring, index cap, 3 cap screws, 4 pawls, a cover with a seated nut,
+  the knob, 2 strips (plus spares), fragments (one set).  Tell Cog what is missing; do not substitute silently.
+
+STOP RULES: at the first failure, STOP. Do not print or change anything. Tell Cog the part, the step, the cycle number and what moved (a short video helps).
+If everything passes, tell Cog "T1-v1 acceptance passed" and send the filled-in sheet.

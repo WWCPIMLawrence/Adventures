@@ -1,4 +1,6 @@
-# Four-instrument production checklist (Keeper's format: confirmed vs unknown)
+# Four-instrument production checklist
+> **Owner photo 20 Nov (IMG_7010):** three assembled stacks (base, plate, deck, rings, index cap; no centre cover or knob), one loose base, one loose outer ring, and a box of strips/pawls. Cog's reading, to be confirmed: plates 3, inner rings 3, index caps 3, outer rings 4, bases 4; decks in the stacks are probably the three latch decks. A stack can be taken apart to build unit B around the new T1-v1 deck (strips first, then the inner ring).
+ (Keeper's format: confirmed vs unknown)
 Updated Fri 20 Nov 2026 (morning). **Hunt Sun 29 Nov; four assembled, tested, packed instruments by Sat 28 Nov evening; accepted configuration and substantially completed printing targeted Wed 25 Nov.** The owner controls printing and the queue; Cog prepares and prioritises files.
 **Rule: an item is "UNKNOWN" until the owner states a quantity. Unknown items are never counted as available.** "Confirmed" = owner-reported, not counting the assembled prototype. Old centre parts are boxed OLD.
 
@@ -6,7 +8,7 @@ Updated Fri 20 Nov 2026 (morning). **Hunt Sun 29 Nov; four assembled, tested, pa
 |---|---|---|---|---|---|
 | 1 | Base (no lip) | 4 | 4 | 0 | done |
 | 2 | Back plate, integral aperture | 4 | 3 | 1 (+1 spare if capacity) | validated by the owner on a printed plate; **independent of the gate: print** |
-| 3 | Outer ring, bone | 4 | 3 | 1 | two good rings printed overnight plus one earlier; the white prototype ring does not match |
+| 3 | Outer ring, bone | 4 | 4 per the owner's 20 Nov photo (3 fitted on assembled stacks + 1 loose); **confirm** | 0 if confirmed | two good rings printed overnight plus one earlier; the white prototype ring does not match |
 | 4 | Inner ring | 4 | 3 | 1 | independent: print (never on a bed with other parts) |
 | 5 | Index cap | 4 | 3 | 1 | independent: print |
 | 6 | Tiles with digit inlay, sets of 4 | 4 sets | 1 (in the prototype) | 3 | independent: print |

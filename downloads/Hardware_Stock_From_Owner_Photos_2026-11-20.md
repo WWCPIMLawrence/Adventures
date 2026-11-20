@@ -21,6 +21,9 @@
 - In the photo the screw end looks level with or slightly inside the nut face. At M3 x 10 the tip should hang about 1.1 mm below the cover's flange underside; so either the knob is partly unscrewed in the photo or a shorter screw is fitted. Unconfirmed.
 - Not yet physically tested for wear with a nut over many cycles; the owner reports many removals with no problem so far.
 
+## Owner confirmation, 20 Nov (later)
+The knob screw is a **machine-thread M3 x 10** (not coarse thread), fairly tight in the nut, head level with or slightly inside the knob recess. **The tip protrudes only slightly beyond the nut and does not extend past the printed cover's underside.** In the CAD the M3 x 10 should stand 2.9 mm beyond the nut and hang about 1.1 mm below the flange underside, so the physical old-design cover or knob differs from my arithmetic by about 1 mm or more. **The M3 x 12 lift numbers in the T1-v1 reports are CAD arithmetic and may not match the owner's parts.** The owner's actual concern is the **nut loosening or turning in the cover** as players twist the knob repeatedly, not thread stripping; so far many removals with no problem. CAD retention: a hex pocket (stops rotation), nut sits against the pocket ceiling under tension, and the pocket mouth is 0.35 mm undersize to hold it.
+
 ## Open questions for the owner
 1. Which screw is in the knob now (which box, head type, length)? Does its head sit snugly in the knob's recess?
 2. Counts remaining of: M3 x 16 (pan self-tapping or flat), M3 x 8 socket, M3 x 10 and x 12 machine screws, nuts.

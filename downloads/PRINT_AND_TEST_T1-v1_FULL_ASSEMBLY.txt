@@ -4,12 +4,14 @@ PRINT (one part, alone on the bed):  deck_T1-v1.stl   same filament as your earl
 Not needed: any PETG retaining ring (it only held the paper UV disc, which is dropped). Leave the ring out for this test.
 
 USE FROM YOUR STOCK (mark which ones):  a base, the outer ring, the inner ring, the index cap and its 3 cap screws (M3 x 16),
-the pawls (2 outer, 2 inner), the T1-v1 cover, the 6 soft 0.7 mm PETG strips (T1-v1), the fragments, the knob, and a NEW
+the pawls (2 outer, 2 inner), the T1-v1 cover, three soft 0.7 mm PETG strips (T1-v1), the fragments, the knob, and a NEW
 M3 x 12 knob screw. (If a part is missing, say so; do not substitute silently. The back plate is optional for this test.)
 
 BUILD ORDER MATTERS: the strips go in BEFORE the inner ring.
  1. Seat the deck on the base (as you did with your earlier decks).
- 2. Slide the six strips in from the OUTSIDE edge of the hub, arch up and feet down, until each stops. Do not force any strip.
+ 2. Fit THREE strips only (Keeper-approved): looking from above with the double notch at 12 o'clock, use the pockets at about 1, 5 and 9 o'clock
+    (the clockwise-most pocket of each pair); leave the other three empty. Slide each in from the OUTSIDE edge of the hub, arch up and feet down,
+    until it stops. Do not force any strip. Exact positions: Three_Strip_Standard_T1-v1_Pocket_Positions_2026-11-20.md.
  3. Fit the inner ring over the hub (it closes the open ends of the strip slots), the outer ring, the pawls, then the index cap and its three screws.
  4. On the underside of the cover write SUN TO ARROW in UV marker, three lines, keeping about 5 mm clear of the centre (the screw tip hangs there).
  5. Fit the knob with the M3 x 12 screw. Drop the cover in and turn clockwise about 28 degrees until it stops.

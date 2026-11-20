@@ -1,0 +1,28 @@
+M-72 OBSERVATION PLATE: ONE TEST PLATE (Scribe and Cog, 20 Nov). Physical test of ONE plate only. NOT production approval, NOT a freeze of the observation record.
+Print only after the Chronometer durability tests have room. Do NOT print the alternative layout or any more plates.
+
+PRINT
+  m72_TEST_PLATE_pan_heads_p4810_NONPRODUCTION.stl   (windows p4 / p8 / p10)
+  Existing PLA, flat on the bed, underside down, no supports. A matte DARK colour (black if you have it) is preferred for contrast against the brass.
+  No labels, no engraving, no paint. Alone on the bed; watch the first layers.
+
+MEASURE FIRST: one pan-head cap screw (the self-tapping M3 x 16): head diameter ____ mm  head height ____ mm. (The plate assumes 6.0 x 2.4.)
+
+TEST (hands only; tick and write what happened). Use a complete instrument with the rings, index cap and its three screws; plate NOT screwed to anything.
+ 1. SEATING: the plate rests on the three cap-screw heads, level.   [ ] level   [ ] rocks   [ ] tilts (which side) ______
+    Does it clear the outer ring, the inner ring and the index cap?   [ ] yes   [ ] touches (where) ______
+ 2. RINGS: with the plate on, both rings turn freely and click.        [ ] yes   [ ] no ______
+ 3. CENTRE COVER: remove and refit it with the plate ON: works? ____     with the plate OFF: works? ____
+ 4. ORIENTATION: lift the plate off and reseat it 5 times. Does it go on in exactly ONE way?   [ ] one way   [ ] more than one way (describe) ______
+    (CAD predicts one way: turning it by 120 deg misfits by about 4 mm.)  Can it go on upside down?  ____
+ 5. SLIPPING: tilt the instrument about 30 degrees and about 45 degrees. Does the plate slide or fall off?   ____
+ 6. READING: set the OUTER ring to XII and the INNER ring to STAR under the fixed arrow (the calibration).
+    Read each outer numeral with its inner symbol, starting at the first pair clockwise from the fixed arrow and continuing clockwise.
+    Predicted: IV/TREE, VIII/SUN, X/KEY.   Actual, in order: ______ / ______ , ______ / ______ , ______ / ______
+    Readable from straight above? ____   Readable at an angle (about 45 deg)? ____   Any glyph cut off by a window edge? ____
+ 7. ONE CLICK WRONG (Scribe asks; CAD predicts none of these matches the complete signature):
+        outer ring one click: pairs read ______________________   inner ring one click: pairs read ______________________
+    Predicted examples: outer +1 = V/TREE, IX/SUN, XI/KEY; inner +1 = IV/COMPASS, VIII/MOON, X/FLAME.
+ 8. AFTER REMOVAL: any marks on the rings, cap or screw heads?  ____   any loose parts?  ____   handling damage to the plate?  ____
+
+STOP RULES: report exactly what happened. Do not print, change or retry anything. A CAD prediction is not a physical pass.

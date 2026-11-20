@@ -29,3 +29,9 @@ Measure one **pan-head cap screw**: head diameter and height (calipers). The pla
 
 ## Status of the other three plates
 Not started. They wait for the physical acceptance of the test plate and for the Scribe items above.
+
+## Update 20 Nov (after Scribe's interface review)
+- **Decided for the test (Scribe):** p4/p8/p10, existing PLA, no labels or engraving, matte dark colour preferred; alternative layout NOT printed. Predicted ordered signature at outer XII and inner STAR: **IV/TREE, VIII/SUN, X/KEY**, read clockwise from the fixed arrow.
+- **Orientation (CAD prediction, Scribe's question):** the three cups sit at the screw positions, which are **unevenly spaced (125, 120, 115 degrees)**. Turning the plate by 120 degrees misfits by about 5 degrees (3.9 mm at the screws) against a cup clearance of only 0.5 mm, so **only one orientation should seat**; the cups are on the underside, so it cannot sit upside down. To be confirmed physically.
+- **One-click miscalibration (CAD prediction):** outer ring +1: V/TREE, IX/SUN, XI/KEY; outer -1: III/TREE, VII/SUN, IX/KEY; inner +1: IV/COMPASS, VIII/MOON, X/FLAME; inner -1: IV/HOURGLASS, VIII/EYE, X/MOON; both +1: V/COMPASS, IX/MOON, XI/FLAME; both -1: III/HOURGLASS, VII/EYE, IX/MOON. **None matches any of the three correct pairs completely**, and across all 144 settings the complete signature is unique. DIAMOND does not appear at the correct calibration (it appears at the one-click inner states only if a window shows it: it does not in these six).
+- Owner's test sheet: `M72_TEST_PLATE_SHEET_2026-11-20.txt`. Owner still to measure one pan-head screw. Predictions only.

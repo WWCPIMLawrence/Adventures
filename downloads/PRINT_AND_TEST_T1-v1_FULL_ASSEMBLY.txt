@@ -1,0 +1,32 @@
+T1-v1 FULL ASSEMBLY TEST (Keeper-authorised 20 Nov). One test unit only. NOT four-unit production approval.
+
+PRINT (one part, alone on the bed):  deck_T1-v1.stl   same filament as your earlier decks.  Write T1-v1 on its underside.
+Not needed: any PETG retaining ring (it only held the paper UV disc, which is dropped). Leave the ring out for this test.
+
+USE FROM YOUR STOCK (mark which ones):  a base, the outer ring, the inner ring, the index cap and its 3 cap screws (M3 x 16),
+the pawls (2 outer, 2 inner), the T1-v1 cover, the 6 soft 0.7 mm PETG strips (T1-v1), the fragments, the knob, and a NEW
+M3 x 12 knob screw. (If a part is missing, say so; do not substitute silently. The back plate is optional for this test.)
+
+BUILD ORDER MATTERS: the strips go in BEFORE the inner ring.
+ 1. Seat the deck on the base (as you did with your earlier decks).
+ 2. Slide the six strips in from the OUTSIDE edge of the hub, arch up and feet down, until each stops. Do not force any strip.
+ 3. Fit the inner ring over the hub (it closes the open ends of the strip slots), the outer ring, the pawls, then the index cap and its three screws.
+ 4. On the underside of the cover write SUN TO ARROW in UV marker, three lines, keeping about 5 mm clear of the centre (the screw tip hangs there).
+ 5. Fit the knob with the M3 x 12 screw. Drop the cover in and turn clockwise about 28 degrees until it stops.
+
+TEST (hands only; write what happened for any fail)
+ R. Rings: both rings turn with normal detents; no scraping or drag from the strips.             [ ] ok
+ O. Press the cover down about 1 mm and turn anticlockwise 28 degrees, then lift. 10 times.       [ ] opened 10/10   [ ] re-seated 10/10
+ U. Unintended release: with the cover locked, push down hard on the knob and unscrew it. 5 times. [ ] cover never opened
+ A. ZERO fragments: unscrew the knob and screw it back, 10 times.   [ ] cover never turned  [ ] never lifted  [ ] never came off
+ B. FOUR fragments: repeat 10 times.                                  [ ] cover never turned  [ ] never lifted  [ ] never came off
+ K. Knob screw M3 x 12: how many turns to lift the knob far enough to place a fragment?  ____ turns
+    Does the screw stay in its nut at that lift?  [ ] yes  [ ] no       Can all four fragments go in without taking the knob fully off?  [ ] yes  [ ] no
+ F. Fragments insert and remove without catching.                                                  [ ] ok
+ L. Underside: with the cover off and turned over, does the screw tip touch anything? Is the writing clear of the screw?   [ ] ok
+ W. UV writing: still readable under UV after all the cycles above; invisible in normal light.     [ ] ok
+ N. Normal handling: pick up, tilt and shake lightly for a few minutes; the cover stays on.        [ ] ok
+ S. After everything, the strips are still in place and not drifting toward the inner ring.        [ ] ok
+
+STOP RULES: if ANY item fails, stop. Do not print or change anything. Tell Cog the item letter, cycle number and what moved (a short video helps).
+If everything passes, tell Cog "T1-v1 full passed".

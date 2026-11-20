@@ -30,6 +30,9 @@ The owner measured the dimensions I asked about (fragment thickness, knob unders
 ## Owner test on a new-design cover with the nut seated, 20 Nov (PHYS)
 Nut drawn in with a screw; the M3 x 10 tip stands about 2 mm (maybe slightly more) beyond the nut and does not extend past the printed cover. Fragments: **2 turns frees the fragments; 3 full turns places and removes them comfortably, with the screw in no danger of falling out; the screw falls out at about 5.5 turns.** Total height underside to knob top about **13.9 mm** (CAD 12.9), measured with calipers at an angle, so uncertain. Cog reading: the knob probably rides about 1 mm higher than the model, which would explain the shorter reach; function is adequate. An M3 x 12 would add roughly 4 turns of margin but is not needed for the fragments. A cleaner height check: stand the centre piece knob-up on a flat table (it rests on the skirt, 4.75 mm below the flange underside) and measure table to knob top: design 17.65 mm.
 
+## Decision, 20 Nov (Keeper, relayed by the owner)
+**Index cap screws: pan head, the same pan-head self-tapping M3 x 16 Phillips screws used in the prototype.** The Baocuz screws are countersunk (the owner confirmed), so they are not used for the cap and the index caps do not need countersinks. No purchase is needed for the test build.
+
 ## Open questions for the owner
 1. Which screw is in the knob now (which box, head type, length)? Does its head sit snugly in the knob's recess?
 2. Counts remaining of: M3 x 16 (pan self-tapping or flat), M3 x 8 socket, M3 x 10 and x 12 machine screws, nuts.

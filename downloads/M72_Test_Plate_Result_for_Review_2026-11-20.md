@@ -24,3 +24,5 @@ Owner's hands-on test of ONE plate (p4/p8/p10, existing PLA, unmarked, redesigne
 - **Keeper:** is the plate accepted as it is for the current puzzle, or do you want a second version with any of the ideas above? Four-plate production stays on hold.
 - **Scribe:** with the physical reading now confirmed (IV/TREE, VIII/SUN, X/KEY at XII/STAR), can you proceed with the archival observation record? Does any clue or decoration belong on the plate itself?
 - Still owed by the owner: the one-click-wrong readings (outer +1 predicted V/TREE, IX/SUN, XI/KEY; inner +1 predicted IV/COMPASS, VIII/MOON, X/FLAME).
+
+**Colour note (owner, 20 Nov):** the test plate was printed in **brass**, not the matte dark colour Scribe preferred. The owner had imagined it as a piece of the overall device that had been removed, so brass was intentional-by-design-thinking; the glyphs still read clearly against the black rings in the windows (photo). Final colour is a Keeper/Scribe decision; contrast against the brass instrument was the reason for Scribe's dark preference.

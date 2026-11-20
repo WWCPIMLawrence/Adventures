@@ -53,3 +53,12 @@ if (part == "chk_v2_heads") intersection() { sight_plate_v2(); heads_at_assembly
 if (part == "chk_v2_stops") intersection() { sight_plate_v2(-0.1); heads_at_assembly(); }                 // SOLID: the heads still hold the plate up
 // notch vs window walls: the smallest wall left between any rim notch and a window (printed as a number)
 echo(notch_to_window_min_deg = min([for (n = [0, 180, 270, 87, 93], w = [330, 210, 150]) abs(((n - w + 180) % 360) - 180)]));
+// ---- V2b: the same engraving, FILLED with a second colour (black), printed as two bodies like the back plate and the tile digits ----
+// The inlay is exactly the engraved volume (0.4 mm = two layers at the bed), so the colour change is at layer 3. Import 'brass part' and 'black part' together as ONE object.
+module inlay_3d() intersection() { sight_plate(); translate([0, 0, plate_z0 + plate_t - dec_depth]) linear_extrude(dec_depth) decor_2d(); }
+if (part == "m72v2b_black_print") rotate([180, 0, 0]) translate([0, 0, -(plate_z0 + plate_t)]) inlay_3d();
+if (part == "m72v2b_brass_print") rotate([180, 0, 0]) translate([0, 0, -(plate_z0 + plate_t)]) sight_plate_v2();
+if (part == "chk_v2b_overfill") difference() { union() { sight_plate_v2(); inlay_3d(); } sight_plate(); }                       // EMPTY: nothing added outside the original plate
+if (part == "chk_v2b_gap") difference() { difference() { sight_plate(); notches_3d(); } union() { sight_plate_v2(); inlay_3d(); } }   // EMPTY: the two bodies fill the plate completely
+if (part == "m72v2b_view") translate([0, 0, -plate_z0]) { color("#c9a24a") sight_plate_v2(); color("#1b1b1f") inlay_3d(); }
+if (part == "m72v2b_view2") translate([0, 0, -plate_z0]) { color("#c9a24a") difference() { sight_plate(); notches_3d(); } color("#101014") translate([0, 0, 0.05]) inlay_3d(); }

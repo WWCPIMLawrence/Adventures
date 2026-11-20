@@ -6,13 +6,13 @@ Owner-reported (PHYS), by hand, informal counts. No CAD or production geometry c
 2. **Strips seated and outward migration:** after all the tests, with the index cap and inner ring removed, **both strips are still fully in, nothing has moved, no scuff or rub marks or other problems visible** (owner). Photo to follow. Earlier finding: without the inner ring a strip can pop out of its channel; **with the ring fitted the strips stay in very solidly.**
 3. **Wobble:** the centre piece **wiggles about 1 mm when the edges are deliberately tapped** (at the fragment edges). Wobble in ordinary handling was **not reported**; the owner earlier judged the slight wobble unlikely to be noticed once locked.
 4. **Lock and release:** "passes all of the tests exactly how we'd want" (owner), covering the press-and-turn cycles and the knob tests. **Cycle counts, the pressed-knob test and the fragment cases were not itemised in this message.**
-5. **Sideways play and contact:** with the centre piece off, the **inner ring has almost no side-to-side movement**; the **outer ring has about 0.5 mm of play**. No physical evidence of strip-to-ring contact was found (no marks).
+5. **Pockets used (owner): about 5 o'clock (148.6 deg) and about 12 o'clock (353.5 deg), 155 deg apart,** not the 5 and 9 o'clock pair in the diagnostics sheet. **Sideways play and contact:** with the centre piece off, the **inner ring has almost no side-to-side movement**; the **outer ring has about 0.5 mm of play**. No physical evidence of strip-to-ring contact was found (no marks).
 
 ## Photos received after the report (owner, 20 Nov)
-Hub close-ups with the inner ring and index cap removed: both strips lie seated in their pockets; **from these photos no strip end stands proud of the hub's outer edge and no scuff or rub marks are visible on the strips or the hub** (resolution limited; Cog cannot rule out fine polish marks). The pawls are in their pockets with noses visible. Two further photos show loose strips from the side: **the arch, the feet and the small inward hooks are present and intact**; one strip shows a rougher, "hammered" print surface than the other. The owner has not yet said whether those two loose strips came out of the deck or are spares, nor which pockets were used.
+Hub close-ups with the inner ring and index cap removed: both strips lie seated in their pockets; **from these photos no strip end stands proud of the hub's outer edge and no scuff or rub marks are visible on the strips or the hub** (resolution limited; Cog cannot rule out fine polish marks). The pawls are in their pockets with noses visible. Two further photos show loose strips from the side: **the arch, the feet and the small inward hooks are present and intact**; one strip shows a rougher, "hammered" print surface than the other. **The two loose strips were the two fitted strips**, taken out by the owner for close-up photos: **when the inner ring was removed, one strip popped out by itself** (the owner: it is under a little pressure and held in by the ring); the other stayed in place.
 
 ## UV writing photos (owner, 20 Nov)
-- **Normal light:** the writing is **not visible** on the brass underside of the centre piece (photo shows only the owner's white "X" index mark and the nut with the screw end). A faint pale diagonal line is visible across the surface, probably a handling scratch; the owner has not confirmed.
+- **Normal light:** the writing is **not visible** on the brass underside of the centre piece (photo shows only the owner's white "X" index mark and the nut with the screw end). A faint pale diagonal line is visible across the surface; **the owner confirms it is a minor print defect, not wear.**
 - **Under UV:** blue handwriting is **clearly legible**. **The text written reads "The Sun is False. Trust the Arrow.", the longer original message, not the "SUN TO ARROW" three-line inscription you approved**; presumably a legibility trial. The lettering fills most of the underside, and the lines sit close to the screw pocket at the centre.
 - Durability over repeated handling is only partly shown (the writing was readable after the test run); not measured.
 
@@ -24,6 +24,7 @@ Hub close-ups with the inner ring and index cap removed: both strips lie seated 
 - **Reliable cover retention:** met in the owner's hands. **Repeatable removal and refit:** met. **Safe fragment operation:** met (3 turns, screw stays in).
 - **Ring detents and smooth rotation:** the owner reports the same feel as before; the inner ring is stiffer than the strip-free original but "fine". Detent clarity at all 12 positions was not specifically confirmed.
 - **Wobble:** about 1 mm on deliberate tapping; ordinary handling not reported.
+- **Observation for your attention:** one strip popped out when the inner ring came off, so the strips appear to push outward against the ring. No marks or drag were found and the rings turn well, but this is the strip-to-ring contact you asked me to look for; it is real, mild and unproblematic so far.
 - Nothing in these results calls for a shorter strip, end stop, stronger pawl or new deck geometry. **I recommend proceeding to a final physical acceptance test and not changing any CAD.**
 
 ## Proposed final acceptance test (for your approval)
@@ -31,5 +32,5 @@ Hub close-ups with the inner ring and index cap removed: both strips lie seated 
 2. A durability run: 50 press-and-turn cycles and 20 knob cycles with four fragments; check strips, wobble and ring feel afterwards.
 3. UV writing: legible under UV, invisible in normal light, and still legible after the run.
 4. Full optical check with the real journal leaf and the back plate fitted, UV light step and plate removal in both orders (needs the leaf files).
-5. Confirm which two pockets were used (owner is asked; positions 5 and 9 o'clock were specified, 5 and 12 o'clock was suggested as a variant).
+5. Pockets used in this run: 5 and 12 o'clock. Repeat the ring-feel and wobble checks on the 5 and 9 o'clock pair if you want the pockets compared.
 This is prototype testing only, not four-unit production approval. The Sunday engineering cutoff stands.

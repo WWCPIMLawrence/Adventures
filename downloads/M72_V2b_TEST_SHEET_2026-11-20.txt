@@ -1,0 +1,33 @@
+M-72 SURVEYOR'S PLATE V2b: ONE TEST PRINT (Keeper-approved 20 Nov). V1 and V2 stay as fallbacks. Four-unit production stays on hold.
+
+PRINT (brass PLA body + black inlay):  14c_M72_PLATE_V2b_part1_BLACK_inlay.stl  and  14d_M72_PLATE_V2b_part2_BRASS_plate.stl
+  1. In Bambu Studio, import BOTH files together. When it asks whether to load them as one object with multiple parts, answer YES.
+     (If it does not ask, import 14d, then right-click it > Add Part > Load, and choose 14c. You want ONE object in the object list with TWO parts.)
+  2. Assign BLACK filament to the 14c part and BRASS to the 14d part. Do not rotate, flip or auto-orient: it already prints top face down.
+  3. VERIFY IN THE PREVIEW before you print:
+       - the object list shows ONE object with two parts (not two separate objects, not two plates);
+       - layers 1 and 2: the lettering, the four rings and the arcs are BLACK; the rest of the plate is BRASS; the windows and the arrow window are empty;
+       - from layer 3 upwards everything is brass; no supports.
+     Send me a screenshot of the layer-1 preview if you are unsure.
+  4. Existing profile; watch the first layers and the colour changes. Report your actual print time and any colour bleed or smearing.
+
+TEST (hands only; tick and write what happened):
+ A. APPEARANCE. At normal handling distance (about 40 cm):
+      WREN & CO. [ ] clear [ ] readable with effort [ ] hard   SURVEYOR'S PLATE [ ] clear [ ] readable with effort [ ] hard
+      Rings and arcs [ ] clear [ ] faint   Edge quality of the black against the brass: [ ] crisp [ ] slight bleed [ ] smeared   Do the black details improve the look as expected? ____
+ B. WINDOWS. At outer XII / inner STAR, pairs in order clockwise from the fixed arrow: ______ / ______ , ______ / ______ , ______ / ______   (predicted IV/TREE, VIII/SUN, X/KEY)
+      Any window edge printed badly, or any black in a window? ____
+ C. NOTCHES. Double at 12, single at 3, 6 and 9: [ ] all present and crisp  ______
+ D. FIT ON EVERY AVAILABLE CHRONOMETER (all three assembled ones, plus any other): for each, tick the row.
+      Chronometer 1:  seats level [ ]   goes on one way [ ]   fit: [ ] loose  [ ] snug  [ ] tight snap     lifts off by hand easily: [ ] yes  [ ] with effort  [ ] needs a tool
+      Chronometer 2:  seats level [ ]   goes on one way [ ]   fit: [ ] loose  [ ] snug  [ ] tight snap     lifts off by hand easily: [ ] yes  [ ] with effort  [ ] needs a tool
+      Chronometer 3:  seats level [ ]   goes on one way [ ]   fit: [ ] loose  [ ] snug  [ ] tight snap     lifts off by hand easily: [ ] yes  [ ] with effort  [ ] needs a tool
+      Chronometer 4 (if any): same questions: ____
+      Did taking it off ever turn or disturb a ring? [ ] never  [ ] yes (which Chronometer) ______
+      How do you lift it off: where do you grip? (the rim notches?) ______
+ E. STABILITY AND OPERATION: outer ring turns freely with the plate on? ____   plate stays on when tilted about 30 and 45 degrees? ____
+      centre cover removes and refits with the plate on? ____   plate lies flat on a table (no warp)? ____
+ F. PRINT QUALITY: cracks or weak spots near the notches or windows? ____   engraving floors: smooth now? ____
+
+SAFETY RULE FOR FIT: a tight snap must NOT need a tool and must NOT disturb the rings. If any Chronometer is too tight to lift off easily by hand, STOP, do not force it, do not use a tool. Tell Cog which Chronometer, and measure that Chronometer's screw-head diameter and height with calipers.
+STOP RULES: report exactly what happened; do not print or change anything else. A CAD prediction is not a physical pass.

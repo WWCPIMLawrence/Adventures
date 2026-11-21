@@ -1,0 +1,7 @@
+M-72 PLATE V2c — ONE TEST PRINT (Keeper authorised, 21 Nov)
+Files: downloads/M72_V2c_Test_Print/14e_...BLACK_inlay.stl + 14f_...BRASS_plate.stl -> import as ONE object (answer Yes to multi-part), top face down, no rotation.
+Black PLA (matte) + brass PLA, same matte plate as the better V2b. Mark the plate "V2c".
+Slicer changes vs the V2b print: elephant foot compensation 0 (this print only); initial layer speed <= 30; detect thin walls on. Everything else as V2b.
+Before printing, check layers 1-2 in the preview (black lines continuous, no gap to brass).
+After printing, compare with matte V2b: [ ] lettering at arm's length  [ ] rings continuous/sharp  [ ] finish  [ ] looks right on the Chronometer  [ ] seats, removes by hand  [ ] XII/STAR reads IV/TREE, VIII/SUN, X/KEY
+Report print time and photos (close-up of rings and "WREN & CO.").

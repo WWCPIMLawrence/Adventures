@@ -1,0 +1,20 @@
+M-72 SURVEYOR'S PLATE V2b — PRODUCTION SHEET (Keeper approved, 21 Nov 2026)
+Need: 4 plates total. Have: 1 (accepted prototype). PRINT 3 MORE.
+
+FILES (downloads/): 14c_M72_PLATE_V2b_part1_BLACK_inlay.stl  +  14d_M72_PLATE_V2b_part2_BRASS_plate.stl
+- Import both in ONE go and answer YES to "load as one object with multiple parts". Do not move either part.
+- Black = black PLA, brass = brass/gold PLA. Prints TOP FACE DOWN (as the STL sits). No supports.
+- Same slicer settings as the accepted V2b print. One plate per bed unless two fit with the prime tower.
+- Do not change geometry. V1 (14b) and V2 (14) stay as fallbacks in the OLD box.
+- Mark the underside/edge of each plate with a number 1-4 (prototype = 1).
+
+PER-PLATE QC (record pass/fail in PRINT_CHECKLIST row 21):
+ [ ] 1. Black inscriptions (WREN & CO. / SURVEYOR'S PLATE) and rings legible
+ [ ] 2. Rim notches intact: double at 12, single at 3, 6, 9
+ [ ] 3. p4 / p8 / p10 windows and fixed-arrow window unobstructed
+ [ ] 4. Seats on its assigned Chronometer (three screw heads, one orientation only)
+ [ ] 5. Removes by hand without disturbing the rings (no tools)
+ [ ] 6. No damage, warp or cracks
+
+Assign: plate N <-> Chronometer N. Report any plate that seats loosely or tightly.
+Calibration check with each plate: XII/STAR must show p4 IV/TREE, p8 VIII/SUN, p10 X/KEY.

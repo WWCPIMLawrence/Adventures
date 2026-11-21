@@ -1,7 +1,27 @@
-M-72 PLATE V2c — ONE TEST PRINT (Keeper authorised, 21 Nov)
-Files: downloads/M72_V2c_Test_Print/14e_...BLACK_inlay.stl + 14f_...BRASS_plate.stl -> import as ONE object (answer Yes to multi-part), top face down, no rotation.
-Black PLA (matte) + brass PLA, same matte plate as the better V2b. Mark the plate "V2c".
-Slicer changes vs the V2b print: elephant foot compensation 0 (this print only); initial layer speed <= 30; detect thin walls on. Everything else as V2b.
-Before printing, check layers 1-2 in the preview (black lines continuous, no gap to brass).
-After printing, compare with matte V2b: [ ] lettering at arm's length  [ ] rings continuous/sharp  [ ] finish  [ ] looks right on the Chronometer  [ ] seats, removes by hand  [ ] XII/STAR reads IV/TREE, VIII/SUN, X/KEY
-Report print time and photos (close-up of rings and "WREN & CO.").
+M-72 PLATE V2c — FINAL TEST / REPRINT (Keeper decision 21 Nov: raised-detail V2r REJECTED; face-down matte V2c stays)
+NO CAD CHANGES. Files are the same as before: 14e_M72_PLATE_V2c_part1_BLACK_inlay.stl + 14f_M72_PLATE_V2c_part2_BRASS_plate.stl
+(download: M72_V2c_PRINT_FILES.zip). Import both together as ONE object (answer Yes to multi-part), top face down, no rotation.
+Materials: existing brass PLA body + black PLA lettering and rings. Build surface: the MATTE plate.
+
+SLICER EXPERIMENTS (change only these; everything else as the last good matte print):
+ 1. Plate type in the slicer = the matte plate you are using (so bed temperature is right).
+ 2. Elephant foot compensation = 0 (this print only; put 0.15 back for fit parts afterwards).
+ 3. Slow first layer: initial layer speed 20-30 mm/s (try 25). Keep the first layer height 0.20.
+ 4. Detect thin walls = ON (Process > Quality or Strength > Walls, if your version has it). Wall generator = Arachne.
+ 5. No ironing, no supports.
+
+INSPECT THE FIRST-LAYER TOOLPATHS BEFORE PRINTING (do not print until this looks right):
+ - Slice, open Preview, drag the layer slider to layer 1 (then layer 2). Zoom in until a 5 mm letter fills the screen. Show Outer wall, Inner wall, Gap infill, Bottom surface; hide travel.
+ - Look at the N in WREN and the S in SURVEYOR'S (both S's: first letter, and the one after the apostrophe).
+   Where they are, measured from the plate centre in the slicer's top view (printed face down, so the picture is mirrored front-to-back versus the CAD renders):
+     N of WREN:            x = -3 mm,  y = -55 mm
+     first S of SURVEYOR'S: x = -31.5 mm, y = +45 mm
+     S after the apostrophe: x = +8 mm,  y = +54.5 mm
+   (If the lettering is not where I say, look around the plate edge nearest the title; just find the N and the S's.)
+ - GOOD: black strokes are continuous solid lines/fill; no gaps between black and brass; no tiny isolated dashes; no gap-fill squiggles inside letters; rings are two parallel clean passes.
+ - BAD: a stroke broken into dashes or beads, a letter outline with a hole in the middle (missing fill), a black area with brass specks, or a gap between black and brass larger than a line width.
+ - Take a screenshot of layer 1 around the N and the S's and send it before printing if anything looks wrong. If a letter is broken in the preview it is a slicer setting or the nozzle size; tell me the nozzle size.
+
+AFTER PRINTING, compare with the matte V2b and V2c-so-far: [ ] N in WREN [ ] S in SURVEYOR'S [ ] lettering at arm's length [ ] rings continuous/sharp [ ] finish [ ] seats on a Chronometer and removes by hand [ ] XII/STAR reads IV/TREE, VIII/SUN, X/KEY
+Report print time and close-up photos of the rings, WREN and SURVEYOR'S. Mark the plate V2c-final-test.
+Remaining plates stay on hold until the owner picks the final version.

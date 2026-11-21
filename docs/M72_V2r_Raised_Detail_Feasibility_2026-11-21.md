@@ -1,4 +1,5 @@
 # M-72 plate — raised black lettering/rings: feasibility review (Cog → Keeper, 21 Nov 2026)
+**STATUS: REVIEWED AND REJECTED for this production cycle (Keeper, 21 Nov). Do not print. The face-down matte V2c is retained.**
 STUDY ONLY. No STL is released and nothing is to be printed until Keeper and the owner review this. The dark matte V2b/V2c plate remains the fallback; no approved geometry is changed. Figures are CAD calculations or estimates; I have no physical result for raised detail.
 CAD preview: `downloads/M72_V2r_Raised_Feasibility/` (oblique, top view, upper-title close-up) and source `concepts/m72_attachment/m72_sight_plate_V2r.scad` (parts exist only as previews/analysis).
 

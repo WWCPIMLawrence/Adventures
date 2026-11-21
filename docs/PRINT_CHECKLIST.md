@@ -41,3 +41,5 @@ Today: PLA test parts (cover, seat, keeper ring) before work; PETG strips this e
 4. Counts for items 11 to 18 above.
 
 NOTE (21 Nov, Keeper): a fifth Chronometer (converted prototype, needs 3 parts, 1 printing) is an OPTIONAL SPARE, not a team requirement.
+
+M-72 (21 Nov, Keeper): raised-detail V2r feasibility study REVIEWED AND REJECTED for this production cycle (no V2r STL, no coupon). Face-down matte V2c retained; one final V2c test/reprint with slicer experiments only (see M72_V2c_TEST_SHEET). Dark matte plate is the fallback. Remaining matching plates on hold until the owner selects the final version.
